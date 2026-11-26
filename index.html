@@ -29,57 +29,25 @@
     <button class="door-btn" id="enter">Step inside <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
   </div>
 
-  <!-- browser chrome -->
-  <header class="chrome">
-    <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
-    <a href="#home" class="mark" aria-label="Home">
-      <svg viewBox="0 0 8 8" shape-rendering="crispEdges"><path class="leaf" d="M1 1h2v1h1v1H3V2H1zM5 1h2v1H6v1H5z" /><path class="stem" d="M4 3h1v4H4z" /></svg>
-    </a>
-    <nav class="tabs" aria-label="Sections">
-      <a href="#home" class="tab" data-c="green"><svg viewBox="0 0 16 16"><path d="M2.5 7 8 2.5 13.5 7v6.5h-11z" /><path d="M6.5 13.5V10h3v3.5" /></svg><span>Home</span></a>
-      <a href="#work" class="tab" data-c="yellow"><svg viewBox="0 0 16 16"><rect x="2" y="4.5" width="12" height="9" rx="1.5" /><path d="M5.5 4.5v-2h5v2" /></svg><span>Work</span><b class="tab-peek" aria-hidden="true"><i></i><i></i><i></i></b></a>
-      <a href="#do" class="tab" data-c="purple"><svg viewBox="0 0 16 16"><path d="M8 1.5 9.6 6.4 14.5 8l-4.9 1.6L8 14.5 6.4 9.6 1.5 8l4.9-1.6z" /></svg><span>What I do</span></a>
-      <a href="about.html" class="tab" data-c="orange"><svg viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.5" /><path d="M3 14c0-3 2.2-5 5-5s5 2 5 5" /></svg><span>About</span></a>
-      <a href="#upstream" class="tab" data-c="blue"><svg viewBox="0 0 16 16"><circle cx="4.5" cy="3.5" r="1.5" /><circle cx="4.5" cy="12.5" r="1.5" /><circle cx="11.5" cy="5.5" r="1.5" /><path d="M4.5 5v6M11.5 7c0 3-7 2-7 4" /></svg><span>Open source</span></a>
-      <a href="#contact" class="tab" data-c="pink"><svg viewBox="0 0 16 16"><rect x="2" y="3.5" width="12" height="9" rx="1.5" /><path d="m2.5 4.5 5.5 4 5.5-4" /></svg><span>Contact</span></a>
-      <button class="tab-new" id="newtab" aria-label="New tab"><svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" /></svg></button>
-    </nav>
-    <div class="chrome-end">
-      <button class="theme" id="theme" aria-label="Switch to dark mode">
-        <svg class="sun" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" /><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3 3l1 1M12 12l1 1M3 13l1-1M12 4l1-1" /></svg>
-        <svg class="moon" viewBox="0 0 16 16"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z" /></svg>
-      </button>
-      <span class="avail"><i></i>Open to internships</span>
-    </div>
-  </header>
-
-  <div class="you" id="you" aria-hidden="true">
-    <svg viewBox="0 0 16 16"><path d="M2 1.5 13 7l-5 1.3L5.8 13z" /></svg><span>you</span>
-  </div>
+  <header class="chrome"></header>
   <div class="toast" id="toast" role="status"></div>
-
-  <div class="glow" id="glow" aria-hidden="true"></div>
   <main>
     <!-- hero -->
     <section class="hero" id="home">
       <span class="frame-label"># hello</span>
       <span class="coords" aria-hidden="true">X <b id="cx">0</b>&nbsp;&nbsp;Y <b id="cy">0</b></span>
 
-      <div class="bot" id="bot" aria-hidden="true">
-        <svg viewBox="0 0 16 16"><path d="M2 1.5 13 7l-5 1.3L5.8 13z" /></svg><span>manas</span>
-      </div>
-
       <div class="frames" id="frames">
-        <a class="frame" href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener" style="--x:9%;--y:16%;--w:250px;--r:-4deg" data-label="Clause Risk Review · research">
+        <a class="frame" href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener" style="--x:5%;--y:15%;--w:200px;--r:-4deg" data-label="Clause Risk Review · research">
           <span class="frame-bar"><i></i><i></i><i></i><em>clause-risk-review.hf.space</em></span><img src="img/clause.jpg" alt="Clause Risk Review" draggable="false" />
         </a>
-        <a class="frame" href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener" style="--x:76%;--y:14%;--w:270px;--r:3deg" data-label="Sprout · dev tool">
+        <a class="frame" href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener" style="--x:82%;--y:13%;--w:210px;--r:3deg" data-label="Sprout · dev tool">
           <span class="frame-bar"><i></i><i></i><i></i><em>sprout-devlabs.github.io</em></span><img src="img/sprout.jpg" alt="Sprout" draggable="false" />
         </a>
-        <a class="frame" href="https://forme-amber.vercel.app" target="_blank" rel="noopener" style="--x:4%;--y:58%;--w:290px;--r:-2deg" data-label="Forme · components">
+        <a class="frame" href="https://forme-amber.vercel.app" target="_blank" rel="noopener" style="--x:3%;--y:64%;--w:220px;--r:-2deg" data-label="Forme · components">
           <span class="frame-bar"><i></i><i></i><i></i><em>forme-amber.vercel.app</em></span><img src="img/forme.jpg" alt="Forme" draggable="false" />
         </a>
-        <a class="frame" href="https://flow-study.me" target="_blank" rel="noopener" style="--x:80%;--y:60%;--w:230px;--r:-5deg" data-label="Flow · study rooms">
+        <a class="frame" href="https://flow-study.me" target="_blank" rel="noopener" style="--x:84%;--y:62%;--w:190px;--r:-5deg" data-label="Flow · study rooms">
           <span class="frame-bar"><i></i><i></i><i></i><em>flow-study.me</em></span><img src="img/flow.jpg" alt="Flow" draggable="false" />
         </a>
       </div>
@@ -104,7 +72,8 @@
             <span class="toggle" role="group" aria-label="Research or code"><span class="slider" aria-hidden="true"></span>
               <button class="on" data-mode="research" aria-pressed="true"><svg viewBox="0 0 16 16"><path d="M6 2h4M7 2v4L3 13h10L9 6V2" /></svg>Research</button>
               <button data-mode="code" aria-pressed="false"><svg viewBox="0 0 16 16"><path d="M5.5 4 2 8l3.5 4M10.5 4 14 8l-3.5 4" /></svg>Code</button>
-            </span></span>
+            </span>
+            with <a class="chip chip-claude" href="https://claude.com/claude-code" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/claude" alt="" width="20" height="20" />Claude<span class="tip"><b>pair programmer</b>Claude Code helps me build and review; the research calls are mine.</span></a></span>
           <span class="line">Fixes merged into
             <a class="chip chip-org" href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><img src="https://github.com/gleam-lang.png?size=64" alt="" width="22" height="22" />Gleam<span class="tip"><b>#6361 · merged</b>Link to the Hex diff when a dependency changes version</span></a>
             <a class="chip chip-org" href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><img src="https://github.com/bazel-contrib.png?size=64" alt="" width="22" height="22" />rules_go<span class="tip"><b>#4791 · merged</b>nogo builds against golang.org/x/tools v0.53.0 again</span></a></span>
@@ -132,54 +101,13 @@
         <a data-p="forme" class="card c-purple" href="https://forme-amber.vercel.app" target="_blank" rel="noopener"><img src="img/forme.jpg" alt="Forme's homepage" /><span><b>Forme</b><small>React components</small></span><em>OPEN PROJECT ↗</em></a>
         <a data-p="flow" class="card c-pink" href="https://flow-study.me" target="_blank" rel="noopener"><img src="img/flow.jpg" alt="Flow's homepage" /><span><b>Flow</b><small>Study rooms</small></span><em>OPEN PROJECT ↗</em></a>
         <a data-p="velora" class="card c-orange" href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener"><img src="img/velora.jpg" alt="Velora's forecast" /><span><b>Velora</b><small>Market forecasts</small></span><em>OPEN PROJECT ↗</em></a>
-        <div class="stage-text" id="stage-text" aria-hidden="true"></div>
-        <div class="annos" id="annos" aria-hidden="true"></div>
-        <p class="note n-fan" aria-hidden="true">hover one to open it up</p>
+        <div class="inspect" id="inspect" aria-hidden="true"></div>
+        <p class="note n-fan" aria-hidden="true">hover a card to inspect it</p>
       </div>
 
-      <div class="shelf">
-        <article class="item">
-          <img src="img/clause.jpg" alt="" loading="lazy" />
-          <h3>Clause Risk Review</h3>
-          <p>Does legal pretraining help find risky contract clauses? BERT hit 0.879 document F1 on 76 held-out contracts. Legal-BERT gave no measurable gain, and the write-up says so.</p>
-          <p class="tags">PyTorch · Transformers · CUAD</p>
-          <p class="links"><a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">Results ↗</a><a href="https://github.com/ManasDasri/NNDL" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item">
-          <img src="img/neurodial.jpg" alt="" loading="lazy" />
-          <h3>Med-EEG</h3>
-          <p>Can two EEG numbers track a meditator’s focus? Person-held-out models against shuffled labels and non-EEG baselines, plus a pre-registered replication. Nulls reported.</p>
-          <p class="tags">Python · MNE · scikit-learn</p>
-          <p class="links"><a href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener">NeuroDial ↗</a><a href="https://github.com/ManasDasri/Med-EEG" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item">
-          <img src="img/sprout.jpg" alt="" loading="lazy" />
-          <h3>Sprout</h3>
-          <p>A map of your codebase for you and your AI agent: where to start, what a change breaks, which tests to run. One Go binary, v0.7.0.</p>
-          <p class="tags">Go · MCP · Homebrew</p>
-          <p class="links"><a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener">Site ↗</a><a href="https://github.com/Sprout-DevLabs/sprout" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item">
-          <img src="img/forme.jpg" alt="" loading="lazy" />
-          <h3>Forme</h3>
-          <p>53 free motion components for React, installed as source with one command. The accessibility badges are tests that fail when the code doesn’t back them.</p>
-          <p class="tags">React · TypeScript · WebGL</p>
-          <p class="links"><a href="https://forme-amber.vercel.app" target="_blank" rel="noopener">Site ↗</a><a href="https://github.com/ManasDasri/forme" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item">
-          <img src="img/flow.jpg" alt="" loading="lazy" />
-          <h3>Flow</h3>
-          <p>A study room you share with friends. Start a focus block and a sun sinks for everyone; when it sets, you all take a break. v1.0 is out.</p>
-          <p class="tags">Express · Supabase · WebRTC</p>
-          <p class="links"><a href="https://flow-study.me" target="_blank" rel="noopener">Site ↗</a><a href="https://github.com/ManasDasri/Flow-study" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item">
-          <img src="img/velora.jpg" alt="" loading="lazy" />
-          <h3>Velora</h3>
-          <p>Probability cones for stock prices: thousands of simulated paths with regime switching, instead of one price target.</p>
-          <p class="tags">React · Monte Carlo · Canvas</p>
-          <p class="links"><a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener">Site ↗</a><a href="https://github.com/ManasDasri/Velora" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
+      <div class="more-bar">
+        <span>Want the details? Every project, written up with what worked and what didn’t.</span>
+        <a class="btn" href="work.html">See all the work <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></a>
       </div>
     </section>
 
@@ -214,25 +142,6 @@
       </ol>
     </section>
 
-    <!-- open source -->
-    <section class="up" id="upstream">
-      <span class="frame-label"># upstream</span>
-      <div class="sec-head">
-        <h2 class="glitch">Merged upstream.</h2>
-        <p>Pull requests to other people’s projects. <a href="https://github.com/pulls?q=is%3Apr+author%3AManasDasri+-user%3AManasDasri" target="_blank" rel="noopener">See all on GitHub ↗</a></p>
-      </div>
-      <div class="prs" id="prs">
-        <a class="pr c-blue" href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener"><header><img src="https://github.com/zed-industries.png?size=64" alt="" /><b>zed-industries/zed</b><em>in review</em></header><p>Re-open buffers with the language server after their worktree root moves, so it stops answering for stale paths.</p><small>#67329 · +199 −2</small></a>
-        <a class="pr c-pink" href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><header><img src="https://github.com/gleam-lang.png?size=64" alt="" /><b>gleam-lang/gleam</b><em>merged</em></header><p>When a dependency changes version, the CLI links to the diff on Hex as a terminal hyperlink.</p><small>#6361 · +94 −7</small></a>
-        <a class="pr c-green" href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><header><img src="https://github.com/bazel-contrib.png?size=64" alt="" /><b>bazel-contrib/rules_go</b><em>merged</em></header><p>nogo stopped compiling against golang.org/x/tools v0.53.0. Ported it to the new facts decoder.</p><small>#4791 · +56 −71</small></a>
-        <a class="pr c-yellow" href="https://github.com/longbridge/gpui-kit/pull/4018" target="_blank" rel="noopener"><header><img src="https://github.com/longbridge.png?size=64" alt="" /><b>longbridge/gpui-kit</b><em>merged</em></header><p>The Linux title bar follows the desktop’s window-button layout instead of a hard-coded one.</p><small>#4018 · +109 −22</small></a>
-        <a class="pr c-purple" href="https://github.com/binaricat/Netcatty/pull/4202" target="_blank" rel="noopener"><header><img src="https://github.com/binaricat.png?size=64" alt="" /><b>binaricat/Netcatty</b><em>merged</em></header><p>Move a terminal tab into its own window and keep the same live SSH session.</p><small>#4202 · +1832 −44</small></a>
-        <a class="pr c-orange" href="https://github.com/longbridge/gpui-fast/pull/161" target="_blank" rel="noopener"><header><img src="https://github.com/longbridge.png?size=64" alt="" /><b>longbridge/gpui-fast</b><em>merged</em></header><p>Pause Metal display links while a macOS window is hidden, and reuse them when it returns.</p><small>#161 · +102 −7</small></a>
-        <a class="pr c-blue" href="https://github.com/wainmann/agent-manager/pull/1104" target="_blank" rel="noopener"><header><img src="https://github.com/wainmann.png?size=64" alt="" /><b>wainmann/agent-manager</b><em>merged</em></header><p>Fast typing arrived as one merged key event; each rune now counts as its own press.</p><small>#1104 · +90 −12</small></a>
-        <a class="pr c-green" href="https://github.com/exercism/vbnet/pulls?q=is%3Apr+is%3Amerged+author%3AManasDasri" target="_blank" rel="noopener"><header><img src="https://github.com/exercism.png?size=64" alt="" /><b>exercism/vbnet</b><em>merged ×12</em></header><p>Twelve VB.NET exercises synced with the shared problem specifications.</p><small>12 pull requests</small></a>
-      </div>
-    </section>
-
     <!-- contact -->
     <section class="contact" id="contact">
       <div class="ascii" id="ascii" aria-hidden="true"></div>
@@ -258,15 +167,11 @@
         <a href="resume.pdf" target="_blank" rel="noopener"><b>Résumé</b><small>one page, PDF</small><span>↗</span></a>
         <button id="copy"><b>Email</b><small>dasarimanas049@gmail.com</small><span>⧉</span></button>
       </div>
-      <p class="note n-hunt" aria-hidden="true">click the sky to launch a plane · there are pixels hiding on this page, too</p>
+      <p class="note n-hunt" aria-hidden="true">move your cursor over the paper</p>
     </section>
   </main>
 
-  <footer class="foot">
-    <span>© 2026 Manas Dasari · <b id="found">0/6</b> found</span>
-    <nav><a href="#work">Work</a><a href="#do">What I do</a><a href="#upstream">Open source</a><a href="#contact">Contact</a></nav>
-    <span>Built in code, not a builder</span>
-  </footer>
+  <footer class="foot"></footer>
 
   <script type="module" src="main.js"></script>
 </body>
