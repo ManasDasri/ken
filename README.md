@@ -1,5 +1,5 @@
 # ken
 
-My portfolio: everything I've made, on one desk. Pick things up and move them around, open a photo for the story behind a project, or tidy the table.
+My portfolio: a small gallery you walk through by scrolling. Each project hangs on the wall with its label; open-source work is listed as "on loan".
 
-Plain HTML, CSS and JS, no build step. Run it locally with `python3 -m http.server`.
+Plain HTML, CSS and Three.js (from a CDN), no build step. Run it locally with `python3 -m http.server`.

@@ -4,253 +4,148 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Manas Dasari</title>
-  <meta name="description" content="Manas Dasari: machine learning experiments built to be checked, developer tools, and fixes sent upstream. Everything on one desk." />
+  <meta name="description" content="Manas Dasari: machine learning research and developer tools, hung in a gallery you can walk through." />
   <meta property="og:title" content="Manas Dasari" />
-  <meta property="og:description" content="Everything I've made, on one desk. Pick things up." />
-  <meta name="theme-color" content="#f2d35b" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='9' width='28' height='14' rx='2' fill='%23d4232c'/%3E%3Ctext x='16' y='20' font-family='monospace' font-weight='900' font-size='9' fill='%23fff' text-anchor='middle'%3EMD%3C/text%3E%3C/svg%3E" />
+  <meta property="og:description" content="Machine learning research and developer tools. A gallery you can walk through." />
+  <meta name="theme-color" content="#ebe8e3" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23111'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Rubik+Mono+One&family=Special+Elite&family=VT323&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
 <body>
-  <h1 class="sr-only">Manas Dasari: machine learning research, developer tools and open source</h1>
-
-  <div class="stage">
-    <main class="desk" id="desk">
-      <!-- a coffee ring, under everything -->
-      <span class="ring" data-x="1120" data-y="1110" data-r="0" aria-hidden="true"></span>
-
-      <!-- name, on label tape -->
-      <div class="obj dymo dymo-name" data-x="70" data-y="56" data-r="-3">
-        <span>MANAS DASARI</span>
-      </div>
-
-      <!-- marker on the table -->
-      <p class="scrawl s-hello" data-x="660" data-y="40" data-r="-4" aria-hidden="true">
-        hi! pick things up,<br />move them around
-        <svg viewBox="0 0 120 60"><path d="M6 8 C 40 10, 80 18, 108 46 M108 46 l-14 -2 M108 46 l-1 -14" /></svg>
-      </p>
-
-      <!-- about -->
-      <article class="obj card-index" data-x="96" data-y="168" data-r="2">
-        <span class="clip" aria-hidden="true"></span>
-        <h2>about</h2>
-        <p>CS undergrad at Amrita, class of 2028.</p>
-        <p>I run machine learning experiments built to be checked: held-out tests, baselines, and the null results written up next to the rest.</p>
-        <p>I also build developer tools, and send fixes upstream to projects like Zed, Gleam and rules_go.</p>
-      </article>
-
-      <div class="obj stamp" data-x="236" data-y="456" data-r="-8" aria-label="Open to AI/ML and research internships, and freelance work">
-        <span>open for</span><strong>internships</strong><span>ai · ml · research</span>
-      </div>
-
-      <!-- photos -->
-      <article class="obj print" data-x="560" data-y="118" data-r="-4" data-project="clause">
-        <span class="tape" aria-hidden="true"></span>
-        <button class="print-open" aria-haspopup="dialog">
-          <img src="img/clause.jpg" alt="The Clause Risk Review results page" />
-          <span class="print-cap">clause risk review</span>
-        </button>
-        <div class="more" hidden>
-          <h3>Clause Risk Review</h3>
-          <p class="q">Does legal pretraining help a model find risky contract clauses?</p>
-          <p>Six kinds of risky clause across 510 lawyer-annotated contracts (CUAD). A TextCNN, BERT and Legal-BERT train on identical windows and per-contract splits; every threshold is tuned on validation data only, and 90 tests pin each of those choices.</p>
-          <p class="hl">BERT: 0.879 document F1 on 76 held-out contracts. Legal-BERT: no measurable gain, and the write-up says so.</p>
-          <p class="links"><a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">results dashboard ↗</a><a href="https://github.com/ManasDasri/NNDL" target="_blank" rel="noopener">code ↗</a></p>
-        </div>
-      </article>
-
-      <article class="obj print" data-x="918" data-y="86" data-r="5" data-project="neurodial">
-        <span class="tape t2" aria-hidden="true"></span>
-        <button class="print-open" aria-haspopup="dialog">
-          <img src="img/neurodial.jpg" alt="NeuroDial, the Med-EEG results dashboard" />
-          <span class="print-cap">med-eeg / neurodial</span>
-        </button>
-        <div class="more" hidden>
-          <h3>Med-EEG</h3>
-          <p class="q">Can two EEG numbers track a meditator’s focus?</p>
-          <p>A retrospective study on open meditation EEG: an MNE pipeline from raw signal to features, person-held-out models checked against shuffled labels and non-EEG baselines, and a pre-registered replication on a second dataset. NeuroDial shows the latest published run.</p>
-          <p class="hl">The expert-vs-novice result turned out to be confounded by sex, the replication didn’t confirm, and meditation depth decoded at AUC 0.609. All reported.</p>
-          <p class="links"><a href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener">neurodial ↗</a><a href="https://github.com/ManasDasri/Med-EEG" target="_blank" rel="noopener">code ↗</a></p>
-        </div>
-      </article>
-
-      <article class="obj print" data-x="612" data-y="420" data-r="3" data-project="forme">
-        <span class="tape t3" aria-hidden="true"></span>
-        <button class="print-open" aria-haspopup="dialog">
-          <img src="img/forme.jpg" alt="Forme’s homepage: components for interfaces that glow" />
-          <span class="print-cap">forme</span>
-        </button>
-        <div class="more" hidden>
-          <h3>Forme</h3>
-          <p class="q">Components for interfaces that glow.</p>
-          <p>53 free motion components for React (shaders, ASCII scenes, HUD instruments, inputs, loaders) that you install as source you own, with one shadcn command.</p>
-          <p class="hl">Each component’s accessibility badges are tests: CI fails if a claimed behaviour has no evidence in the code.</p>
-          <p class="links"><a href="https://forme-amber.vercel.app" target="_blank" rel="noopener">forme ↗</a><a href="https://github.com/ManasDasri/forme" target="_blank" rel="noopener">code ↗</a></p>
-        </div>
-      </article>
-
-      <article class="obj print" data-x="966" data-y="392" data-r="-5" data-project="flow">
-        <span class="tape" aria-hidden="true"></span>
-        <button class="print-open" aria-haspopup="dialog">
-          <img src="img/flow.jpg" alt="Flow’s homepage: study until the sun sets" />
-          <span class="print-cap">flow v1.0</span>
-        </button>
-        <div class="more" hidden>
-          <h3>Flow</h3>
-          <p class="q">Study until the sun sets.</p>
-          <p>A study room you share with friends: start a focus block and a sun sinks for everyone in the room; when it sets, you all take a break. Peer-to-peer video over WebRTC, shared tasks, synced music, and an AI in the chat.</p>
-          <p class="hl">v1.0 released November 2026. Free, and the code is open.</p>
-          <p class="links"><a href="https://flow-study.me" target="_blank" rel="noopener">flow-study.me ↗</a><a href="https://github.com/ManasDasri/Flow-study" target="_blank" rel="noopener">code ↗</a></p>
-        </div>
-      </article>
-
-      <article class="obj print" data-x="586" data-y="716" data-r="6" data-project="velora">
-        <span class="tape t2" aria-hidden="true"></span>
-        <button class="print-open" aria-haspopup="dialog">
-          <img src="img/velora.jpg" alt="Velora’s forecast: the share of 2,000 simulated paths ending above today’s price" />
-          <span class="print-cap">velora</span>
-        </button>
-        <div class="more" hidden>
-          <h3>Velora</h3>
-          <p class="q">Probability cones for stock prices.</p>
-          <p>Instead of one price target, Velora simulates thousands of price paths with regime switching and jump shocks, and shows the spread: fan charts, upside probability, VaR and CVaR. Charts are drawn on a plain canvas, no charting library.</p>
-          <p class="links"><a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener">velora ↗</a><a href="https://github.com/ManasDasri/Velora" target="_blank" rel="noopener">code ↗</a></p>
-        </div>
-      </article>
-
-      <article class="obj print" data-x="940" data-y="700" data-r="-2" data-project="gradient">
-        <span class="tape t3" aria-hidden="true"></span>
-        <button class="print-open" aria-haspopup="dialog">
-          <img src="img/gradient.jpg" alt="Gradient Works’ homepage" />
-          <span class="print-cap">gradient works</span>
-        </button>
-        <div class="more" hidden>
-          <h3>Gradient Works</h3>
-          <p class="q">Applied AI research and model engineering.</p>
-          <p>The studio I founded: custom models for startups, labs and small teams, each with a defined metric, a baseline to beat, held-out testing and a written result. Fixed scope; the client keeps the code and weights.</p>
-          <p class="links"><a href="https://gradientworksai.in/" target="_blank" rel="noopener">gradientworksai.in ↗</a></p>
-        </div>
-      </article>
-
-      <!-- sprout, on disk -->
-      <a class="obj floppy" data-x="86" data-y="590" data-r="-9" href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener" aria-label="Sprout: map your codebase, for you and your AI agent">
-        <span class="floppy-shutter" aria-hidden="true"><i></i></span>
-        <span class="floppy-label">
-          <b>SPROUT</b> v0.7.0
-          <em>map your codebase, for you &amp; your AI agent</em>
-          <code>brew install sprout-devlabs/tap/sprout</code>
-        </span>
-      </a>
-
-      <!-- research draft -->
-      <a class="obj paper" data-x="300" data-y="770" data-r="4" href="https://github.com/ManasDasri/analogue-risk" target="_blank" rel="noopener">
-        <span class="staple" aria-hidden="true"></span>
-        <small>draft · for publication</small>
-        <strong>Regime-conditioned analogue forecasting of market risk</strong>
-        <span class="lines" aria-hidden="true"></span>
-        <span class="paper-note">Rust + Python. Re-tested pre-registered, out of sample, on 15 new assets.</span>
-      </a>
-
-      <!-- now -->
-      <div class="obj sticky" data-x="388" data-y="560" data-r="-5">
-        <p><b>now</b><br />shipping Sprout<br />Flow v1.0 is out<br />learning ML from<br />zero, again</p>
-      </div>
-
-      <!-- open source receipt -->
-      <section class="obj receipt" data-x="1300" data-y="30" data-r="2.5" aria-labelledby="r-title">
-        <span class="binder" aria-hidden="true"></span>
-        <header>
-          <h2 id="r-title">UPSTREAM&nbsp;&amp;&nbsp;CO.</h2>
-          <p>pull requests to other<br />people’s projects</p>
-          <p>NOV 2026 · TERMINAL 049</p>
-        </header>
-        <ol>
-          <li><a href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener"><span>zed #67329</span><span>+199/-2</span><em>lsp after a moved worktree</em><i>review</i></a></li>
-          <li><a href="https://github.com/zed-industries/zed/pull/67156" target="_blank" rel="noopener"><span>zed #67156</span><span>+266/-5</span><em>retried subagent stays red</em><i>review</i></a></li>
-          <li><a href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><span>gleam #6361</span><span>+94/-7</span><em>hex diff links in the cli</em><i>merged</i></a></li>
-          <li><a href="https://github.com/gleam-lang/gleam/pull/6405" target="_blank" rel="noopener"><span>gleam #6405</span><span>+151/-0</span><em>error on import attributes</em><i>review</i></a></li>
-          <li><a href="https://github.com/longbridge/gpui-kit/pull/4018" target="_blank" rel="noopener"><span>gpui-kit #4018</span><span>+109/-22</span><em>linux window buttons</em><i>merged</i></a></li>
-          <li><a href="https://github.com/binaricat/Netcatty/pull/4202" target="_blank" rel="noopener"><span>netcatty #4202</span><span>+1832/-44</span><em>tab to window, same ssh</em><i>merged</i></a></li>
-          <li><a href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><span>rules_go #4791</span><span>+56/-71</span><em>nogo on x/tools v0.53</em><i>merged</i></a></li>
-          <li><a href="https://github.com/longbridge/gpui-fast/pull/161" target="_blank" rel="noopener"><span>gpui-fast #161</span><span>+102/-7</span><em>metal links when hidden</em><i>merged</i></a></li>
-          <li><a href="https://github.com/wainmann/agent-manager/pull/1104" target="_blank" rel="noopener"><span>agent-mgr #1104</span><span>+90/-12</span><em>one press per rune</em><i>merged</i></a></li>
-          <li><a href="https://github.com/c4punks/CWIST/pull/695" target="_blank" rel="noopener"><span>cwist #695</span><span>+584/-248</span><em>template error locations</em><i>merged</i></a></li>
-          <li><a href="https://github.com/openslop/openslop/pulls?q=is%3Apr+author%3AManasDasri+is%3Amerged" target="_blank" rel="noopener"><span>openslop ×6</span><span></span><em>agent tools, captions, ui</em><i>merged</i></a></li>
-          <li><a href="https://github.com/exercism/vbnet/pulls?q=is%3Apr+is%3Amerged+author%3AManasDasri" target="_blank" rel="noopener"><span>exercism ×12</span><span></span><em>vb.net exercises synced</em><i>merged</i></a></li>
-        </ol>
-        <dl>
-          <div><dt>MERGED</dt><dd>25</dd></div>
-          <div><dt>IN REVIEW</dt><dd>6</dd></div>
-        </dl>
-        <footer>
-          <a href="https://github.com/pulls?q=is%3Apr+author%3AManasDasri+-user%3AManasDasri" target="_blank" rel="noopener">see every pull request ↗</a>
-          <span class="barcode" aria-hidden="true"></span>
-          <p>THANK YOU FOR SHIPPING</p>
-        </footer>
-      </section>
-
-      <p class="scrawl s-receipt" data-x="1400" data-y="1000" data-r="-6" aria-hidden="true">
-        <svg viewBox="0 0 120 60"><path d="M30 56 C 34 36, 40 22, 56 6 M56 6 l-12 4 M56 6 l2 13" /></svg>
-        open source,<br />itemised
-      </p>
-
-      <!-- tickets -->
-      <div class="obj ticket tk-a" data-x="1090" data-y="980" data-r="-6">
-        <span class="stub">ADMIT<br />ONE</span>
-        <span class="tk-body"><b>IndiaFOSS 2026</b><small>Bengaluru · October</small></span>
-      </div>
-      <div class="obj ticket tk-b" data-x="760" data-y="1000" data-r="4">
-        <span class="stub">SIH<br />26122</span>
-        <span class="tk-body"><b>Smart India Hackathon</b><small>FieldLensAI · Sept 2026</small></span>
-      </div>
-      <div class="obj ticket tk-c" data-x="1236" data-y="1118" data-r="7">
-        <span class="stub">ADMIT<br />ONE</span>
-        <span class="tk-body"><b>Bangalore Tech Summit</b><small>November 2025</small></span>
-      </div>
-
-      <!-- résumé -->
-      <a class="obj folder" data-x="70" data-y="910" data-r="-3" href="resume.pdf" target="_blank" rel="noopener">
-        <span class="folder-tab" aria-hidden="true"></span>
-        <span class="folder-sheet" aria-hidden="true"></span>
-        <span class="folder-front"><span class="folder-label">RÉSUMÉ<small>M. Dasari · 1 page</small></span></span>
-      </a>
-
-      <!-- contact: flip it -->
-      <div class="obj bizcard" data-x="420" data-y="1010" data-r="-7">
-        <div class="bc-inner">
-          <button class="face front flip" aria-label="Turn the card over for contact details">
-            <b>Manas Dasari</b>
-            <span>ML research · dev tools · open source</span>
-            <small>turn over ↻</small>
-          </button>
-          <div class="face back">
-            <a href="mailto:dasarimanas049@gmail.com">dasarimanas049@gmail.com</a>
-            <a href="https://github.com/ManasDasri" target="_blank" rel="noopener">github / ManasDasri</a>
-            <a href="https://www.linkedin.com/in/manas-dasari-2a52163a5/" target="_blank" rel="noopener">linkedin / manas-dasari</a>
-            <a href="https://x.com/ManasDmg9" target="_blank" rel="noopener">x / @ManasDmg9</a>
-            <a href="https://leetcode.com/u/ManasDasari/" target="_blank" rel="noopener">leetcode / ManasDasari</a>
-            <button class="flip back-flip" aria-label="Turn the card back over">↻</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="obj pencil" data-x="40" data-y="1206" data-r="-4" aria-hidden="true"><i></i></div>
-
-      <p class="scrawl s-photos" data-x="830" data-y="1150" data-r="-3" aria-hidden="true">tap a photo for the story</p>
-    </main>
+  <div class="loader" id="loader" aria-hidden="true">
+    <span class="loader-n" id="loader-n">0</span>
   </div>
 
-  <button class="dymo dymo-btn" id="tidy" aria-pressed="false"><span>TIDY UP</span></button>
+  <canvas id="gl" aria-hidden="true"></canvas>
 
-  <dialog id="story" aria-label="Project">
-    <form method="dialog"><button class="close" aria-label="Close">close ✕</button></form>
-    <div class="story-print"><img alt="" /></div>
-    <div class="story-sheet"></div>
-  </dialog>
+  <header class="top">
+    <a href="#" class="mark">Manas Dasari</a>
+    <nav aria-label="Site">
+      <a href="#works">Works</a>
+      <a href="#loans">On loan</a>
+      <a href="#visit">Visit</a>
+      <a href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </nav>
+  </header>
 
-  <script src="desk.js" defer></script>
+  <main>
+    <!-- the walk: each screen of scrolling moves the camera to the next work -->
+    <section class="walk" id="works" aria-label="Works">
+      <div class="view">
+        <div class="intro">
+          <h1>Manas<br />Dasari</h1>
+          <p>Machine learning research I can show the numbers for, and developer tools people install. CS at Amrita, class of 2028.</p>
+          <p class="avail"><span></span>Open to AI/ML and research internships</p>
+          <p class="hint">Scroll to walk through</p>
+        </div>
+
+        <ol class="labels">
+          <li class="label" data-img="img/clause.jpg">
+            <h2>Clause Risk Review</h2>
+            <p class="meta">2026 · PyTorch, Transformers, 510 contracts</p>
+            <p>Does legal pretraining help a model find risky contract clauses? TextCNN, BERT and Legal-BERT, trained on identical windows and per-contract splits, every threshold tuned on validation only.</p>
+            <p class="result">BERT reached 0.879 document F1 on 76 held-out contracts. Legal-BERT gave no measurable gain, and the write-up says so.</p>
+            <p class="links"><a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">Results</a><a href="https://github.com/ManasDasri/NNDL" target="_blank" rel="noopener">Code</a></p>
+          </li>
+          <li class="label" data-img="img/neurodial.jpg">
+            <h2>Med-EEG</h2>
+            <p class="meta">2026 · Python, MNE, scikit-learn, 64-channel EEG</p>
+            <p>Can two EEG numbers track a meditator’s focus? Person-held-out models, checked against shuffled labels and non-EEG baselines, with a pre-registered replication on a second dataset.</p>
+            <p class="result">The expertise result was confounded by sex and the replication didn’t confirm; depth decoded at AUC 0.609. All reported.</p>
+            <p class="links"><a href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener">NeuroDial</a><a href="https://github.com/ManasDasri/Med-EEG" target="_blank" rel="noopener">Code</a></p>
+          </li>
+          <li class="label" data-img="img/sprout.jpg">
+            <h2>Sprout</h2>
+            <p class="meta">2026 · Go, MCP</p>
+            <p>A map of your codebase, for you and your AI agent: one Go binary that shows where to start reading, what a change breaks, and which tests to run.</p>
+            <p class="result">v0.7.0, shipped through Homebrew, Scoop and Linux packages.</p>
+            <p class="links"><a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener">Site</a><a href="https://github.com/Sprout-DevLabs/sprout" target="_blank" rel="noopener">Code</a></p>
+          </li>
+          <li class="label" data-img="img/forme.jpg">
+            <h2>Forme</h2>
+            <p class="meta">2026 · React, TypeScript, WebGL</p>
+            <p>Components for interfaces that glow: shaders, ASCII scenes and HUD instruments you install as source, with one command.</p>
+            <p class="result">53 free components. Their accessibility badges are tests that fail when the code doesn’t back them up.</p>
+            <p class="links"><a href="https://forme-amber.vercel.app" target="_blank" rel="noopener">Site</a><a href="https://github.com/ManasDasri/forme" target="_blank" rel="noopener">Code</a></p>
+          </li>
+          <li class="label" data-img="img/flow.jpg">
+            <h2>Flow</h2>
+            <p class="meta">2026 · Express, Supabase, WebRTC</p>
+            <p>A study room you share with friends. Start a focus block and a sun sinks for everyone in the room; when it sets, you all take a break.</p>
+            <p class="result">v1.0 released November 2026. Free, and the code is open.</p>
+            <p class="links"><a href="https://flow-study.me" target="_blank" rel="noopener">Site</a><a href="https://github.com/ManasDasri/Flow-study" target="_blank" rel="noopener">Code</a></p>
+          </li>
+          <li class="label" data-img="img/velora.jpg">
+            <h2>Velora</h2>
+            <p class="meta">2026 · React, Monte Carlo simulation</p>
+            <p>Probability cones for stock prices: thousands of simulated paths with regime switching and jump shocks, instead of a single price target.</p>
+            <p class="result">Fan charts, upside probability, VaR and CVaR, drawn on a plain canvas.</p>
+            <p class="links"><a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener">Site</a><a href="https://github.com/ManasDasri/Velora" target="_blank" rel="noopener">Code</a></p>
+          </li>
+          <li class="label" data-img="img/gradient.jpg">
+            <h2>Gradient Works</h2>
+            <p class="meta">2026 · Applied AI studio</p>
+            <p>The studio I founded: custom models for startups and labs, each with a defined metric, a baseline to beat and held-out testing.</p>
+            <p class="result">Fixed scope; the client keeps the code and weights.</p>
+            <p class="links"><a href="https://gradientworksai.in/" target="_blank" rel="noopener">Studio</a></p>
+          </li>
+        </ol>
+
+        <p class="count" aria-hidden="true"><span id="count-n">01</span> / 07</p>
+      </div>
+    </section>
+
+    <!-- open source -->
+    <section class="sheet" id="loans">
+      <div class="sheet-head">
+        <h2>On loan</h2>
+        <p>Work I’ve contributed to other people’s projects. 25 pull requests merged so far, 6 in review.</p>
+      </div>
+      <ol class="loans">
+        <li><a href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener"><span class="lo-repo">zed-industries/zed</span><span class="lo-what">Re-open buffers with the language server after their worktree root moves</span><span class="lo-n">+199 −2</span><span class="lo-s">In review</span></a></li>
+        <li><a href="https://github.com/zed-industries/zed/pull/67156" target="_blank" rel="noopener"><span class="lo-repo">zed-industries/zed</span><span class="lo-what">A retried subagent no longer stays marked as failed</span><span class="lo-n">+266 −5</span><span class="lo-s">In review</span></a></li>
+        <li><a href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><span class="lo-repo">gleam-lang/gleam</span><span class="lo-what">Link to the Hex diff when a dependency changes version</span><span class="lo-n">+94 −7</span><span class="lo-s">Merged</span></a></li>
+        <li><a href="https://github.com/gleam-lang/gleam/pull/6405" target="_blank" rel="noopener"><span class="lo-repo">gleam-lang/gleam</span><span class="lo-what">A clear error for attributes an import can’t take</span><span class="lo-n">+151 −0</span><span class="lo-s">In review</span></a></li>
+        <li><a href="https://github.com/longbridge/gpui-kit/pull/4018" target="_blank" rel="noopener"><span class="lo-repo">longbridge/gpui-kit</span><span class="lo-what">The Linux title bar follows the desktop’s button layout</span><span class="lo-n">+109 −22</span><span class="lo-s">Merged</span></a></li>
+        <li><a href="https://github.com/binaricat/Netcatty/pull/4202" target="_blank" rel="noopener"><span class="lo-repo">binaricat/Netcatty</span><span class="lo-what">Move a tab to its own window without dropping the SSH session</span><span class="lo-n">+1832 −44</span><span class="lo-s">Merged</span></a></li>
+        <li><a href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><span class="lo-repo">bazel-contrib/rules_go</span><span class="lo-what">nogo builds against golang.org/x/tools v0.53.0 again</span><span class="lo-n">+56 −71</span><span class="lo-s">Merged</span></a></li>
+        <li><a href="https://github.com/longbridge/gpui-fast/pull/161" target="_blank" rel="noopener"><span class="lo-repo">longbridge/gpui-fast</span><span class="lo-what">Pause Metal display links while a macOS window is hidden</span><span class="lo-n">+102 −7</span><span class="lo-s">Merged</span></a></li>
+        <li><a href="https://github.com/wainmann/agent-manager/pull/1104" target="_blank" rel="noopener"><span class="lo-repo">wainmann/agent-manager</span><span class="lo-what">Each rune of fast typing counts as its own key press</span><span class="lo-n">+90 −12</span><span class="lo-s">Merged</span></a></li>
+        <li><a href="https://github.com/c4punks/CWIST/pull/695" target="_blank" rel="noopener"><span class="lo-repo">c4punks/CWIST</span><span class="lo-what">Template render errors report where they happened</span><span class="lo-n">+584 −248</span><span class="lo-s">Merged</span></a></li>
+        <li><a href="https://github.com/openslop/openslop/pulls?q=is%3Apr+author%3AManasDasri+is%3Amerged" target="_blank" rel="noopener"><span class="lo-repo">openslop/openslop</span><span class="lo-what">Six pull requests: agent tool calls, captions, layout fixes</span><span class="lo-n">×6</span><span class="lo-s">Merged</span></a></li>
+        <li><a href="https://github.com/exercism/vbnet/pulls?q=is%3Apr+is%3Amerged+author%3AManasDasri" target="_blank" rel="noopener"><span class="lo-repo">exercism/vbnet</span><span class="lo-what">Twelve exercises synced with the shared problem specifications</span><span class="lo-n">×12</span><span class="lo-s">Merged</span></a></li>
+      </ol>
+      <p class="also">Also in the archive: <a href="https://github.com/ManasDasri/analogue-risk" target="_blank" rel="noopener">Analogue Risk</a>, forecasting market risk from historical analogues, in research for publication.</p>
+    </section>
+
+    <section class="sheet visit" id="visit">
+      <div class="sheet-head">
+        <h2>Visit</h2>
+        <p>Internships, research, or a model you need built. Email reaches me fastest.</p>
+      </div>
+      <a class="mail" href="mailto:dasarimanas049@gmail.com">dasarimanas049@gmail.com</a>
+      <ul class="elsewhere">
+        <li><a href="https://github.com/ManasDasri" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/manas-dasari-2a52163a5/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://x.com/ManasDmg9" target="_blank" rel="noopener">X</a></li>
+        <li><a href="https://leetcode.com/u/ManasDasari/" target="_blank" rel="noopener">LeetCode</a></li>
+        <li><a href="resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+      </ul>
+      <p class="fine">Manas Dasari, 2026. The gallery is built with Three.js; the screenshots are of the live sites.</p>
+    </section>
+  </main>
+
+  <script type="module" src="gallery.js"></script>
 </body>
 </html>
