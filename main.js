@@ -1,16 +1,4 @@
-const $ = (s, el = document) => el.querySelector(s);
-const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// ---------- toast ----------
-const toastEl = $('#toast');
-let toastTimer;
-function toast(msg) {
-  toastEl.textContent = msg;
-  toastEl.classList.add('on');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove('on'), 2200);
-}
+import { $, $$, reduce, toast } from './common.js';
 
 // ---------- the door: once per visit ----------
 const door = $('#door');
@@ -32,41 +20,6 @@ if (seen || reduce) {
   addEventListener('keydown', (e) => ['Enter', ' ', 'ArrowDown', 'PageDown'].includes(e.key) && enter());
   $('#enter').focus();
 }
-
-// ---------- light / dark ----------
-const themeBtn = $('#theme');
-const label = () => themeBtn.setAttribute('aria-label', `Switch to ${document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'} mode`);
-label();
-themeBtn.addEventListener('click', () => {
-  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-  document.documentElement.dataset.theme = next;
-  try { localStorage.setItem('theme', next); } catch {}
-  label();
-});
-
-// ---------- tabs follow the section you're in ----------
-const tabs = $$('.tab');
-const sections = tabs.map((t) => $(t.getAttribute('href')));
-const tabIO = new IntersectionObserver(
-  (entries) => {
-    for (const e of entries) if (e.isIntersecting) tabs.forEach((t) => t.classList.toggle('on', t.getAttribute('href') === `#${e.target.id}`));
-  },
-  { rootMargin: '-45% 0px -50% 0px' }
-);
-sections.forEach((s) => tabIO.observe(s));
-tabs[0].classList.add('on');
-$('#newtab').addEventListener('click', () => toast('No new tabs. Everything’s already here.'));
-
-// ---------- you, and where you are ----------
-const you = $('#you'), cx = $('#cx'), cy = $('#cy');
-addEventListener('pointermove', (e) => {
-  if (e.pointerType !== 'mouse') return;
-  you.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-  you.classList.add('on');
-  cx.textContent = Math.round(e.clientX);
-  cy.textContent = Math.round(e.clientY);
-});
-document.addEventListener('pointerleave', () => you.classList.remove('on'));
 
 // ---------- a second cursor that shows you around the hero ----------
 const hero = $('#home'), bot = $('#bot');
@@ -164,17 +117,6 @@ new IntersectionObserver(([e], o) => {
   o.disconnect();
 }, { threshold: 0.35 }).observe(fan);
 
-// ---------- what I do ----------
-$$('.acc li').forEach((li, i) => {
-  const b = $('button', li);
-  const set = (open) => {
-    li.classList.toggle('open', open);
-    b.setAttribute('aria-expanded', open);
-  };
-  b.addEventListener('click', () => set(!li.classList.contains('open')));
-  if (i === 0) set(true);
-});
-
 // ---------- copy the address ----------
 $('#copy').addEventListener('click', async () => {
   try {
@@ -204,74 +146,6 @@ $('#copy').addEventListener('click', async () => {
     $(sec).append(b);
   }
 }
-
-// ---------- things arrive as you reach them ----------
-const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('seen'), io.unobserve(e.target))), { rootMargin: '0px 0px -8% 0px' });
-$$('.sec-head, .item, .acc li, .pr, .cbox, .tiles a').forEach((el, i) => {
-  el.classList.add('rise');
-  el.style.transitionDelay = `${(i % 3) * 70}ms`;
-  io.observe(el);
-});
-
-// ---------- the dot grid lights up around the cursor ----------
-const root = document.documentElement.style;
-const sizeDoc = () => root.setProperty('--doc-h', `${document.documentElement.scrollHeight}px`);
-new ResizeObserver(sizeDoc).observe(document.body);
-let lastX = -999, lastY = -999;
-const paintGlow = () => {
-  root.setProperty('--mx', `${lastX + scrollX}px`);
-  root.setProperty('--my', `${lastY + scrollY}px`);
-};
-addEventListener('pointermove', (e) => {
-  if (e.pointerType !== 'mouse') return;
-  lastX = e.clientX;
-  lastY = e.clientY;
-  paintGlow();
-});
-addEventListener('scroll', paintGlow, { passive: true });
-
-// ---------- pixel headings: letters jump out of the cursor's way ----------
-const glitchChars = [];
-$$('.glitch').forEach((h) => {
-  const words = h.textContent.split(' ');
-  h.setAttribute('aria-label', h.textContent);
-  h.textContent = '';
-  words.forEach((w, wi) => {
-    const word = document.createElement('span');
-    word.style.cssText = 'display:inline-block;white-space:nowrap';
-    word.setAttribute('aria-hidden', 'true');
-    for (const c of w) {
-      const ch = document.createElement('span');
-      ch.className = 'ch';
-      ch.textContent = c;
-      word.append(ch);
-      glitchChars.push(ch);
-    }
-    h.append(word);
-    if (wi < words.length - 1) h.append(' ');
-  });
-});
-let glitchRaf = 0;
-addEventListener('pointermove', (e) => {
-  if (e.pointerType !== 'mouse' || reduce) return;
-  cancelAnimationFrame(glitchRaf);
-  glitchRaf = requestAnimationFrame(() => {
-    for (const ch of glitchChars) {
-      const r = ch.getBoundingClientRect();
-      if (r.bottom < -50 || r.top > innerHeight + 50) continue;
-      const d = Math.hypot(e.clientX - (r.left + r.width / 2), (e.clientY - (r.top + r.height / 2)) * 1.3);
-      const p = Math.max(0, 1 - d / 110);
-      if (p > 0.02) {
-        ch.classList.add('hot');
-        ch.style.setProperty('--p', p.toFixed(2));
-        ch.style.transform = `translateY(${(-p * 10).toFixed(1)}px) scale(${(1 + p * 0.3).toFixed(2)})`;
-      } else if (ch.classList.contains('hot')) {
-        ch.classList.remove('hot');
-        ch.style.transform = '';
-      }
-    }
-  });
-});
 
 // ---------- hero canvas: drag the frames, or drag out a selection ----------
 const frames = $$('.frame');
@@ -452,4 +326,54 @@ for (const f of frames) {
     tag.addEventListener('animationend', () => tag.remove());
     contact.append(plane, tag);
   });
+}
+
+// ---------- work: hover a card to open it up ----------
+{
+  const STORY = {
+    clause: { text: ['Commercial contracts are long, and a handful of clauses carry most of the risk. Clause Risk Review trains models to read a contract and flag six kinds of risky clause: caps on liability, non-competes, licence grants, audit rights, termination for convenience and insurance.', 'Every model trains on identical word windows and per-contract splits, so a score gap is a gap between models. Thresholds are tuned on validation data only. BERT reached 0.879 document F1 on 76 held-out contracts. Legal-BERT, with the same architecture and a legal pretraining corpus, gave no measurable gain, and the write-up says so plainly.'], notes: ['per-contract splits', 'noisy-OR pooling', '90 tests', 'nulls reported'] },
+    eeg: { text: ['Can two EEG numbers, the gamma/theta ratio and theta-gamma coupling at a few frontal electrodes, track a meditator’s focus nearly as well as a model on the full 64-channel spectrum?', 'Every score is set against chance from permutations and against baselines that use no EEG at all. The expert-versus-novice result turned out to be confounded by sex, and the pre-registered replication did not confirm. Meditation depth decoded at a within-person AUC of 0.609. NeuroDial always shows the latest published run.'], notes: ['permutation tests', 'non-EEG baselines', 'pre-registered', 'live dashboard'] },
+    sprout: { text: ['Opening an unfamiliar codebase means guessing which files matter, and AI agents burn their context window reading the wrong ones. Sprout is one Go binary that draws gitignore-aware trees with git history, suggests a reading order, and hands agents a token-budgeted map of the project.', 'It runs as an MCP server so coding agents call it directly, and it ships through a Homebrew tap, a Scoop bucket and Linux packages.'], notes: ['MCP server', 'reading order', 'token budgets', 'brew install'] },
+    forme: { text: ['Distinctive motion pieces like shaders and ASCII scenes usually come as demos you cannot install. Forme is 53 free React components, from WebGL horizons to HUD instruments, that you add to your project as source with one command.', 'Each component carries accessibility badges for reduced motion, keyboard use and pausing offscreen, and those badges are tests: CI fails when the code does not back the claim up.'], notes: ['53 components', 'one command', 'badges are tests', 'WebGL shaders'] },
+    flow: { text: ['Studying remotely with friends means juggling a video call, a timer, a to-do list and music across separate apps. Flow puts all of it in one room you join with a six-character code.', 'Start a focus block and a sun sinks for everyone in the room; when it sets, you all take a break. Video runs peer to peer over WebRTC, tasks and chat sync through Supabase, and typing /ai asks a model for the whole room. Version 1.0 shipped in November 2026.'], notes: ['shared sunset', 'WebRTC video', '/ai in chat', 'v1.0 shipped'] },
+    velora: { text: ['Most stock tools show a single price target, which hides how wide the range of outcomes really is. Velora simulates thousands of price paths with regime switching and jump shocks, and nudges its assumptions with sentiment from recent headlines.', 'The spread comes back as fan charts, the chance of ending above today’s price, and value at risk, all drawn on a plain canvas without a charting library.'], notes: ['regime switching', 'VaR + CVaR', 'fan charts', 'headline sentiment'] },
+  };
+  const SLOTS = [[-360, -30, -4], [330, -140, 3], [350, -50, -2], [320, 150, 4]];
+  // a loose double loop, like a circle drawn by hand
+  const LOOP = '<svg viewBox="0 0 200 70" preserveAspectRatio="none"><path d="M18 40 C 10 12, 80 2, 150 8 S 205 38, 170 58 S 40 72, 14 48 C 4 34, 40 14, 100 12 S 196 22, 188 44" /></svg>';
+  const fan = $('#fan'), stage = $('#stage-text'), annos = $('#annos');
+  const all = $$('.card', fan);
+  let current = null, leaveTimer;
+  const focus = (card) => {
+    clearTimeout(leaveTimer);
+    if (current === card) return;
+    current = card;
+    const story = STORY[card.dataset.p];
+    all.forEach((c) => c.classList.toggle('cur', c === card));
+    fan.classList.add('focus');
+    stage.replaceChildren(...[...story.text, ...story.text].map((t) => Object.assign(document.createElement('p'), { textContent: t })));
+    annos.replaceChildren(...story.notes.map((n, i) => {
+      const a = document.createElement('div');
+      a.className = 'anno';
+      const [x, y, r] = SLOTS[i];
+      a.style.cssText = `--ax:${x}px;--ay:${y}px;--ar:${r}deg;--ad:${0.15 + i * 0.12}s`;
+      a.innerHTML = LOOP;
+      a.append(Object.assign(document.createElement('span'), { textContent: n }));
+      return a;
+    }));
+  };
+  const unfocus = () => {
+    leaveTimer = setTimeout(() => {
+      current = null;
+      fan.classList.remove('focus');
+      all.forEach((c) => c.classList.remove('cur'));
+      annos.replaceChildren();
+    }, 120);
+  };
+  all.forEach((c) => {
+    c.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && innerWidth > 900 && focus(c));
+    c.addEventListener('focus', () => innerWidth > 900 && focus(c));
+  });
+  fan.addEventListener('pointerleave', unfocus);
+  fan.addEventListener('focusout', (e) => !fan.contains(e.relatedTarget) && unfocus());
 }

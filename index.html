@@ -17,7 +17,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -39,6 +39,7 @@
       <a href="#home" class="tab" data-c="green"><svg viewBox="0 0 16 16"><path d="M2.5 7 8 2.5 13.5 7v6.5h-11z" /><path d="M6.5 13.5V10h3v3.5" /></svg><span>Home</span></a>
       <a href="#work" class="tab" data-c="yellow"><svg viewBox="0 0 16 16"><rect x="2" y="4.5" width="12" height="9" rx="1.5" /><path d="M5.5 4.5v-2h5v2" /></svg><span>Work</span><b class="tab-peek" aria-hidden="true"><i></i><i></i><i></i></b></a>
       <a href="#do" class="tab" data-c="purple"><svg viewBox="0 0 16 16"><path d="M8 1.5 9.6 6.4 14.5 8l-4.9 1.6L8 14.5 6.4 9.6 1.5 8l4.9-1.6z" /></svg><span>What I do</span></a>
+      <a href="about.html" class="tab" data-c="orange"><svg viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.5" /><path d="M3 14c0-3 2.2-5 5-5s5 2 5 5" /></svg><span>About</span></a>
       <a href="#upstream" class="tab" data-c="blue"><svg viewBox="0 0 16 16"><circle cx="4.5" cy="3.5" r="1.5" /><circle cx="4.5" cy="12.5" r="1.5" /><circle cx="11.5" cy="5.5" r="1.5" /><path d="M4.5 5v6M11.5 7c0 3-7 2-7 4" /></svg><span>Open source</span></a>
       <a href="#contact" class="tab" data-c="pink"><svg viewBox="0 0 16 16"><rect x="2" y="3.5" width="12" height="9" rx="1.5" /><path d="m2.5 4.5 5.5 4 5.5-4" /></svg><span>Contact</span></a>
       <button class="tab-new" id="newtab" aria-label="New tab"><svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" /></svg></button>
@@ -125,13 +126,15 @@
         <p>Before anything about me, the proof. Research with the numbers shown, and tools people use. Pick one up.</p>
       </div>
       <div class="fan" id="fan">
-        <a class="card c-yellow" href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener"><img src="img/clause.jpg" alt="Clause Risk Review results" /><span><b>Clause Risk Review</b><small>NLP research</small></span><em>OPEN ↗</em></a>
-        <a class="card c-blue" href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener"><img src="img/neurodial.jpg" alt="NeuroDial results" /><span><b>Med-EEG</b><small>EEG research</small></span><em>OPEN ↗</em></a>
-        <a class="card c-green" href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener"><img src="img/sprout.jpg" alt="Sprout's site" /><span><b>Sprout</b><small>Developer tool</small></span><em>OPEN ↗</em></a>
-        <a class="card c-purple" href="https://forme-amber.vercel.app" target="_blank" rel="noopener"><img src="img/forme.jpg" alt="Forme's homepage" /><span><b>Forme</b><small>React components</small></span><em>OPEN ↗</em></a>
-        <a class="card c-pink" href="https://flow-study.me" target="_blank" rel="noopener"><img src="img/flow.jpg" alt="Flow's homepage" /><span><b>Flow</b><small>Study rooms</small></span><em>OPEN ↗</em></a>
-        <a class="card c-orange" href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener"><img src="img/velora.jpg" alt="Velora's forecast" /><span><b>Velora</b><small>Market forecasts</small></span><em>OPEN ↗</em></a>
-        <p class="note n-fan" aria-hidden="true">pick one up ↓</p>
+        <a data-p="clause" class="card c-yellow" href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener"><img src="img/clause.jpg" alt="Clause Risk Review results" /><span><b>Clause Risk Review</b><small>NLP research</small></span><em>OPEN PROJECT ↗</em></a>
+        <a data-p="eeg" class="card c-blue" href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener"><img src="img/neurodial.jpg" alt="NeuroDial results" /><span><b>Med-EEG</b><small>EEG research</small></span><em>OPEN PROJECT ↗</em></a>
+        <a data-p="sprout" class="card c-green" href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener"><img src="img/sprout.jpg" alt="Sprout's site" /><span><b>Sprout</b><small>Developer tool</small></span><em>OPEN PROJECT ↗</em></a>
+        <a data-p="forme" class="card c-purple" href="https://forme-amber.vercel.app" target="_blank" rel="noopener"><img src="img/forme.jpg" alt="Forme's homepage" /><span><b>Forme</b><small>React components</small></span><em>OPEN PROJECT ↗</em></a>
+        <a data-p="flow" class="card c-pink" href="https://flow-study.me" target="_blank" rel="noopener"><img src="img/flow.jpg" alt="Flow's homepage" /><span><b>Flow</b><small>Study rooms</small></span><em>OPEN PROJECT ↗</em></a>
+        <a data-p="velora" class="card c-orange" href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener"><img src="img/velora.jpg" alt="Velora's forecast" /><span><b>Velora</b><small>Market forecasts</small></span><em>OPEN PROJECT ↗</em></a>
+        <div class="stage-text" id="stage-text" aria-hidden="true"></div>
+        <div class="annos" id="annos" aria-hidden="true"></div>
+        <p class="note n-fan" aria-hidden="true">hover one to open it up</p>
       </div>
 
       <div class="shelf">

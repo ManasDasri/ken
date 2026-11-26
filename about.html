@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About · Manas Dasari</title>
+  <meta name="description" content="Manas Dasari trains models and checks them honestly, ships developer tools people install, and sends fixes upstream." />
+  <meta property="og:title" content="Manas Dasari" />
+  <meta property="og:description" content="ML research, developer tools, open source." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Cpath fill='%2322c55e' d='M1 1h2v1h1v1H3V2H1zM5 1h2v1H6v1H5z'/%3E%3Cpath fill='%23131316' d='M4 3h1v4H4z'/%3E%3C/svg%3E" />
+  <script>
+    // the saved theme, or the system's, before anything paints
+    try {
+      const t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = t;
+    } catch { document.documentElement.dataset.theme = 'light'; }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="in">
+  <!-- browser chrome -->
+  <header class="chrome">
+    <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+    <a href="index.html#home" class="mark" aria-label="Home">
+      <svg viewBox="0 0 8 8" shape-rendering="crispEdges"><path class="leaf" d="M1 1h2v1h1v1H3V2H1zM5 1h2v1H6v1H5z" /><path class="stem" d="M4 3h1v4H4z" /></svg>
+    </a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="index.html#home" class="tab" data-c="green"><svg viewBox="0 0 16 16"><path d="M2.5 7 8 2.5 13.5 7v6.5h-11z" /><path d="M6.5 13.5V10h3v3.5" /></svg><span>Home</span></a>
+      <a href="index.html#work" class="tab" data-c="yellow"><svg viewBox="0 0 16 16"><rect x="2" y="4.5" width="12" height="9" rx="1.5" /><path d="M5.5 4.5v-2h5v2" /></svg><span>Work</span><b class="tab-peek" aria-hidden="true"><i></i><i></i><i></i></b></a>
+      <a href="index.html#do" class="tab" data-c="purple"><svg viewBox="0 0 16 16"><path d="M8 1.5 9.6 6.4 14.5 8l-4.9 1.6L8 14.5 6.4 9.6 1.5 8l4.9-1.6z" /></svg><span>What I do</span></a>
+      <a href="about.html" class="tab" data-c="orange" data-here="1" aria-current="page"><svg viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.5" /><path d="M3 14c0-3 2.2-5 5-5s5 2 5 5" /></svg><span>About</span></a>
+      <a href="index.html#upstream" class="tab" data-c="blue"><svg viewBox="0 0 16 16"><circle cx="4.5" cy="3.5" r="1.5" /><circle cx="4.5" cy="12.5" r="1.5" /><circle cx="11.5" cy="5.5" r="1.5" /><path d="M4.5 5v6M11.5 7c0 3-7 2-7 4" /></svg><span>Open source</span></a>
+      <a href="index.html#contact" class="tab" data-c="pink"><svg viewBox="0 0 16 16"><rect x="2" y="3.5" width="12" height="9" rx="1.5" /><path d="m2.5 4.5 5.5 4 5.5-4" /></svg><span>Contact</span></a>
+      <button class="tab-new" id="newtab" aria-label="New tab"><svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10" /></svg></button>
+    </nav>
+    <div class="chrome-end">
+      <button class="theme" id="theme" aria-label="Switch to dark mode">
+        <svg class="sun" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" /><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3 3l1 1M12 12l1 1M3 13l1-1M12 4l1-1" /></svg>
+        <svg class="moon" viewBox="0 0 16 16"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z" /></svg>
+      </button>
+      <span class="avail"><i></i>Open to internships</span>
+    </div>
+  </header>
+
+  <div class="you" id="you" aria-hidden="true">
+    <svg viewBox="0 0 16 16"><path d="M2 1.5 13 7l-5 1.3L5.8 13z" /></svg><span>you</span>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="glow" id="glow" aria-hidden="true"></div>
+  <main class="about">
+    <section class="ab-hero">
+      <span class="frame-label"># about</span>
+      <h1 class="glitch ab-title">I build models, then try to prove them wrong.</h1>
+      <p class="ab-sub">The short version: I care more about whether a result holds than whether it looks good. The longer version is below.</p>
+      <div class="tone">
+        <span>Plain</span>
+        <input type="range" id="tone" min="0" max="1" step="1" value="0" aria-label="Writing style: plain or paper" />
+        <span>Paper</span>
+        <em id="tone-note">this is how I talk</em>
+      </div>
+    </section>
+
+    <ol class="story" id="story">
+      <li><span class="sn">01</span><div><h2 data-plain="I started with the web and stayed for the models." data-paper="On a transition from web systems to empirical machine learning.">I started with the web and stayed for the models.</h2>
+        <p data-plain="I built web apps first: shared study rooms, a stock forecaster, dashboards. Then I started training models, and found the part I actually love: finding out whether something is true." data-paper="Prior work comprised several web systems (real-time collaboration, Monte Carlo forecasting, dashboards). The author subsequently moved to empirical ML, motivated primarily by questions of validity.">I built web apps first: shared study rooms, a stock forecaster, dashboards. Then I started training models, and found the part I actually love: finding out whether something is true.</p></div></li>
+      <li><span class="sn">02</span><div><h2 data-plain="A good-looking number is the easy part." data-paper="On the construction of leakage-safe evaluations.">A good-looking number is the easy part.</h2>
+        <p data-plain="With a small dataset, a model that knows nothing can still look impressive. So I split by person or by contract, tune thresholds on validation data only, and compare every score against chance." data-paper="All reported metrics are conditioned on subject- or document-level splits, validation-only threshold selection, and permutation-derived null distributions.">With a small dataset, a model that knows nothing can still look impressive. So I split by person or by contract, tune thresholds on validation data only, and compare every score against chance.</p></div></li>
+      <li><span class="sn">03</span><div><h2 data-plain="I write up the nulls too." data-paper="Negative results are reported in full.">I write up the nulls too.</h2>
+        <p data-plain="Legal-BERT didn’t beat BERT. The EEG expertise result was confounded by sex. Both sit on the results pages, not buried in a footnote." data-paper="Domain-adaptive pretraining yielded no measurable gain (ΔF1 = −0.005), and the expertise effect was confounded with participant sex; both findings are reported alongside positive results.">Legal-BERT didn’t beat BERT. The EEG expertise result was confounded by sex. Both sit on the results pages, not buried in a footnote.</p></div></li>
+      <li><span class="sn">04</span><div><h2 data-plain="I build the tools I need." data-paper="On tooling as a research by-product.">I build the tools I need.</h2>
+        <p data-plain="Opening an unfamiliar repo means guessing which files matter, so I built Sprout: a Go binary on Homebrew that coding agents call over MCP. Forme, Flow and Velora are on the work page." data-paper="To reduce orientation cost in unfamiliar codebases, the author developed Sprout, a single-binary tool exposing structural project maps to language-model agents via the Model Context Protocol.">Opening an unfamiliar repo means guessing which files matter, so I built Sprout: a Go binary on Homebrew that coding agents call over MCP. Forme, Flow and Velora are on the work page.</p>
+        <div class="pills"><a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener"><i style="background:#22c55e"></i>Sprout</a><a href="https://forme-amber.vercel.app" target="_blank" rel="noopener"><i style="background:#a855f7"></i>Forme</a><a href="https://flow-study.me" target="_blank" rel="noopener"><i style="background:#ec4899"></i>Flow</a><a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener"><i style="background:#f97316"></i>Velora</a></div></div></li>
+      <li class="off"><span class="sn">05</span><div><h2 data-plain="Off the keyboard." data-paper="Extracurricular observations.">Off the keyboard.</h2>
+        <p data-plain="Weekend animal-welfare events with Barket, ricing KDE Plasma on Linux until it looks right, and following markets and how trading systems work." data-paper="Outside research hours, the author volunteers in animal welfare outreach (Barket), customises Linux desktop environments (KDE Plasma), and studies financial markets observationally.">Weekend animal-welfare events with Barket, ricing KDE Plasma on Linux until it looks right, and following markets and how trading systems work.</p></div></li>
+    </ol>
+
+    <section class="rules">
+      <h2 class="glitch ab-h">Four rules on every project.<svg class="squiggle" viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 12 C 60 4, 120 18, 190 10 S 320 4, 398 12" /></svg></h2>
+      <div class="rule-grid">
+        <article><b class="c-blue">01</b><h3>Split before I look.</h3><p>Train, validation and test are fixed per person or per contract and saved to disk before a model ever runs, so nothing leaks across.</p></article>
+        <article><b class="c-green">02</b><h3>Beat a baseline, or say so.</h3><p>Every score sits next to chance and a simple baseline. If a model only matches “sex alone” or “time on task”, that is the result.</p></article>
+        <article><b class="c-yellow">03</b><h3>Report the nulls.</h3><p>The predictions that failed go on the same page as the ones that held, with the same detail.</p></article>
+        <article><b class="c-purple">04</b><h3>Ship it with tests.</h3><p>90 tests pin the decisions in Clause Risk Review; Forme’s accessibility badges fail CI when the code doesn’t back them.</p></article>
+      </div>
+    </section>
+
+    <section class="where">
+      <h2 class="glitch ab-h">Where I’ve been.</h2>
+      <ol class="tl">
+        <li style="--c:#3b82f6"><time>Nov 2026</time><div><b>Released Flow v1.0</b><p>Study rooms with a shared sunset timer.</p></div></li>
+        <li style="--c:#22c55e"><time>Nov 2026</time><div><b>First PRs merged into rules_go and gpui-kit</b><p>Plus Netcatty, gpui-fast and agent-manager the same month.</p></div></li>
+        <li style="--c:#f5b800"><time>Oct 2026</time><div><b>First PR merged into Gleam</b><p>Hex diff links in the CLI. Attended IndiaFOSS 2026 in Bengaluru.</p></div></li>
+        <li style="--c:#a855f7"><time>Sep 2026</time><div><b>Shipped Sprout, and Smart India Hackathon</b><p>Homebrew tap, Scoop bucket and Linux packages; FieldLensAI for SIH.</p></div></li>
+        <li style="--c:#ec4899"><time>Aug 2026</time><div><b>Exercism’s VB.NET track, and Kaggle</b><p>Twelve exercises synced; ML fundamentals from scratch.</p></div></li>
+        <li style="--c:#f97316"><time>Jun 2026</time><div><b>Started Flow</b><p>Virtual study rooms, peer to peer.</p></div></li>
+        <li style="--c:#94a3b8"><time>Dec 2025</time><div><b>Started Atmos</b><p>Air-quality sensor placement for Bengaluru.</p></div></li>
+      </ol>
+      <div class="edu">
+        <p><b>Education:</b> CSE undergrad, Amrita School of Engineering, class of 2028. <span class="redact" tabindex="0">Currently in my 5th semester,</span> <span class="redact" tabindex="0">coding since January 2026.</span></p>
+        <small>scrub the black bits</small>
+      </div>
+    </section>
+
+    <section class="loans-row">
+      <div class="logos">
+        <a href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener"><img src="https://github.com/zed-industries.png?size=64" alt="" />Zed</a>
+        <a href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><img src="https://github.com/gleam-lang.png?size=64" alt="" />Gleam</a>
+        <a href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><img src="https://github.com/bazel-contrib.png?size=64" alt="" />rules_go</a>
+        <a href="https://github.com/longbridge/gpui-kit/pull/4018" target="_blank" rel="noopener"><img src="https://github.com/longbridge.png?size=64" alt="" />gpui-kit</a>
+        <a href="https://github.com/binaricat/Netcatty/pull/4202" target="_blank" rel="noopener"><img src="https://github.com/binaricat.png?size=64" alt="" />Netcatty</a>
+        <a href="https://github.com/exercism/vbnet/pulls?q=is%3Apr+is%3Amerged+author%3AManasDasri" target="_blank" rel="noopener"><img src="https://github.com/exercism.png?size=64" alt="" />Exercism</a>
+      </div>
+      <p class="note">projects I’ve sent fixes to ↗</p>
+    </section>
+
+    <section class="tools">
+      <h2 class="glitch ab-h">The tools I work in.</h2>
+      <p class="ab-sub">What I open every day, from the first notebook to the release.</p>
+      <div class="dock" id="dock" role="list">
+        <span role="listitem" data-n="Python"><img src="https://cdn.simpleicons.org/python" alt="Python" /></span>
+        <span role="listitem" data-n="PyTorch"><img src="https://cdn.simpleicons.org/pytorch" alt="PyTorch" /></span>
+        <span role="listitem" data-n="Hugging Face"><img src="https://cdn.simpleicons.org/huggingface" alt="Hugging Face" /></span>
+        <span role="listitem" data-n="scikit-learn"><img src="https://cdn.simpleicons.org/scikitlearn" alt="scikit-learn" /></span>
+        <span role="listitem" data-n="NumPy"><img src="https://cdn.simpleicons.org/numpy" alt="NumPy" /></span>
+        <span role="listitem" data-n="Jupyter"><img src="https://cdn.simpleicons.org/jupyter" alt="Jupyter" /></span>
+        <i class="sep" aria-hidden="true"></i>
+        <span role="listitem" data-n="Go"><img src="https://cdn.simpleicons.org/go" alt="Go" /></span>
+        <span role="listitem" data-n="TypeScript"><img src="https://cdn.simpleicons.org/typescript" alt="TypeScript" /></span>
+        <span role="listitem" data-n="React"><img src="https://cdn.simpleicons.org/react" alt="React" /></span>
+        <span role="listitem" data-n="Rust"><img src="https://cdn.simpleicons.org/rust/131316/ededf1" alt="Rust" /></span>
+        <span role="listitem" data-n="Supabase"><img src="https://cdn.simpleicons.org/supabase" alt="Supabase" /></span>
+        <i class="sep" aria-hidden="true"></i>
+        <span role="listitem" data-n="Git"><img src="https://cdn.simpleicons.org/git" alt="Git" /></span>
+        <span role="listitem" data-n="Docker"><img src="https://cdn.simpleicons.org/docker" alt="Docker" /></span>
+        <span role="listitem" data-n="Linux"><img src="https://cdn.simpleicons.org/linux/131316/ededf1" alt="Linux" /></span>
+        <span role="listitem" data-n="KDE Plasma"><img src="https://cdn.simpleicons.org/kde" alt="KDE Plasma" /></span>
+      </div>
+    </section>
+
+    <section class="ab-cta">
+      <p class="kicker">HAVE SOMETHING IN MIND?</p>
+      <h2 class="glitch ab-h">Tell me what you’re building.</h2>
+      <div class="cta"><a class="btn" href="index.html#contact">Pick a day to talk <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></a><a class="btn ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé</a></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© 2026 Manas Dasari</span>
+    <nav><a href="index.html#work">Work</a><a href="index.html#do">What I do</a><a href="index.html#upstream">Open source</a><a href="index.html#contact">Contact</a></nav>
+    <span>Built in code, not a builder</span>
+  </footer>
+
+  <script type="module" src="about.js"></script>
+</body>
+</html>
