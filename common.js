@@ -1,4 +1,3 @@
-import './codegrid.js';
 // Shared by every page: the browser-style tab bar and footer, the theme, and the
 // interactions more than one page uses. Page-specific code lives in main.js / about.js / work.js.
 export const $ = (s, el = document) => el.querySelector(s);
@@ -84,22 +83,6 @@ $$('.sec-head, .item, .pr, .cbox, .tiles a, .tiles button, .rule-grid article, .
   io.observe(el);
 });
 
-// ---------- the dot grid lights up around the cursor ----------
-const root = document.documentElement.style;
-new ResizeObserver(() => root.setProperty('--doc-h', `${document.documentElement.scrollHeight}px`)).observe(document.body);
-let lastX = -999, lastY = -999;
-const paintGlow = () => {
-  root.setProperty('--mx', `${lastX + scrollX}px`);
-  root.setProperty('--my', `${lastY + scrollY}px`);
-};
-addEventListener('pointermove', (e) => {
-  if (e.pointerType !== 'mouse') return;
-  lastX = e.clientX;
-  lastY = e.clientY;
-  paintGlow();
-});
-addEventListener('scroll', paintGlow, { passive: true });
-
 // ---------- pixel headings: letters jump out of the cursor's way ----------
 const glitchChars = [];
 $$('.glitch').forEach((h) => {
@@ -143,7 +126,7 @@ addEventListener('pointermove', (e) => {
   });
 });
 
-// ---------- what I do: rows open on hover and show the work ----------
+// ---------- what I do: rows open while you hover them ----------
 {
   const rows = $$('.svc li');
   const open = (li) => rows.forEach((r) => r.classList.toggle('open', r === li));
@@ -151,6 +134,8 @@ addEventListener('pointermove', (e) => {
     const a = li.querySelector('a');
     li.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && open(li));
     a.addEventListener('focus', () => open(li));
+    a.addEventListener('blur', () => open(null));
+    // on touch, the first tap opens the row and the second follows the link
     a.addEventListener('click', (e) => {
       if (!li.classList.contains('open')) {
         e.preventDefault();
@@ -158,7 +143,7 @@ addEventListener('pointermove', (e) => {
       }
     });
   });
-  if (rows.length) open(rows[0]);
+  rows[0]?.parentElement.addEventListener('pointerleave', () => open(null));
 }
 
 // ---------- copy the address ----------
