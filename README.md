@@ -1,5 +1,5 @@
 # ken
 
-My portfolio: a small gallery you walk through by scrolling. Each project hangs on the wall with its label; open-source work is listed as "on loan".
+My portfolio. The landscape at the top is pixel art drawn in code, at the current time in India; drag the clock to change it, and click the grass to plant a sprout.
 
-Plain HTML, CSS and Three.js (from a CDN), no build step. Run it locally with `python3 -m http.server`.
+Plain HTML, CSS and JS, no build step. Run it locally with `python3 -m http.server`.

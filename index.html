@@ -4,148 +4,175 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Manas Dasari</title>
-  <meta name="description" content="Manas Dasari: machine learning research and developer tools, hung in a gallery you can walk through." />
+  <meta name="description" content="Manas Dasari: machine learning research with the numbers shown, developer tools people install, and fixes sent upstream." />
   <meta property="og:title" content="Manas Dasari" />
-  <meta property="og:description" content="Machine learning research and developer tools. A gallery you can walk through." />
-  <meta name="theme-color" content="#ebe8e3" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23111'/%3E%3C/svg%3E" />
+  <meta property="og:description" content="ML research, developer tools, open source. Plant a sprout while you're here." />
+  <meta name="theme-color" content="#f1efe8" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Cpath fill='%2364b346' d='M1 1h2v1h1v1h-1v-1h-2zM5 1h2v1h-1v1h-1v-1h0z'/%3E%3Cpath fill='%233c6e2e' d='M4 3h1v4h-1z'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Pixelify+Sans:wght@500;600;700&family=Silkscreen&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-      }
-    }
-  </script>
 </head>
 <body>
-  <div class="loader" id="loader" aria-hidden="true">
-    <span class="loader-n" id="loader-n">0</span>
-  </div>
-
-  <canvas id="gl" aria-hidden="true"></canvas>
-
-  <header class="top">
-    <a href="#" class="mark">Manas Dasari</a>
-    <nav aria-label="Site">
-      <a href="#works">Works</a>
-      <a href="#loans">On loan</a>
-      <a href="#visit">Visit</a>
-      <a href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  <header class="bar">
+    <a href="#" class="logo">MANAS DASARI</a>
+    <nav>
+      <a class="pill" href="resume.pdf" target="_blank" rel="noopener">RÉSUMÉ</a>
+      <a class="pill dark" href="#contact">GET IN TOUCH</a>
     </nav>
   </header>
 
   <main>
-    <!-- the walk: each screen of scrolling moves the camera to the next work -->
-    <section class="walk" id="works" aria-label="Works">
-      <div class="view">
-        <div class="intro">
-          <h1>Manas<br />Dasari</h1>
-          <p>Machine learning research I can show the numbers for, and developer tools people install. CS at Amrita, class of 2028.</p>
-          <p class="avail"><span></span>Open to AI/ML and research internships</p>
-          <p class="hint">Scroll to walk through</p>
+    <section class="hero wrap">
+      <div class="hero-top">
+        <h1 class="px">Hi, I’m<br />Manas.</h1>
+        <p class="lede">I run machine learning experiments built to be checked, build developer tools people install, and send fixes upstream. CS at Amrita, class of 2028.</p>
+      </div>
+      <figure class="scene-card">
+        <canvas id="scene" aria-label="A pixel-art landscape at the current time in India. Click the grass to plant a sprout."></canvas>
+        <span class="tag tag-sprout" id="tag-sprout"><i></i>Sprout v0.7.0 · click the grass to plant one</span>
+        <div class="clock">
+          <label for="hour" class="clock-label"><span id="clock-text">12:00 PM</span> in India</label>
+          <input id="hour" type="range" min="0" max="23.95" step="0.05" value="12" />
+          <button id="now" class="clock-now" type="button">now</button>
         </div>
+        <span class="planted" id="planted" aria-live="polite"></span>
+      </figure>
+    </section>
 
-        <ol class="labels">
-          <li class="label" data-img="img/clause.jpg">
-            <h2>Clause Risk Review</h2>
-            <p class="meta">2026 · PyTorch, Transformers, 510 contracts</p>
-            <p>Does legal pretraining help a model find risky contract clauses? TextCNN, BERT and Legal-BERT, trained on identical windows and per-contract splits, every threshold tuned on validation only.</p>
-            <p class="result">BERT reached 0.879 document F1 on 76 held-out contracts. Legal-BERT gave no measurable gain, and the write-up says so.</p>
-            <p class="links"><a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">Results</a><a href="https://github.com/ManasDasri/NNDL" target="_blank" rel="noopener">Code</a></p>
-          </li>
-          <li class="label" data-img="img/neurodial.jpg">
-            <h2>Med-EEG</h2>
-            <p class="meta">2026 · Python, MNE, scikit-learn, 64-channel EEG</p>
-            <p>Can two EEG numbers track a meditator’s focus? Person-held-out models, checked against shuffled labels and non-EEG baselines, with a pre-registered replication on a second dataset.</p>
-            <p class="result">The expertise result was confounded by sex and the replication didn’t confirm; depth decoded at AUC 0.609. All reported.</p>
-            <p class="links"><a href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener">NeuroDial</a><a href="https://github.com/ManasDasri/Med-EEG" target="_blank" rel="noopener">Code</a></p>
-          </li>
-          <li class="label" data-img="img/sprout.jpg">
-            <h2>Sprout</h2>
-            <p class="meta">2026 · Go, MCP</p>
-            <p>A map of your codebase, for you and your AI agent: one Go binary that shows where to start reading, what a change breaks, and which tests to run.</p>
-            <p class="result">v0.7.0, shipped through Homebrew, Scoop and Linux packages.</p>
-            <p class="links"><a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener">Site</a><a href="https://github.com/Sprout-DevLabs/sprout" target="_blank" rel="noopener">Code</a></p>
-          </li>
-          <li class="label" data-img="img/forme.jpg">
-            <h2>Forme</h2>
-            <p class="meta">2026 · React, TypeScript, WebGL</p>
-            <p>Components for interfaces that glow: shaders, ASCII scenes and HUD instruments you install as source, with one command.</p>
-            <p class="result">53 free components. Their accessibility badges are tests that fail when the code doesn’t back them up.</p>
-            <p class="links"><a href="https://forme-amber.vercel.app" target="_blank" rel="noopener">Site</a><a href="https://github.com/ManasDasri/forme" target="_blank" rel="noopener">Code</a></p>
-          </li>
-          <li class="label" data-img="img/flow.jpg">
-            <h2>Flow</h2>
-            <p class="meta">2026 · Express, Supabase, WebRTC</p>
-            <p>A study room you share with friends. Start a focus block and a sun sinks for everyone in the room; when it sets, you all take a break.</p>
-            <p class="result">v1.0 released November 2026. Free, and the code is open.</p>
-            <p class="links"><a href="https://flow-study.me" target="_blank" rel="noopener">Site</a><a href="https://github.com/ManasDasri/Flow-study" target="_blank" rel="noopener">Code</a></p>
-          </li>
-          <li class="label" data-img="img/velora.jpg">
-            <h2>Velora</h2>
-            <p class="meta">2026 · React, Monte Carlo simulation</p>
-            <p>Probability cones for stock prices: thousands of simulated paths with regime switching and jump shocks, instead of a single price target.</p>
-            <p class="result">Fan charts, upside probability, VaR and CVaR, drawn on a plain canvas.</p>
-            <p class="links"><a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener">Site</a><a href="https://github.com/ManasDasri/Velora" target="_blank" rel="noopener">Code</a></p>
-          </li>
-          <li class="label" data-img="img/gradient.jpg">
-            <h2>Gradient Works</h2>
-            <p class="meta">2026 · Applied AI studio</p>
-            <p>The studio I founded: custom models for startups and labs, each with a defined metric, a baseline to beat and held-out testing.</p>
-            <p class="result">Fixed scope; the client keeps the code and weights.</p>
-            <p class="links"><a href="https://gradientworksai.in/" target="_blank" rel="noopener">Studio</a></p>
-          </li>
+    <section class="do wrap" id="do">
+      <p class="eyebrow">/ what i do</p>
+      <h2 class="px big">What I do.</h2>
+      <div class="do-grid">
+        <ol class="do-list">
+          <li data-icon="research"><span class="n">/ 01</span><b>ML research</b><p>Experiments built to be checked: held-out tests, baselines, and the null results reported next to the rest.</p></li>
+          <li data-icon="tools"><span class="n">/ 02</span><b>Developer tools</b><p>Things developers install: Sprout maps a codebase for you and your AI agent, Forme is 53 React components.</p></li>
+          <li data-icon="branch"><span class="n">/ 03</span><b>Open source</b><p>Fixes sent upstream to Zed, Gleam, rules_go, gpui-kit and more. 25 merged so far.</p></li>
+          <li data-icon="window"><span class="n">/ 04</span><b>Products</b><p>Real-time apps people use: Flow’s shared study rooms, Velora’s probability cones for stocks.</p></li>
+          <li data-icon="spark"><span class="n">/ 05</span><b>Studio</b><p>Gradient Works builds and evaluates custom models for teams, with a written result.</p></li>
         </ol>
-
-        <p class="count" aria-hidden="true"><span id="count-n">01</span> / 07</p>
+        <div class="do-side">
+          <div class="do-art"><canvas id="icon" width="16" height="16" aria-hidden="true"></canvas><span id="icon-label">/ ml research</span></div>
+          <div class="do-block"><span class="px">05</span><small>THINGS, ONE PERSON</small></div>
+        </div>
       </div>
     </section>
 
-    <!-- open source -->
-    <section class="sheet" id="loans">
-      <div class="sheet-head">
-        <h2>On loan</h2>
-        <p>Work I’ve contributed to other people’s projects. 25 pull requests merged so far, 6 in review.</p>
-      </div>
-      <ol class="loans">
-        <li><a href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener"><span class="lo-repo">zed-industries/zed</span><span class="lo-what">Re-open buffers with the language server after their worktree root moves</span><span class="lo-n">+199 −2</span><span class="lo-s">In review</span></a></li>
-        <li><a href="https://github.com/zed-industries/zed/pull/67156" target="_blank" rel="noopener"><span class="lo-repo">zed-industries/zed</span><span class="lo-what">A retried subagent no longer stays marked as failed</span><span class="lo-n">+266 −5</span><span class="lo-s">In review</span></a></li>
-        <li><a href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><span class="lo-repo">gleam-lang/gleam</span><span class="lo-what">Link to the Hex diff when a dependency changes version</span><span class="lo-n">+94 −7</span><span class="lo-s">Merged</span></a></li>
-        <li><a href="https://github.com/gleam-lang/gleam/pull/6405" target="_blank" rel="noopener"><span class="lo-repo">gleam-lang/gleam</span><span class="lo-what">A clear error for attributes an import can’t take</span><span class="lo-n">+151 −0</span><span class="lo-s">In review</span></a></li>
-        <li><a href="https://github.com/longbridge/gpui-kit/pull/4018" target="_blank" rel="noopener"><span class="lo-repo">longbridge/gpui-kit</span><span class="lo-what">The Linux title bar follows the desktop’s button layout</span><span class="lo-n">+109 −22</span><span class="lo-s">Merged</span></a></li>
-        <li><a href="https://github.com/binaricat/Netcatty/pull/4202" target="_blank" rel="noopener"><span class="lo-repo">binaricat/Netcatty</span><span class="lo-what">Move a tab to its own window without dropping the SSH session</span><span class="lo-n">+1832 −44</span><span class="lo-s">Merged</span></a></li>
-        <li><a href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><span class="lo-repo">bazel-contrib/rules_go</span><span class="lo-what">nogo builds against golang.org/x/tools v0.53.0 again</span><span class="lo-n">+56 −71</span><span class="lo-s">Merged</span></a></li>
-        <li><a href="https://github.com/longbridge/gpui-fast/pull/161" target="_blank" rel="noopener"><span class="lo-repo">longbridge/gpui-fast</span><span class="lo-what">Pause Metal display links while a macOS window is hidden</span><span class="lo-n">+102 −7</span><span class="lo-s">Merged</span></a></li>
-        <li><a href="https://github.com/wainmann/agent-manager/pull/1104" target="_blank" rel="noopener"><span class="lo-repo">wainmann/agent-manager</span><span class="lo-what">Each rune of fast typing counts as its own key press</span><span class="lo-n">+90 −12</span><span class="lo-s">Merged</span></a></li>
-        <li><a href="https://github.com/c4punks/CWIST/pull/695" target="_blank" rel="noopener"><span class="lo-repo">c4punks/CWIST</span><span class="lo-what">Template render errors report where they happened</span><span class="lo-n">+584 −248</span><span class="lo-s">Merged</span></a></li>
-        <li><a href="https://github.com/openslop/openslop/pulls?q=is%3Apr+author%3AManasDasri+is%3Amerged" target="_blank" rel="noopener"><span class="lo-repo">openslop/openslop</span><span class="lo-what">Six pull requests: agent tool calls, captions, layout fixes</span><span class="lo-n">×6</span><span class="lo-s">Merged</span></a></li>
-        <li><a href="https://github.com/exercism/vbnet/pulls?q=is%3Apr+is%3Amerged+author%3AManasDasri" target="_blank" rel="noopener"><span class="lo-repo">exercism/vbnet</span><span class="lo-what">Twelve exercises synced with the shared problem specifications</span><span class="lo-n">×12</span><span class="lo-s">Merged</span></a></li>
+    <section class="how" id="how" aria-label="How I work">
+      <p class="eyebrow">/ how i work</p>
+      <ol class="words px">
+        <li>QUESTION</li>
+        <li>BASELINE</li>
+        <li>EXPERIMENT</li>
+        <li>HOLD OUT</li>
+        <li>WRITE IT UP</li>
       </ol>
-      <p class="also">Also in the archive: <a href="https://github.com/ManasDasri/analogue-risk" target="_blank" rel="noopener">Analogue Risk</a>, forecasting market risk from historical analogues, in research for publication.</p>
     </section>
 
-    <section class="sheet visit" id="visit">
-      <div class="sheet-head">
-        <h2>Visit</h2>
-        <p>Internships, research, or a model you need built. Email reaches me fastest.</p>
+    <section class="work wrap" id="work">
+      <p class="eyebrow">/ work</p>
+      <h2 class="px big">Things I’ve made.</h2>
+      <div class="cards">
+        <article class="card">
+          <a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener" class="shot"><canvas data-src="img/clause.jpg" aria-label="Clause Risk Review results page"></canvas></a>
+          <h3>Clause Risk Review</h3>
+          <p>Does legal pretraining help a model find risky contract clauses? BERT reached 0.879 document F1 on 76 held-out contracts; Legal-BERT gave no measurable gain.</p>
+          <a class="go" href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">SEE THE RESULTS →</a>
+        </article>
+        <article class="card">
+          <a href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener" class="shot"><canvas data-src="img/neurodial.jpg" aria-label="NeuroDial, the Med-EEG dashboard"></canvas></a>
+          <h3>Med-EEG</h3>
+          <p>Can two EEG numbers track a meditator’s focus? Checked against shuffled labels and non-EEG baselines, with a pre-registered replication. The null results are reported too.</p>
+          <a class="go" href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener">OPEN NEURODIAL →</a>
+        </article>
+        <article class="card">
+          <a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener" class="shot"><canvas data-src="img/sprout.jpg" aria-label="Sprout's website"></canvas></a>
+          <h3>Sprout</h3>
+          <p>A map of your codebase for you and your AI agent. One Go binary with an MCP server, on Homebrew, Scoop and Linux.</p>
+          <a class="go" href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener">GET SPROUT →</a>
+        </article>
+        <article class="card">
+          <a href="https://forme-amber.vercel.app" target="_blank" rel="noopener" class="shot"><canvas data-src="img/forme.jpg" aria-label="Forme's homepage"></canvas></a>
+          <h3>Forme</h3>
+          <p>53 free motion components for React, installed as source with one command. Their accessibility badges are tests.</p>
+          <a class="go" href="https://forme-amber.vercel.app" target="_blank" rel="noopener">BROWSE FORME →</a>
+        </article>
+        <article class="card">
+          <a href="https://flow-study.me" target="_blank" rel="noopener" class="shot"><canvas data-src="img/flow.jpg" aria-label="Flow's homepage"></canvas></a>
+          <h3>Flow</h3>
+          <p>A study room you share with friends: start a focus block and a sun sinks for everyone; when it sets, you all take a break. v1.0 is out.</p>
+          <a class="go" href="https://flow-study.me" target="_blank" rel="noopener">VISIT FLOW →</a>
+        </article>
+        <article class="card">
+          <a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener" class="shot"><canvas data-src="img/velora.jpg" aria-label="Velora's forecast"></canvas></a>
+          <h3>Velora</h3>
+          <p>Probability cones for stock prices: thousands of simulated paths with regime switching, instead of one price target.</p>
+          <a class="go" href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener">TRY VELORA →</a>
+        </article>
       </div>
-      <a class="mail" href="mailto:dasarimanas049@gmail.com">dasarimanas049@gmail.com</a>
-      <ul class="elsewhere">
-        <li><a href="https://github.com/ManasDasri" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/manas-dasari-2a52163a5/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://x.com/ManasDmg9" target="_blank" rel="noopener">X</a></li>
-        <li><a href="https://leetcode.com/u/ManasDasari/" target="_blank" rel="noopener">LeetCode</a></li>
-        <li><a href="resume.pdf" target="_blank" rel="noopener">Résumé</a></li>
+      <p class="also">Also: <a href="https://gradientworksai.in/" target="_blank" rel="noopener">Gradient Works</a>, my applied AI studio, and <a href="https://github.com/ManasDasri/analogue-risk" target="_blank" rel="noopener">Analogue Risk</a>, market-risk research in progress.</p>
+    </section>
+
+    <section class="stats" aria-label="In numbers">
+      <div class="wrap stats-grid">
+        <div class="stat"><span class="px">25</span><small>pull requests merged into other people’s projects</small></div>
+        <div class="stat"><span class="px">53</span><small>free components in Forme</small></div>
+        <div class="stat"><span class="px">0.879</span><small>document F1, BERT on held-out contracts</small></div>
+        <div class="stat"><span class="px">v1.0</span><small>Flow, released Nov 2026</small></div>
+      </div>
+    </section>
+
+    <section class="oss wrap" id="oss">
+      <p class="eyebrow">/ open source</p>
+      <h2 class="px big">Upstream.</h2>
+      <p class="oss-note">Hover a project to see what I sent it.</p>
+      <ul class="repos px">
+        <li><a href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener" data-pr="#67329 · in review" data-what="Re-open buffers with the language server after their worktree root moves" data-diff="+199 −2">zed</a></li>
+        <li><a href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener" data-pr="#6361 · merged" data-what="Link to the Hex diff when a dependency changes version" data-diff="+94 −7">gleam</a></li>
+        <li><a href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener" data-pr="#4791 · merged" data-what="nogo builds against golang.org/x/tools v0.53.0 again" data-diff="+56 −71">rules_go</a></li>
+        <li><a href="https://github.com/longbridge/gpui-kit/pull/4018" target="_blank" rel="noopener" data-pr="#4018 · merged" data-what="The Linux title bar follows the desktop’s button layout" data-diff="+109 −22">gpui-kit</a></li>
+        <li><a href="https://github.com/binaricat/Netcatty/pull/4202" target="_blank" rel="noopener" data-pr="#4202 · merged" data-what="Move a tab to its own window without dropping the SSH session" data-diff="+1832 −44">netcatty</a></li>
+        <li><a href="https://github.com/longbridge/gpui-fast/pull/161" target="_blank" rel="noopener" data-pr="#161 · merged" data-what="Pause Metal display links while a macOS window is hidden" data-diff="+102 −7">gpui-fast</a></li>
+        <li><a href="https://github.com/wainmann/agent-manager/pull/1104" target="_blank" rel="noopener" data-pr="#1104 · merged" data-what="Each rune of fast typing counts as its own key press" data-diff="+90 −12">agent-manager</a></li>
+        <li><a href="https://github.com/c4punks/CWIST/pull/695" target="_blank" rel="noopener" data-pr="#695 · merged" data-what="Template render errors report where they happened" data-diff="+584 −248">cwist</a></li>
+        <li><a href="https://github.com/openslop/openslop/pulls?q=is%3Apr+author%3AManasDasri+is%3Amerged" target="_blank" rel="noopener" data-pr="6 pull requests · merged" data-what="Agent tool calls, captions from the media library, layout fixes" data-diff="">openslop</a></li>
+        <li><a href="https://github.com/exercism/vbnet/pulls?q=is%3Apr+is%3Amerged+author%3AManasDasri" target="_blank" rel="noopener" data-pr="12 pull requests · merged" data-what="VB.NET exercises synced with the shared problem specifications" data-diff="">exercism</a></li>
       </ul>
-      <p class="fine">Manas Dasari, 2026. The gallery is built with Three.js; the screenshots are of the live sites.</p>
+      <div class="pr-card" id="pr-card" aria-hidden="true"><b></b><span></span><small></small></div>
+    </section>
+
+    <section class="contact wrap" id="contact">
+      <div class="contact-box">
+        <p class="eyebrow">/ contact</p>
+        <h2 class="px big">Start something.</h2>
+        <p>Open to AI/ML and research internships, and freelance work. Email reaches me fastest.</p>
+        <a class="mail" href="mailto:dasarimanas049@gmail.com">dasarimanas049@gmail.com</a>
+        <div class="contact-row">
+          <a class="pill dark" href="mailto:dasarimanas049@gmail.com">EMAIL ME</a>
+          <a class="pill" href="resume.pdf" target="_blank" rel="noopener">RÉSUMÉ</a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <script type="module" src="gallery.js"></script>
+  <footer class="night">
+    <canvas id="night" aria-hidden="true"></canvas>
+    <div class="night-ui wrap">
+      <div class="night-cols">
+        <div><p class="eyebrow light">/ elsewhere</p>
+          <a href="https://github.com/ManasDasri" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/manas-dasari-2a52163a5/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://x.com/ManasDmg9" target="_blank" rel="noopener">X</a>
+          <a href="https://leetcode.com/u/ManasDasari/" target="_blank" rel="noopener">LeetCode</a></div>
+        <div><p class="eyebrow light">/ write to me</p><a href="mailto:dasarimanas049@gmail.com">dasarimanas049@gmail.com</a></div>
+        <div><p class="eyebrow light">/ status</p><span>Open to internships</span></div>
+      </div>
+      <p class="wordmark px" aria-hidden="true">MANAS</p>
+      <p class="fine">© 2026 Manas Dasari · drawn in code, pixel by pixel</p>
+    </div>
+  </footer>
+
+  <script type="module" src="main.js"></script>
 </body>
 </html>
