@@ -2,6 +2,8 @@
 :root {
   --bg: #ffffff;
   --dot: #d6d6dc;
+  --grid: rgb(19 19 22 / 0.035);
+  --grid-major: rgb(19 19 22 / 0.065);
   --ink: #131316;
   --soft: #3d3d45;
   --mute: #74747e;
@@ -28,6 +30,8 @@
 [data-theme='dark'] {
   --bg: #0c0c0f;
   --dot: #2a2a31;
+  --grid: rgb(255 255 255 / 0.03);
+  --grid-major: rgb(255 255 255 / 0.055);
   --ink: #ededf1;
   --soft: #c2c2cb;
   --mute: #8a8a95;
@@ -50,8 +54,12 @@
 html { scroll-behavior: smooth; scroll-padding-top: 60px; }
 body {
   margin: 0; color: var(--ink); background-color: var(--bg);
-  background-image: radial-gradient(var(--dot) 1.1px, transparent 1.3px);
-  background-size: 26px 26px;
+  /* engineering paper: fine squares, a firmer line every five */
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px), linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 70px 70px, 70px 70px, 14px 14px, 14px 14px;
+  background-position: -1px -1px;
   font-family: 'Satoshi', system-ui, sans-serif; font-size: 16px; line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
@@ -697,3 +705,11 @@ main, .foot { position: relative; z-index: 1; }
   .ide-view { padding: 18px; }
   .ide-status span:nth-child(n+3) { display: none; }
 }
+
+/* koi on the contact paper (koi.js) */
+.koi { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; }
+.contact .ascii { z-index: 1; }
+
+/* page transition (common.js): a cover until the blocks clear */
+.pxfx { position: fixed; inset: 0; z-index: 300; width: 100vw; height: 100vh; pointer-events: none; image-rendering: pixelated; }
+html.px-in body::after { content: ''; position: fixed; inset: 0; z-index: 300; background: var(--ink); }

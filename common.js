@@ -1,5 +1,6 @@
 // Shared by every page: the browser-style tab bar and footer, the theme, and the
 // interactions more than one page uses. Page-specific code lives in main.js / about.js / work.js.
+import './koi.js';
 export const $ = (s, el = document) => el.querySelector(s);
 export const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 export const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -43,7 +44,7 @@ if (chrome && !chrome.children.length) {
 }
 const foot = $('footer.foot');
 if (foot && !foot.children.length) {
-  foot.innerHTML = `<span>© 2026 Manas Dasari</span><nav aria-label="Footer">${PAGES.slice(1).map(([f, n]) => `<a href="${f}.html">${n}</a>`).join('')}</nav><span>Built in code, not a builder</span>`;
+  foot.innerHTML = `<span>© 2026 Manas Dasari</span><nav aria-label="Footer">${PAGES.slice(1).map(([f, n]) => `<a href="${f}.html">${n}</a>`).join('')}</nav>`;
 }
 
 // ---------- toast ----------
@@ -230,4 +231,70 @@ if ($('#ascii')) {
     const tone = TONES[Math.floor((now / 900) % TONES.length)];
     for (let k = 0; k < 3; k++) cell(e.clientX - r.left + (Math.random() - 0.5) * 42, e.clientY - r.top + (Math.random() - 0.5) * 42, false, Math.random() < 0.5 ? tone : null);
   });
+}
+
+// ---------- between pages: pixel out, pixel in ----------
+{
+  const BLOCK = 44;
+  const cover = (fill) => {
+    const cv = Object.assign(document.createElement('canvas'), { className: 'pxfx' });
+    cv.width = innerWidth;
+    cv.height = innerHeight;
+    document.body.append(cv);
+    const g = cv.getContext('2d');
+    const cols = Math.ceil(innerWidth / BLOCK), rows = Math.ceil(innerHeight / BLOCK);
+    const order = [...Array(cols * rows).keys()].sort(() => Math.random() - 0.5);
+    const ink = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
+    const tints = ['#86efac', '#fcd34d', '#d8b4fe', '#93c5fd'];
+    if (fill) { g.fillStyle = ink; g.fillRect(0, 0, cv.width, cv.height); }
+    return { cv, g, cols, order, ink, tints };
+  };
+  // out: blocks fill the screen, a few in colour, then the next page loads
+  const go = (href) => {
+    try { sessionStorage.setItem('px', '1'); } catch {}
+    const { cv, g, cols, order, ink, tints } = cover(false);
+    const start = performance.now(), dur = 360;
+    let done = 0;
+    const step = (t) => {
+      const upto = Math.min(order.length, Math.ceil(((t - start) / dur) * order.length));
+      for (; done < upto; done++) {
+        const n = order[done];
+        g.fillStyle = Math.random() < 0.08 ? tints[n % 4] : ink;
+        g.fillRect((n % cols) * BLOCK, Math.floor(n / cols) * BLOCK, BLOCK, BLOCK);
+      }
+      if (done < order.length) requestAnimationFrame(step);
+      else location.href = href;
+    };
+    requestAnimationFrame(step);
+  };
+  if (!reduce) {
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]');
+      if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || !/\.html$|\/$/.test(url.pathname) || (url.pathname === location.pathname && url.hash)) return;
+      e.preventDefault();
+      go(url.href);
+    });
+  }
+  // in: the page starts covered (see the head script) and the blocks clear away
+  if (document.documentElement.classList.contains('px-in')) {
+    try { sessionStorage.removeItem('px'); } catch {}
+    const { cv, g, cols, order } = cover(true);
+    document.documentElement.classList.remove('px-in');
+    const start = performance.now(), dur = 420;
+    let done = 0;
+    const step = (t) => {
+      const upto = Math.min(order.length, Math.ceil(((t - start) / dur) * order.length));
+      for (; done < upto; done++) {
+        const n = order[done];
+        g.clearRect((n % cols) * BLOCK, Math.floor(n / cols) * BLOCK, BLOCK, BLOCK);
+      }
+      if (done < order.length) requestAnimationFrame(step);
+      else cv.remove();
+    };
+    requestAnimationFrame(step);
+  }
+  // coming back with the back button shows the page as it was left, so clear any cover
+  addEventListener('pageshow', (e) => e.persisted && $$('.pxfx').forEach((c) => c.remove()));
 }

@@ -13,6 +13,7 @@
     try {
       const t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.dataset.theme = t;
+      if (sessionStorage.getItem('px')) document.documentElement.classList.add('px-in');
     } catch { document.documentElement.dataset.theme = 'light'; }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
