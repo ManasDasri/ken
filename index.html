@@ -57,6 +57,7 @@
   </div>
   <div class="toast" id="toast" role="status"></div>
 
+  <div class="glow" id="glow" aria-hidden="true"></div>
   <main>
     <!-- hero -->
     <section class="hero" id="home">
@@ -67,6 +68,21 @@
         <svg viewBox="0 0 16 16"><path d="M2 1.5 13 7l-5 1.3L5.8 13z" /></svg><span>manas</span>
       </div>
 
+      <div class="frames" id="frames">
+        <a class="frame" href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener" style="--x:9%;--y:16%;--w:250px;--r:-4deg" data-label="Clause Risk Review · research">
+          <span class="frame-bar"><i></i><i></i><i></i><em>clause-risk-review.hf.space</em></span><img src="img/clause.jpg" alt="Clause Risk Review" draggable="false" />
+        </a>
+        <a class="frame" href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener" style="--x:76%;--y:14%;--w:270px;--r:3deg" data-label="Sprout · dev tool">
+          <span class="frame-bar"><i></i><i></i><i></i><em>sprout-devlabs.github.io</em></span><img src="img/sprout.jpg" alt="Sprout" draggable="false" />
+        </a>
+        <a class="frame" href="https://forme-amber.vercel.app" target="_blank" rel="noopener" style="--x:4%;--y:58%;--w:290px;--r:-2deg" data-label="Forme · components">
+          <span class="frame-bar"><i></i><i></i><i></i><em>forme-amber.vercel.app</em></span><img src="img/forme.jpg" alt="Forme" draggable="false" />
+        </a>
+        <a class="frame" href="https://flow-study.me" target="_blank" rel="noopener" style="--x:80%;--y:60%;--w:230px;--r:-5deg" data-label="Flow · study rooms">
+          <span class="frame-bar"><i></i><i></i><i></i><em>flow-study.me</em></span><img src="img/flow.jpg" alt="Flow" draggable="false" />
+        </a>
+      </div>
+      <div class="marquee-sel" id="marquee" aria-hidden="true"></div>
       <div class="hero-in">
         <p class="hi">hi there, it’s</p>
         <div class="box" id="namebox">
@@ -79,18 +95,18 @@
 
         <p class="pitch">
           <span class="line">I train models
-            <span class="chip chip-loss" aria-hidden="true"><svg viewBox="0 0 60 22"><path d="M2 3 C 10 6, 12 14, 20 15 S 34 17, 40 18 S 52 19, 58 19" /></svg><em>loss ↓</em></span>
+            <span class="chip chip-loss" aria-hidden="true"><svg viewBox="0 0 60 22"><path id="losspath" d="M2 3 C 10 6, 12 14, 20 15 S 34 17, 40 18 S 52 19, 58 19" /><circle class="dot" r="2.6"><animateMotion dur="3s" repeatCount="indefinite" begin="2.4s"><mpath href="#losspath" /></animateMotion></circle></svg><em>loss ↓</em></span>
             and check them honestly,</span>
           <span class="line">ship tools you install
-            <span class="chip chip-term"><code>$ brew install sprout</code><i class="caret"></i></span></span>
+            <span class="chip chip-term"><code id="term">$ brew install sprout</code><i class="caret"></i></span></span>
           <span class="line">and build most of it myself
-            <span class="toggle" role="group" aria-label="Research or code">
+            <span class="toggle" role="group" aria-label="Research or code"><span class="slider" aria-hidden="true"></span>
               <button class="on" data-mode="research" aria-pressed="true"><svg viewBox="0 0 16 16"><path d="M6 2h4M7 2v4L3 13h10L9 6V2" /></svg>Research</button>
               <button data-mode="code" aria-pressed="false"><svg viewBox="0 0 16 16"><path d="M5.5 4 2 8l3.5 4M10.5 4 14 8l-3.5 4" /></svg>Code</button>
             </span></span>
           <span class="line">Fixes merged into
-            <a class="chip chip-org" href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><img src="https://github.com/gleam-lang.png?size=64" alt="" width="22" height="22" />Gleam</a>
-            <a class="chip chip-org" href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><img src="https://github.com/bazel-contrib.png?size=64" alt="" width="22" height="22" />rules_go</a></span>
+            <a class="chip chip-org" href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><img src="https://github.com/gleam-lang.png?size=64" alt="" width="22" height="22" />Gleam<span class="tip"><b>#6361 · merged</b>Link to the Hex diff when a dependency changes version</span></a>
+            <a class="chip chip-org" href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><img src="https://github.com/bazel-contrib.png?size=64" alt="" width="22" height="22" />rules_go<span class="tip"><b>#4791 · merged</b>nogo builds against golang.org/x/tools v0.53.0 again</span></a></span>
         </p>
 
         <div class="cta">
@@ -105,7 +121,7 @@
     <section class="work" id="work">
       <span class="frame-label"># the proof</span>
       <div class="sec-head">
-        <h2>Here’s what I’ve actually shipped.</h2>
+        <h2 class="glitch">Here’s what I’ve actually shipped.</h2>
         <p>Before anything about me, the proof. Research with the numbers shown, and tools people use. Pick one up.</p>
       </div>
       <div class="fan" id="fan">
@@ -168,19 +184,30 @@
     <section class="do" id="do">
       <span class="frame-label"># for you</span>
       <div class="sec-head">
-        <h2>What I do.</h2>
+        <h2 class="glitch big-px">Pick a kind of problem.</h2>
+        <p>Hover one to see the work behind it.</p>
       </div>
-      <ol class="acc">
-        <li><button aria-expanded="false"><span class="n">01</span><b>ML research</b><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
-          <div class="acc-body"><div><p>Experiments built to be checked: splits per person or per contract, thresholds tuned on validation only, permutation tests against chance, and the null results written up next to the rest.</p><p class="tags">PyTorch · Transformers · scikit-learn · MNE · statsmodels</p></div></div></li>
-        <li><button aria-expanded="false"><span class="n">02</span><b>Developer tools</b><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
-          <div class="acc-body"><div><p>Tools developers install. Sprout maps a codebase for you and your AI agent over MCP; Forme is 53 React components installed as source you own.</p><p class="tags">Go · MCP · React · TypeScript · WebGL</p></div></div></li>
-        <li><button aria-expanded="false"><span class="n">03</span><b>Open source</b><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
-          <div class="acc-body"><div><p>Fixes sent upstream to editors, compilers and build tools: Zed, Gleam, rules_go, gpui-kit, Netcatty. 25 merged so far, 6 in review.</p><p class="tags">Rust · Go · TypeScript · C</p></div></div></li>
-        <li><button aria-expanded="false"><span class="n">04</span><b>Real-time products</b><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
-          <div class="acc-body"><div><p>Apps people use every day: Flow’s shared study rooms over WebRTC, Velora’s forecasts from thousands of simulated paths.</p><p class="tags">WebRTC · Supabase · Express · Monte Carlo</p></div></div></li>
-        <li><button aria-expanded="false"><span class="n">05</span><b>Models for teams</b><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
-          <div class="acc-body"><div><p>Through <a href="https://gradientworksai.in/" target="_blank" rel="noopener">Gradient Works</a>, my applied AI studio: a metric agreed up front, a baseline to beat, held-out testing and a written result. You keep the code and weights.</p><p class="tags">PyTorch · Hugging Face · FastAPI</p></div></div></li>
+      <ol class="svc">
+        <li><a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">
+          <span class="n">01</span><span class="t">ML research</span><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+          <span class="d"><span><span class="d-copy">Experiments built to be checked: splits per person or per contract, thresholds tuned on validation only, permutation tests against chance, and the nulls written up too.</span><span class="tags">PyTorch · Transformers · scikit-learn · MNE · statsmodels</span></span></span>
+          <span class="pv c-yellow"><b>FRAME</b><i>#</i><img src="img/clause.jpg" alt="" loading="lazy" /><small>Clause Risk Review · results</small></span></a></li>
+        <li><a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener">
+          <span class="n">02</span><span class="t">Developer tools</span><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+          <span class="d"><span><span class="d-copy">Tools developers install. Sprout maps a codebase for you and your AI agent over MCP; Forme is 53 React components you own as source.</span><span class="tags">Go · MCP · React · TypeScript · WebGL</span></span></span>
+          <span class="pv c-green"><b>FRAME</b><i>#</i><img src="img/sprout.jpg" alt="" loading="lazy" /><small>Sprout · site</small></span></a></li>
+        <li><a href="https://github.com/pulls?q=is%3Apr+author%3AManasDasri+-user%3AManasDasri" target="_blank" rel="noopener">
+          <span class="n">03</span><span class="t">Open source</span><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+          <span class="d"><span><span class="d-copy">Fixes sent upstream to editors, compilers and build tools: Zed, Gleam, rules_go, gpui-kit, Netcatty. 25 merged so far, 6 in review.</span><span class="tags">Rust · Go · TypeScript · C</span></span></span>
+          <span class="pv c-blue"><b>FRAME</b><i>#</i><span class="diff"><code>gleam-lang/gleam #6361</code><code class="add">+ Changed gleam_stdlib v0.40 → v0.41</code><code class="add">+   diff: hex.pm/diff/gleam_stdlib/…</code><code class="del">- Changed gleam_stdlib v0.40 → v0.41</code><code class="ok">✓ merged</code></span><small>Gleam · merged PR</small></span></a></li>
+        <li><a href="https://flow-study.me" target="_blank" rel="noopener">
+          <span class="n">04</span><span class="t">Real-time products</span><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+          <span class="d"><span><span class="d-copy">Apps people use: Flow’s shared study rooms over WebRTC, Velora’s forecasts from thousands of simulated paths.</span><span class="tags">WebRTC · Supabase · Express · Monte Carlo</span></span></span>
+          <span class="pv c-pink"><b>FRAME</b><i>#</i><img src="img/flow.jpg" alt="" loading="lazy" /><small>Flow · home</small></span></a></li>
+        <li><a href="https://gradientworksai.in/" target="_blank" rel="noopener">
+          <span class="n">05</span><span class="t">Models for teams</span><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
+          <span class="d"><span><span class="d-copy">Through Gradient Works, my applied AI studio: a metric agreed up front, a baseline to beat, held-out testing and a written result.</span><span class="tags">PyTorch · Hugging Face · FastAPI</span></span></span>
+          <span class="pv c-purple"><b>FRAME</b><i>#</i><img src="img/gradient.jpg" alt="" loading="lazy" /><small>Gradient Works · studio</small></span></a></li>
       </ol>
     </section>
 
@@ -188,7 +215,7 @@
     <section class="up" id="upstream">
       <span class="frame-label"># upstream</span>
       <div class="sec-head">
-        <h2>Merged upstream.</h2>
+        <h2 class="glitch">Merged upstream.</h2>
         <p>Pull requests to other people’s projects. <a href="https://github.com/pulls?q=is%3Apr+author%3AManasDasri+-user%3AManasDasri" target="_blank" rel="noopener">See all on GitHub ↗</a></p>
       </div>
       <div class="prs" id="prs">
@@ -205,21 +232,19 @@
 
     <!-- contact -->
     <section class="contact" id="contact">
+      <div class="ascii" id="ascii" aria-hidden="true"></div>
       <span class="frame-label"># say hi</span>
       <div class="cbox">
         <div class="cbox-copy">
           <p class="kicker">HAVE SOMETHING IN MIND?</p>
-          <h2>Let’s build something<br />that holds up.</h2>
-          <p>Internships, research, or a model you need built and tested properly. Email reaches me fastest.</p>
+          <h2 class="glitch">Let’s build something that holds up.</h2>
+          <p>Internships, research, or a model you need built and tested properly. Pick a day and I’ll get back to you to set up a call.</p>
         </div>
-        <div class="term">
-          <div class="term-bar"><i></i><i></i><i></i><span>~/contact</span></div>
-          <pre><span class="p">$</span> whoami
-manas dasari · cs @ amrita, class of 2028
-<span class="p">$</span> status
-<span class="ok">●</span> open to ai/ml &amp; research internships
-<span class="p">$</span> mail</pre>
-          <div class="term-mail"><a href="mailto:dasarimanas049@gmail.com">dasarimanas049@gmail.com</a><button id="copy">Copy</button></div>
+        <div class="cal" id="cal">
+          <div class="cal-head"><button id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" /></svg></button><b id="cal-title"></b><button id="cal-next" aria-label="Next month"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" /></svg></button></div>
+          <div class="cal-grid" id="cal-grid" role="grid"></div>
+          <p class="cal-pick" id="cal-pick">Pick a day</p>
+          <a class="btn wide" id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk">Request a call <svg viewBox="0 0 16 16"><path d="M4 12 12 4M5 4h7v7" /></svg></a>
         </div>
       </div>
       <div class="tiles">
@@ -228,9 +253,9 @@ manas dasari · cs @ amrita, class of 2028
         <a href="https://x.com/ManasDmg9" target="_blank" rel="noopener"><b>X</b><small>@ManasDmg9</small><span>↗</span></a>
         <a href="https://leetcode.com/u/ManasDasari/" target="_blank" rel="noopener"><b>LeetCode</b><small>ManasDasari</small><span>↗</span></a>
         <a href="resume.pdf" target="_blank" rel="noopener"><b>Résumé</b><small>one page, PDF</small><span>↗</span></a>
-        <a href="mailto:dasarimanas049@gmail.com"><b>Email</b><small>dasarimanas049@gmail.com</small><span>↗</span></a>
+        <button id="copy"><b>Email</b><small>dasarimanas049@gmail.com</small><span>⧉</span></button>
       </div>
-      <p class="note n-hunt" aria-hidden="true">there are pixels hiding on this page. catch them</p>
+      <p class="note n-hunt" aria-hidden="true">click the sky to launch a plane · there are pixels hiding on this page, too</p>
     </section>
   </main>
 
