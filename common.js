@@ -1,6 +1,5 @@
 // Shared by every page: the browser-style tab bar and footer, the theme, and the
 // interactions more than one page uses. Page-specific code lives in main.js / about.js / work.js.
-import './koi.js';
 export const $ = (s, el = document) => el.querySelector(s);
 export const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 export const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -29,7 +28,7 @@ const chrome = $('header.chrome');
 if (chrome && !chrome.children.length) {
   chrome.innerHTML = `
     <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
-    <a href="index.html" class="mark" aria-label="Home"><svg viewBox="0 0 8 8" shape-rendering="crispEdges"><path class="leaf" d="M1 1h2v1h1v1H3V2H1zM5 1h2v1H6v1H5z" /><path class="stem" d="M4 3h1v4H4z" /></svg></a>
+    <a href="index.html" class="mark" aria-label="Home"><img src="img/brand/logo.png" alt="" /></a>
     <nav class="tabs" aria-label="Pages">
       ${PAGES.map(([file, name, c, icon]) => `<a href="${file}.html" class="tab${file === here ? ' on' : ''}" data-c="${c}"${file === here ? ' aria-current="page"' : ''}>${svg(ICON[icon])}<span>${name}</span>${file === 'work' ? '<b class="tab-peek" aria-hidden="true"><i></i><i></i><i></i></b>' : ''}</a>`).join('')}
       <button class="tab-new" id="newtab" aria-label="New tab">${svg('<path d="M8 3v10M3 8h10" />')}</button>
@@ -44,7 +43,38 @@ if (chrome && !chrome.children.length) {
 }
 const foot = $('footer.foot');
 if (foot && !foot.children.length) {
-  foot.innerHTML = `<span>© 2026 Manas Dasari</span><nav aria-label="Footer">${PAGES.slice(1).map(([f, n]) => `<a href="${f}.html">${n}</a>`).join('')}</nav>`;
+  const out = (href, name) => `<a href="${href}" target="_blank" rel="noopener">${name} <span aria-hidden="true">↗</span></a>`;
+  foot.innerHTML = `
+    <div class="ft-top">
+      <div class="ft-brand">
+        <a class="ft-name" href="index.html"><img src="img/brand/logo.png" alt="" />Manas Dasari</a>
+        <p>ML research and developer tools. Experiments built to be checked, and tools people install.</p>
+        <p class="ft-now"><i></i>Open to internships · <span class="clock">my time <b></b> IST</span></p>
+      </div>
+      <nav class="ft-col" aria-label="Pages"><h4>Pages</h4>${PAGES.map(([f, n]) => `<a href="${f}.html"${f === here ? ' aria-current="page"' : ''}>${n}</a>`).join('')}</nav>
+      <nav class="ft-col" aria-label="Elsewhere"><h4>Elsewhere</h4>${out('https://github.com/ManasDasri', 'GitHub')}${out('https://www.linkedin.com/in/manas-dasari-2a52163a5/', 'LinkedIn')}${out('https://x.com/ManasDmg9', 'X')}${out('https://leetcode.com/u/ManasDasari/', 'LeetCode')}</nav>
+      <div class="ft-col"><h4>Say hi</h4><a href="mailto:dasarimanas049@gmail.com">dasarimanas049@gmail.com</a>${out('resume.pdf', 'Résumé, PDF')}<a href="contact.html">Book a call</a></div>
+    </div>
+    <div class="ft-bar"><span>© 2026 Manas Dasari</span><span>Hand-built in plain HTML, CSS and JavaScript</span><button class="ft-up" type="button">Back to top <span aria-hidden="true">↑</span></button></div>
+    <p class="ft-word" aria-hidden="true">Manas Dasari</p>`;
+  $('.ft-up', foot).addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+  // my local time, with a ticking colon
+  const clk = $('.clock b', foot);
+  const tick = () => {
+    const [h, m] = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }).split(':');
+    clk.innerHTML = `${h}<i>:</i>${m}`;
+  };
+  tick();
+  setInterval(tick, 15000);
+}
+
+// ---------- the background: grainy off-white paper, with soft window-light shadows drifting across it (all CSS) ----------
+{
+  const bg = document.createElement('div');
+  bg.className = 'bgfx';
+  bg.setAttribute('aria-hidden', 'true');
+  bg.innerHTML = '<i></i><i></i><b></b>';
+  document.body.prepend(bg);
 }
 
 // ---------- toast ----------
@@ -76,13 +106,30 @@ if (cx) addEventListener('pointermove', (e) => {
   cy.textContent = Math.round(e.clientY);
 });
 
-// ---------- things arrive as you reach them ----------
-const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && (e.target.classList.add('seen'), io.unobserve(e.target))), { rootMargin: '0px 0px -8% 0px' });
-$$('.sec-head, .item, .pr, .cbox, .tiles a, .tiles button, .rule-grid article, .also-grid a').forEach((el, i) => {
-  el.classList.add('rise');
-  el.style.transitionDelay = `${(i % 3) * 70}ms`;
-  io.observe(el);
-});
+// ---------- things near the bottom of the screen are out of focus, and sharpen as they rise ----------
+// Each block gets its own blur from where it sits, so nothing is laid over the page: hover or focus
+// anything and it's sharp at once (style.css). No blur near the very end of the page, where the footer is.
+if (!reduce) {
+  const ZONE = 170, MAX = 5;
+  let els = null, raf = 0;
+  const tick = () => {
+    raf = 0;
+    els ??= $$('.sec-head, .folder, .svc li, .cbox, .tiles a, .tiles button, .item, .pr, .rule-grid article, .also-grid a, .more-bar, .table .pcard');
+    const end = Math.min(1, (document.documentElement.scrollHeight - innerHeight - scrollY) / 300);
+    for (const el of els) {
+      const top = el.getBoundingClientRect().top, d = innerHeight - top;
+      const b = Math.round((d > 0 && d < ZONE ? (1 - d / ZONE) * MAX * end : 0) * 4) / 4;
+      if (b === el.fz) continue;
+      el.fz = b;
+      el.style.setProperty('--fz', `${b}px`);
+      el.classList.toggle('fz', b > 0);
+    }
+  };
+  const go = () => { if (!raf) raf = requestAnimationFrame(tick); };
+  addEventListener('scroll', go, { passive: true });
+  addEventListener('resize', go);
+  setTimeout(go, 300);
+}
 
 // ---------- pixel headings: letters jump out of the cursor's way ----------
 const glitchChars = [];
@@ -197,40 +244,127 @@ if ($('#cal-grid')) {
   choose(picked);
 }
 
-// ---------- contact: ASCII on graph paper, under the cursor ----------
+// ---------- contact: a dusk sky drawn in ASCII: every character takes its colour from the scene behind it ----------
 if ($('#ascii')) {
-  const contact = $('#ascii').parentElement, layer = $('#ascii');
-  const CH = 'o.;:t+x%$&@#S8X=*{}<>/'.split(''), TONES = ['c-purple', 'c-blue', 'c-green', 'c-yellow'];
-  const cell = (x, y, still, tone) => {
-    const s = document.createElement('span');
-    s.textContent = CH[Math.floor(Math.random() * CH.length)];
-    s.style.left = `${Math.floor(x / 14) * 14}px`;
-    s.style.top = `${Math.floor(y / 14) * 14}px`;
-    if (tone) s.classList.add('k', tone);
-    if (still) s.classList.add('still');
-    else s.addEventListener('animationend', () => s.remove());
-    layer.append(s);
+  const host = $('#ascii').parentElement, cv = document.createElement('canvas');
+  $('#ascii').append(cv);
+  const g = cv.getContext('2d');
+  const CW = 6, CH = 10; // one character cell, in CSS px
+  // cloud texture, made once: fractal value noise that wraps left to right, so the clouds can drift forever
+  const TW = 512, TH = 128, tex = new Float32Array(TW * TH);
+  {
+    const hash = (i, j) => { const h = Math.sin(i * 127.1 + j * 311.7) * 43758.5453; return h - Math.floor(h); };
+    const sm = (x) => x * x * (3 - 2 * x);
+    for (let o = 0, amp = 0.55, cell = 48; o < 5; o++, amp *= 0.5, cell /= 2) {
+      const P = Math.round(TW / cell);
+      for (let y = 0; y < TH; y++) for (let x = 0; x < TW; x++) {
+        const fx = x / cell, fy = y / cell, i = Math.floor(fx), j = Math.floor(fy), u = sm(fx - i), v = sm(fy - j);
+        const a = hash(i % P, j), b = hash((i + 1) % P, j), c = hash(i % P, j + 1), d = hash((i + 1) % P, j + 1);
+        tex[y * TW + x] += amp * (a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v);
+      }
+    }
+  }
+  const at = (x, y) => tex[(Math.max(0, Math.min(TH - 1, y | 0))) * TW + ((((x | 0) % TW) + TW) % TW)];
+  const mix = (p, q, k) => [p[0] + (q[0] - p[0]) * k, p[1] + (q[1] - p[1]) * k, p[2] + (q[2] - p[2]) * k];
+  const ss = (e0, e1, x) => { const k = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return k * k * (3 - 2 * k); };
+  const lum = (p) => (0.3 * p[0] + 0.59 * p[1] + 0.11 * p[2]) / 255;
+  // sky, top to bottom: night blue, deep blue, evening blue, then the warm band where the sun has set
+  const SKY = [[0, [8, 11, 30]], [0.35, [22, 40, 88]], [0.62, [50, 86, 152]], [0.86, [214, 140, 128]], [1, [255, 194, 138]]];
+  const skyAt = (v, warm) => {
+    let i = 0;
+    while (i < SKY.length - 2 && v > SKY[i + 1][0]) i++;
+    const [v0, a] = SKY[i], [v1, b] = SKY[i + 1], c = mix(a, b, ss(v0, v1, v));
+    // away from the sunset, the low sky stays blue
+    return v > 0.6 ? mix(c, [64, 96, 160], (1 - warm) * ss(0.6, 1, v) * 0.8) : c;
   };
-  const cluster = (fx, fy, tone, n) => {
-    const w = contact.clientWidth, h = contact.clientHeight;
-    for (let i = 0; i < n; i++) {
-      const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * 90;
-      cell(w * fx + Math.cos(a) * r * 1.4, h * fy + Math.sin(a) * r * 0.8, true, Math.random() < 0.45 ? tone : null);
+  const DEEP = [46, 58, 92], LIT = [255, 241, 216], RIM = [255, 162, 104];
+  const RAMP = ' .:-=+*x#%8S0@';
+  let W = 0, H = 0, cols = 0, rows = 0, dens = new Float32Array(0), hole = null;
+  const size = () => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = host.clientWidth; H = host.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.width = `${W}px`; cv.style.height = `${H}px`;
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.font = '700 9px "Geist Mono", ui-monospace, monospace';
+    g.textBaseline = 'top';
+    cols = Math.ceil(W / CW); rows = Math.ceil(H / CH);
+    dens = new Float32Array(cols * rows);
+    // nobody sees the sky behind the card, so it isn't drawn there
+    const hr = host.getBoundingClientRect(), cr = $('.cbox', host).getBoundingClientRect();
+    hole = { l: cr.left - hr.left + 14, t: cr.top - hr.top + 14, r: cr.right - hr.left - 14, b: cr.bottom - hr.top - 14 };
+  };
+  const draw = (t) => {
+    g.clearRect(0, 0, W, H);
+    const k = TH / Math.max(H, 1), drift = t * 0.012;
+    // 1. how much cloud is in each cell: swirled fractal noise, piled up toward the bottom and the sides
+    for (let r = 0; r < rows; r++) {
+      const v = r / rows, ty = r * CH * k;
+      for (let c = 0; c < cols; c++) {
+        const u = c / cols, tx = c * CW * k;
+        const warp = (at(tx * 0.5 + 300, ty * 0.5) - 0.5) * 34;
+        const n = at(tx + warp - drift, ty) * 0.72 + at(tx * 1.7 - drift * 1.6 + 150, ty * 1.7 + warp * 0.3) * 0.28;
+        const side = (Math.abs(u - 0.5) * 2) ** 2.2;
+        dens[r * cols + c] = ss(0.52, 0.64, n + ss(0.15, 1, v) * 0.4 + side * 0.3 - 0.1);
+      }
+    }
+    // 2. light it, colour it, and pick each character by how bright that spot is
+    for (let r = 0; r < rows; r++) {
+      const v = r / rows, py = r * CH;
+      for (let c = 0; c < cols; c++) {
+        const px = c * CW;
+        if (px > hole.l && px < hole.r && py > hole.t && py < hole.b) continue;
+        const u = c / cols, warm = Math.exp(-((u - 0.5) ** 2) / 0.16), d = dens[r * cols + c];
+        const sky = skyAt(v, warm);
+        let col, ch, a;
+        if (d > 0.04) {
+          const up = (r > 0 ? dens[(r - 1) * cols + c] : 0) + (r > 1 ? dens[(r - 2) * cols + c] : 0) + (r > 2 ? dens[(r - 3) * cols + c] : 0);
+          const down = r < rows - 2 ? dens[(r + 2) * cols + c] : 1;
+          // tops catch the light, the insides sit in shade, the undersides glow where the sun is behind them
+          const lit = Math.min(1, Math.max(0, 1.15 - up / 3));
+          const rim = Math.max(0, d - down) * warm * ss(0.35, 1, v);
+          col = mix(DEEP, LIT, lit * lit);
+          col = mix(col, RIM, Math.min(1, rim * 1.6 + warm * ss(0.55, 1, v) * 0.3 * lit));
+          col = mix(sky, col, Math.min(1, d * 1.15));
+          ch = RAMP[Math.min(RAMP.length - 1, Math.max(2, Math.round(lum(col) * (RAMP.length - 1) * 1.08)))];
+          a = 0.92;
+        } else {
+          const trail = Math.abs((v - 0.7) + (u - 0.3) * 0.85) < 0.008 && u > 0.3 && u < 0.97;
+          const star = v < 0.42 && ((Math.sin(c * 12.9898 + r * 78.233) * 43758.5453) % 1 + 1) % 1 > 0.996;
+          if (trail) { col = [175, 212, 255]; ch = (c % 3) ? 'x' : '+'; a = 0.3 + 0.55 * u; }
+          else if (star) { col = [240, 244, 255]; ch = '*'; a = 0.45 + 0.4 * Math.sin(t * 0.002 + c * 3); }
+          else if (c % 2) continue; // open sky is a sparse dot screen
+          else { col = mix(sky, [255, 255, 255], 0.22); ch = lum(sky) > 0.45 ? ':' : '.'; a = 0.35 + lum(sky) * 0.5; }
+        }
+        g.fillStyle = `rgb(${col[0] | 0} ${col[1] | 0} ${col[2] | 0} / ${a.toFixed(2)})`;
+        g.fillText(ch, px, py);
+      }
     }
   };
-  cluster(0.42, 0.1, 'c-purple', 60);
-  cluster(0.95, 0.42, 'c-blue', 36);
-  cluster(0.04, 0.78, 'c-green', 48);
-  let last = 0;
-  contact.addEventListener('pointermove', (e) => {
-    if (reduce || e.pointerType !== 'mouse' || e.target.closest('.cbox, .tiles') || layer.childElementCount > 400) return;
-    const now = performance.now();
-    if (now - last < 24) return;
-    last = now;
-    const r = contact.getBoundingClientRect();
-    const tone = TONES[Math.floor((now / 900) % TONES.length)];
-    for (let k = 0; k < 3; k++) cell(e.clientX - r.left + (Math.random() - 0.5) * 42, e.clientY - r.top + (Math.random() - 0.5) * 42, false, Math.random() < 0.5 ? tone : null);
-  });
+  size();
+  new ResizeObserver(size).observe(host);
+  draw(0);
+  if (!reduce) {
+    // only while the section is on screen, about 12 frames a second: clouds are slow
+    let on = false, last = 0;
+    new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) requestAnimationFrame(loop); }).observe(host);
+    const loop = (t) => {
+      if (!on || document.hidden) return;
+      requestAnimationFrame(loop);
+      if (t - last < 80) return;
+      last = t;
+      draw(t);
+    };
+  }
+  // a cat sits on the card, and blinks now and then
+  const CAT = [['  /\\_/\\', ' ( o.o )', '  > ^ <'], ['  /\\_/\\', ' ( -.- )', '  > ^ <']];
+  const cat = Object.assign(document.createElement('pre'), { className: 'cat', textContent: CAT[0].join('\n') });
+  cat.setAttribute('aria-hidden', 'true');
+  $('.cbox', host).append(cat);
+  if (!reduce) {
+    const blink = () => { cat.textContent = CAT[1].join('\n'); setTimeout(() => { cat.textContent = CAT[0].join('\n'); setTimeout(blink, 2500 + Math.random() * 4000); }, 160); };
+    setTimeout(blink, 3000);
+  }
 }
 
 // ---------- between pages: pixel out, pixel in ----------

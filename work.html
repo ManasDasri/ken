@@ -7,7 +7,9 @@
   <meta name="description" content="Manas Dasari trains models and checks them honestly, ships developer tools people install, and sends fixes upstream." />
   <meta property="og:title" content="Manas Dasari" />
   <meta property="og:description" content="ML research, developer tools, open source." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Cpath fill='%2322c55e' d='M1 1h2v1h1v1H3V2H1zM5 1h2v1H6v1H5z'/%3E%3Cpath fill='%23131316' d='M4 3h1v4H4z'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/png" sizes="32x32" href="img/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="img/brand/icon-192.png" />
+  <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png" />
   <script>
     // the saved theme, or the system's, before anything paints
     try {
@@ -29,52 +31,15 @@
     <section class="ab-hero">
       <span class="frame-label"># work</span>
       <h1 class="glitch ab-title">Things I built, and how they hold up.</h1>
-      <p class="ab-sub">Research with the numbers shown, and tools people install. Hold a card down to X-ray it and see what it’s made of.</p>
+      <p class="ab-sub">Research with the numbers shown, and tools people install. Every card flips over to show how it’s built. Move them around the table if you like.</p>
     </section>
-      <div class="shelf wshelf">
-        <article class="item wcard">
-          <div class="wshot"><img src="img/clause.jpg" alt="" loading="lazy" draggable="false" /><i class="glare"></i><div class="xray" aria-hidden="true"><em>X-RAY · Clause Risk Review</em><span><b>Data</b>CUAD v1, 510 contracts · splits per contract, saved</span><span><b>Model</b>word windows · TextCNN · BERT · Legal-BERT</span><span><b>Evaluate</b>thresholds from validation · noisy-OR pooling</span><i class="scan"></i></div><span class="hold">HOLD TO X-RAY</span></div>
-          <h3>Clause Risk Review</h3>
-          <p>Does legal pretraining help find risky contract clauses? BERT hit 0.879 document F1 on 76 held-out contracts. Legal-BERT gave no measurable gain, and the write-up says so.</p>
-          <p class="tags">PyTorch · Transformers · CUAD</p>
-          <p class="links"><a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">Results ↗</a><a href="https://github.com/ManasDasri/NNDL" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item wcard">
-          <div class="wshot"><img src="img/neurodial.jpg" alt="" loading="lazy" draggable="false" /><i class="glare"></i><div class="xray" aria-hidden="true"><em>X-RAY · Med-EEG</em><span><b>Raw</b>OpenNeuro ds001787 · 64-channel BioSemi</span><span><b>Clean</b>filter, notch, ICA · epochs before each probe</span><span><b>Test</b>leave-one-subject-out vs chance and baselines</span><i class="scan"></i></div><span class="hold">HOLD TO X-RAY</span></div>
-          <h3>Med-EEG</h3>
-          <p>Can two EEG numbers track a meditator’s focus? Person-held-out models against shuffled labels and non-EEG baselines, plus a pre-registered replication. Nulls reported.</p>
-          <p class="tags">Python · MNE · scikit-learn</p>
-          <p class="links"><a href="https://www.algorithmicbit.tech/neurodial/" target="_blank" rel="noopener">NeuroDial ↗</a><a href="https://github.com/ManasDasri/Med-EEG" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item wcard">
-          <div class="wshot"><img src="img/sprout.jpg" alt="" loading="lazy" draggable="false" /><i class="glare"></i><div class="xray" aria-hidden="true"><em>X-RAY · Sprout</em><span><b>Input</b>your project, or a GitHub URL · git history</span><span><b>Analysis</b>gitignore-aware walk · hotspots · usage graph</span><span><b>Output</b>terminal tree · --ai map · MCP server</span><i class="scan"></i></div><span class="hold">HOLD TO X-RAY</span></div>
-          <h3>Sprout</h3>
-          <p>A map of your codebase for you and your AI agent: where to start, what a change breaks, which tests to run. One Go binary, v0.7.0.</p>
-          <p class="tags">Go · MCP · Homebrew</p>
-          <p class="links"><a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener">Site ↗</a><a href="https://github.com/Sprout-DevLabs/sprout" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item wcard">
-          <div class="wshot"><img src="img/forme.jpg" alt="" loading="lazy" draggable="false" /><i class="glare"></i><div class="xray" aria-hidden="true"><em>X-RAY · Forme</em><span><b>Source</b>registry components · catalog of traits</span><span><b>Build</b>shadcn registry JSON · gzipped sizes · trait tests</span><span><b>Ship</b>Vercel /r/ registry · install smoke test in CI</span><i class="scan"></i></div><span class="hold">HOLD TO X-RAY</span></div>
-          <h3>Forme</h3>
-          <p>53 free motion components for React, installed as source with one command. The accessibility badges are tests that fail when the code doesn’t back them.</p>
-          <p class="tags">React · TypeScript · WebGL</p>
-          <p class="links"><a href="https://forme-amber.vercel.app" target="_blank" rel="noopener">Site ↗</a><a href="https://github.com/ManasDasri/forme" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item wcard">
-          <div class="wshot"><img src="img/flow.jpg" alt="" loading="lazy" draggable="false" /><i class="glare"></i><div class="xray" aria-hidden="true"><em>X-RAY · Flow</em><span><b>Browser</b>vanilla JS · peer-to-peer WebRTC video</span><span><b>Realtime</b>Supabase Realtime · Cloudflare TURN relay</span><span><b>Server</b>Express /ai · Groq Llama 3 · Postgres with RLS</span><i class="scan"></i></div><span class="hold">HOLD TO X-RAY</span></div>
-          <h3>Flow</h3>
-          <p>A study room you share with friends. Start a focus block and a sun sinks for everyone; when it sets, you all take a break. v1.0 is out.</p>
-          <p class="tags">Express · Supabase · WebRTC</p>
-          <p class="links"><a href="https://flow-study.me" target="_blank" rel="noopener">Site ↗</a><a href="https://github.com/ManasDasri/Flow-study" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
-        <article class="item wcard">
-          <div class="wshot"><img src="img/velora.jpg" alt="" loading="lazy" draggable="false" /><i class="glare"></i><div class="xray" aria-hidden="true"><em>X-RAY · Velora</em><span><b>Data</b>Twelve Data prices · Finnhub headlines</span><span><b>Model</b>Monte Carlo · Markov regimes · headline sentiment</span><span><b>Output</b>canvas fan chart · VaR and CVaR at 95%</span><i class="scan"></i></div><span class="hold">HOLD TO X-RAY</span></div>
-          <h3>Velora</h3>
-          <p>Probability cones for stock prices: thousands of simulated paths with regime switching, instead of one price target.</p>
-          <p class="tags">React · Monte Carlo · Canvas</p>
-          <p class="links"><a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener">Site ↗</a><a href="https://github.com/ManasDasri/Velora" target="_blank" rel="noopener">Code ↗</a></p>
-        </article>
+    <section class="spread">
+      <div class="table" id="table"></div>
+      <div class="table-ctl">
+        <button class="btn ghost" id="flipall">Flip them all</button>
+        <button class="btn ghost" id="tidy" disabled>Tidy the table</button>
       </div>
+    </section>
 
     <section class="also-row">
       <h2 class="glitch ab-h">Also on the bench.</h2>

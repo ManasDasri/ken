@@ -1,28 +1,59 @@
-import { $$, reduce } from './common.js';
+import { $, $$ } from './common.js';
+import { PROJECTS, cardHTML, wire, flip } from './cards.js';
 
-// a glare that follows the cursor, and hold-to-X-ray
-for (const shot of $$('.wshot')) {
-  shot.addEventListener('pointermove', (e) => {
-    const r = shot.getBoundingClientRect();
-    shot.style.setProperty('--gx', `${e.clientX - r.left}px`);
-    shot.style.setProperty('--gy', `${e.clientY - r.top}px`);
-    if (!reduce) shot.style.transform = `perspective(900px) rotateX(${((e.clientY - r.top) / r.height - 0.5) * -6}deg) rotateY(${((e.clientX - r.left) / r.width - 0.5) * 8}deg)`;
+// the cards, spread on the table: click one to flip it, drag it anywhere
+const table = $('#table'), tidy = $('#tidy');
+table.innerHTML = PROJECTS.map(cardHTML).join('');
+const cards = $$('.pcard', table);
+let top = 10;
+
+cards.forEach((c, i) => {
+  c.style.setProperty('--i', i);
+  wire(c);
+  let d = null;
+  c.pos = [0, 0];
+  c.addEventListener('pointerdown', (e) => {
+    if (e.button || e.target.closest('a, button')) return;
+    d = { x: e.clientX, y: e.clientY, moved: false };
+    c.style.zIndex = ++top;
+    if (e.pointerType === 'mouse') c.setPointerCapture(e.pointerId);
   });
-  shot.addEventListener('pointerleave', () => {
-    shot.style.transform = '';
-    shot.classList.remove('x');
+  c.addEventListener('pointermove', (e) => {
+    // touch scrolls the page; only a mouse moves cards
+    if (!d || e.pointerType !== 'mouse') return;
+    const dx = e.clientX - d.x, dy = e.clientY - d.y;
+    if (!d.moved && Math.hypot(dx, dy) < 6) return;
+    d.moved = true;
+    c.classList.add('drag');
+    c.style.setProperty('--tx', `${c.pos[0] + dx}px`);
+    c.style.setProperty('--ty', `${c.pos[1] + dy}px`);
   });
-  let t;
-  const on = (e) => {
-    e.preventDefault();
-    t = setTimeout(() => shot.classList.add('x'), 180);
+  const up = (e) => {
+    if (!d) return;
+    if (d.moved) {
+      c.pos = [c.pos[0] + e.clientX - d.x, c.pos[1] + e.clientY - d.y];
+      tidy.disabled = false;
+    } else if (e.type === 'pointerup') flip(c);
+    c.classList.remove('drag');
+    d = null;
   };
-  const off = () => {
-    clearTimeout(t);
-    shot.classList.remove('x');
-  };
-  shot.addEventListener('pointerdown', on);
-  shot.addEventListener('pointerup', off);
-  shot.addEventListener('pointercancel', off);
-  shot.addEventListener('contextmenu', (e) => e.preventDefault());
-}
+  c.addEventListener('pointerup', up);
+  c.addEventListener('pointercancel', up);
+});
+
+tidy.addEventListener('click', () => {
+  cards.forEach((c, i) => {
+    c.pos = [0, 0];
+    setTimeout(() => {
+      c.style.setProperty('--tx', '0px');
+      c.style.setProperty('--ty', '0px');
+    }, i * 60);
+  });
+  tidy.disabled = true;
+});
+// they turn over one after another, like a wave
+$('#flipall').addEventListener('click', (e) => {
+  const on = !cards.every((c) => c.on);
+  cards.forEach((c, i) => setTimeout(() => flip(c, on), i * 90));
+  e.currentTarget.textContent = on ? 'Turn them back' : 'Flip them all';
+});

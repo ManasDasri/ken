@@ -7,7 +7,9 @@
   <meta name="description" content="Manas Dasari trains models and checks them honestly, ships developer tools people install, and sends fixes upstream." />
   <meta property="og:title" content="Manas Dasari" />
   <meta property="og:description" content="ML research, developer tools, open source." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Cpath fill='%2322c55e' d='M1 1h2v1h1v1H3V2H1zM5 1h2v1H6v1H5z'/%3E%3Cpath fill='%23131316' d='M4 3h1v4H4z'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/png" sizes="32x32" href="img/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="img/brand/icon-192.png" />
+  <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png" />
   <script>
     // the saved theme, or the system's, before anything paints
     try {
@@ -19,12 +21,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700&text=%E3%83%9E%E3%83%8A%E3%82%B9&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- the door -->
   <div class="door" id="door">
+    <img class="door-logo" src="img/brand/logo-light.png" alt="" />
     <p class="door-kicker">MANAS DASARI · ML RESEARCH &amp; DEV TOOLS</p>
     <h2 class="door-line">I build things<br />that hold up.</h2>
     <button class="door-btn" id="enter">Step inside <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
@@ -38,27 +42,20 @@
       <span class="frame-label"># hello</span>
       <span class="coords" aria-hidden="true">X <b id="cx">0</b>&nbsp;&nbsp;Y <b id="cy">0</b></span>
 
-      <div class="frames" id="frames">
-        <a class="frame" href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener" style="--x:5%;--y:15%;--w:200px;--r:-4deg" data-label="Clause Risk Review · research">
-          <span class="frame-bar"><i></i><i></i><i></i><em>clause-risk-review.hf.space</em></span><img src="img/clause.jpg" alt="Clause Risk Review" draggable="false" />
-        </a>
-        <a class="frame" href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener" style="--x:82%;--y:13%;--w:210px;--r:3deg" data-label="Sprout · dev tool">
-          <span class="frame-bar"><i></i><i></i><i></i><em>sprout-devlabs.github.io</em></span><img src="img/sprout.jpg" alt="Sprout" draggable="false" />
-        </a>
-        <a class="frame" href="https://forme-amber.vercel.app" target="_blank" rel="noopener" style="--x:3%;--y:64%;--w:220px;--r:-2deg" data-label="Forme · components">
-          <span class="frame-bar"><i></i><i></i><i></i><em>forme-amber.vercel.app</em></span><img src="img/forme.jpg" alt="Forme" draggable="false" />
-        </a>
-        <a class="frame" href="https://flow-study.me" target="_blank" rel="noopener" style="--x:84%;--y:62%;--w:190px;--r:-5deg" data-label="Flow · study rooms">
-          <span class="frame-bar"><i></i><i></i><i></i><em>flow-study.me</em></span><img src="img/flow.jpg" alt="Flow" draggable="false" />
-        </a>
+      <div class="doodles" aria-hidden="true">
+        <img class="dd dd-1" src="img/doodles/clumsy.svg" alt="" />
+        <img class="dd dd-2" src="img/doodles/chilling.svg" alt="" />
+        <img class="dd dd-3" src="img/doodles/coffee.svg" alt="" />
+        <img class="dd dd-4" src="img/doodles/strolling.svg" alt="" />
       </div>
-      <div class="marquee-sel" id="marquee" aria-hidden="true"></div>
       <div class="hero-in">
         <p class="hi">hi there, it’s</p>
         <div class="box" id="namebox">
           <span class="box-label" id="boxlabel">researcher <b>0.97</b></span>
           <h1 class="name">Manas</h1>
+          <span class="hanko" lang="ja" title="Manas, in katakana">マナス</span>
           <i class="h h1"></i><i class="h h2"></i><i class="h h3"></i><i class="h h4"></i>
+          <img class="stk stk-hero" src="img/stickers/sparkle-four.svg" alt="" />
         </div>
         <p class="role">ML research &amp; developer tools</p>
         <div class="pixels" id="pixels" aria-hidden="true"></div>
@@ -93,33 +90,12 @@
       <span class="frame-label"># the proof</span>
       <div class="sec-head">
         <h2 class="glitch">Here’s what I’ve actually shipped.</h2>
-        <p>Before anything about me, the proof. Open a project from the explorer, or type in the terminal.</p>
+        <p>Before anything about me, the proof. Six projects, filed away. Hover a folder to pull out what’s inside.</p>
+        <img class="stk stk-arrow" src="img/stickers/down-arrow.svg" alt="" />
       </div>
-      <div class="ide" id="ide">
-        <div class="ide-bar"><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="ide-title">manas — ~/projects</span><span class="ide-branch"><svg viewBox="0 0 16 16"><circle cx="4.5" cy="3.5" r="1.5" /><circle cx="4.5" cy="12.5" r="1.5" /><circle cx="11.5" cy="5.5" r="1.5" /><path d="M4.5 5v6M11.5 7c0 3-7 2-7 4" /></svg>main</span></div>
-        <div class="ide-body">
-          <aside class="ide-tree" aria-label="Projects">
-            <p class="ide-h">EXPLORER</p>
-            <p class="ide-root">▾ projects</p>
-            <ul id="tree"></ul>
-          </aside>
-          <section class="ide-main">
-            <div class="ide-tabs" role="tablist" id="ide-tabs">
-              <button role="tab" data-tab="readme" aria-selected="true"><i class="ft md"></i>README.md</button>
-              <button role="tab" data-tab="json" aria-selected="false"><i class="ft js"></i>stack.json</button>
-            </div>
-            <div class="ide-view" id="ide-view"></div>
-            <div class="ide-term" id="ide-term">
-              <p class="ide-h">TERMINAL <span>zsh</span></p>
-              <div class="term-out" id="term-out"></div>
-              <label class="term-line"><span class="p">~/projects $</span><input id="term-in" autocomplete="off" spellcheck="false" aria-label="Terminal. Type help." placeholder="type help" /></label>
-            </div>
-          </section>
-        </div>
-        <div class="ide-status"><span id="st-lang">Go</span><span id="st-state">● v0.7.0 shipped</span><span class="st-r">UTF-8</span><span>LF</span><span>Ln 1, Col 1</span></div>
-      </div>
+      <div class="folders" id="folders"></div>
       <div class="more-bar">
-        <span>Want the details? Every project, written up with what worked and what didn’t.</span>
+        <span>Want them all at once? They’re spread out on the table.</span>
         <a class="btn" href="work.html">See all the work <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></a>
       </div>
     </section>
@@ -180,7 +156,6 @@
         <a href="resume.pdf" target="_blank" rel="noopener"><b>Résumé</b><small>one page, PDF</small><span>↗</span></a>
         <button id="copy"><b>Email</b><small>dasarimanas049@gmail.com</small><span>⧉</span></button>
       </div>
-      <p class="note n-hunt" aria-hidden="true">move your cursor over the paper</p>
     </section>
   </main>
 
