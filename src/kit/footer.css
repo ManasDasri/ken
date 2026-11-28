@@ -22,7 +22,6 @@
 .ft-social a { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: color-mix(in srgb, var(--paper) 70%, transparent); box-shadow: 0 0 0 1px var(--line); transition: translate 0.25s var(--ease); }
 .ft-social a:hover { translate: 0 -2px; }
 .ft-social img { width: 15px; height: 15px; }
-[data-theme='dark'] .ft-social img { filter: invert(1); }
 .ft-now { display: flex; align-items: center; gap: 8px; color: var(--ink) !important; }
 .ft-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: ftpulse 2.4s ease-out infinite; }
 @keyframes ftpulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 45%, transparent); } to { box-shadow: 0 0 0 8px transparent; } }

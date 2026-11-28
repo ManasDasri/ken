@@ -3,6 +3,7 @@ import { contributions, usePRs, merged, safeUrl, type Day } from './live';
 import { ago } from '@/data/github.js';
 import './kit.css';
 import './footer.css';
+import Rail from './Rail';
 
 export const PAGES = [['index', 'Home'], ['work', 'Work'], ['services', 'What I do'], ['about', 'About'], ['opensource', 'Open source'], ['contact', 'Contact']] as const;
 export const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -13,11 +14,36 @@ const GH = 'M8 1.5a6.5 6.5 0 0 0-2.06 12.67c.33.06.44-.14.44-.31v-1.1c-1.8.39-2.
 export default function Shell({ page, children }: { page: string; children: ReactNode }) {
   return (
     <div className="col">
+      <Rail />
+      <Bursts />
       <Header page={page} />
       <main>{children}</main>
       <Footer page={page} />
     </div>
   );
+}
+
+// click any of my stickers and a few more burst out of it
+function Bursts() {
+  useEffect(() => {
+    if (reduce) return;
+    const click = (e: MouseEvent) => {
+      const img = (e.target as HTMLElement).closest?.('img');
+      if (!img || !img.src.includes('/img/own/') || img.closest('a, button')) return;
+      const r = img.getBoundingClientRect();
+      for (let i = 0; i < 8; i++) {
+        const b = document.createElement('img');
+        b.src = img.src; b.className = 'burst'; b.alt = '';
+        const a = (i / 8) * Math.PI * 2 + Math.random() * 0.6, d = 60 + Math.random() * 70;
+        b.style.cssText = `left:${r.left + r.width / 2}px;top:${r.top + r.height / 2}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d - 30}px;--r:${(Math.random() - 0.5) * 120}deg;--s:${0.35 + Math.random() * 0.35}`;
+        document.body.append(b);
+        setTimeout(() => b.remove(), 900);
+      }
+    };
+    addEventListener('click', click);
+    return () => removeEventListener('click', click);
+  }, []);
+  return null;
 }
 
 function Header({ page }: { page: string }) {
@@ -33,7 +59,7 @@ function Header({ page }: { page: string }) {
     <header className="hd">
       <Banner />
       <nav className="nav" aria-label="Pages">
-        <a className="nav-logo" href="/index.html" aria-label="Home"><img src="/img/brand/logo.png" alt="" /></a>
+        <a className="nav-logo" href="/index.html" aria-label="Home"><img className="logo" src="/img/brand/logo.png" alt="" /></a>
         {PAGES.slice(1).map(([f, n]) => <a key={f} className="pill" href={`/${f}.html`} {...(f === page ? { 'aria-current': 'page' as const } : {})}>{n}</a>)}
         <span className="nav-end">
           <a className="pill" href="/opensource.html" title="Pull requests merged into other people's projects">
@@ -105,15 +131,16 @@ function Banner() {
   return <><canvas ref={cv} aria-hidden="true" /><span className="hd-tip" ref={tip} aria-hidden="true" /></>;
 }
 
-export const SOCIAL: [string, string, string, string][] = [
-  ['GitHub', '@ManasDasri', 'https://github.com/ManasDasri', 'github'],
-  ['X (Twitter)', '@ManasDmg9', 'https://x.com/ManasDmg9', 'x'],
-  ['LinkedIn', 'in/manas-dasari', 'https://www.linkedin.com/in/manas-dasari-2a52163a5/', '/img/icons/linkedin.svg'],
-  ['LeetCode', 'ManasDasari', 'https://leetcode.com/u/ManasDasari/', 'leetcode'],
-  ['Email', 'dasarimanas049@gmail.com', 'mailto:dasarimanas049@gmail.com', 'gmail'],
-  ['Résumé', 'one page, PDF', '/resume.pdf', '/img/own/contract.svg'],
+export const SOCIAL: [string, string, string, string, string][] = [
+  // name, handle, link, icon (Simple Icons slug or a local file), brand colour ('mono' follows the theme)
+  ['GitHub', '@ManasDasri', 'https://github.com/ManasDasri', 'github', 'mono'],
+  ['X (Twitter)', '@ManasDmg9', 'https://x.com/ManasDmg9', 'x', 'mono'],
+  ['LinkedIn', 'in/manas-dasari', 'https://www.linkedin.com/in/manas-dasari-2a52163a5/', '/img/icons/linkedin.svg', '#0a66c2'],
+  ['LeetCode', 'ManasDasari', 'https://leetcode.com/u/ManasDasari/', 'leetcode', '#ffa116'],
+  ['Email', 'dasarimanas049@gmail.com', 'mailto:dasarimanas049@gmail.com', 'gmail', '#ea4335'],
+  ['Résumé', 'one page, PDF', '/resume.pdf', '/img/own/contract.svg', '#e2574c'],
 ];
-export const iconSrc = (icon: string) => (icon.startsWith('/') ? icon : `https://cdn.simpleicons.org/${icon}/17171a`);
+export const iconSrc = (icon: string, colour = 'mono') => (icon.startsWith('/') ? icon : `https://cdn.simpleicons.org/${icon}${colour === 'mono' ? '/17171a' : `/${colour.slice(1)}`}`);
 const ist = () => new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' });
 
 function Footer({ page }: { page: string }) {
@@ -129,11 +156,11 @@ function Footer({ page }: { page: string }) {
       </div>
       <div className="ft-top">
         <div className="ft-brand">
-          <a className="ft-name" href="/index.html"><img src="/img/brand/logo.png" alt="" />Manas Dasari</a>
+          <a className="ft-name" href="/index.html"><img className="logo" src="/img/brand/logo.png" alt="" />Manas Dasari</a>
           <p>ML research and developer tools, from Bengaluru.</p>
           <div className="ft-social">
-            {SOCIAL.slice(0, 4).map(([n, , u, icon]) => (
-              <a key={n} href={u} target="_blank" rel="noopener" aria-label={n} title={n}><img className="mono" src={iconSrc(icon)} alt="" /></a>
+            {SOCIAL.slice(0, 4).map(([n, , u, icon, colour]) => (
+              <a key={n} href={u} target="_blank" rel="noopener" aria-label={n} title={n} style={{ '--bc': colour === 'mono' ? 'var(--ink)' : colour } as React.CSSProperties}><img className={colour === 'mono' ? 'mono' : ''} src={iconSrc(icon, colour)} alt="" /></a>
             ))}
           </div>
         </div>

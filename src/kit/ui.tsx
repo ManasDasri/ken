@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { usePeek } from './Peek';
 import { PROJECTS } from '@/data/projects.js';
 import { ago } from '@/data/github.js';
 import { usePRs, useContributions, merged, safeUrl } from './live';
@@ -8,11 +9,11 @@ import { Arrow, SOCIAL, iconSrc } from './Shell';
 export const STICKER: Record<string, string> = { clause: 'contract', eeg: 'brain', sprout: 'sprout', forme: 'sparkle', flow: 'sunset', velora: 'forecast' };
 export const sticker = (k: string) => `/img/own/${STICKER[k] ?? k}.svg`;
 
-export function Section({ title, aside, note, side = 'r', pad, foot, children, id }: {
-  title: ReactNode; aside?: ReactNode; note?: string; side?: 'l' | 'r'; pad?: boolean; foot?: ReactNode; children: ReactNode; id?: string;
+export function Section({ title, aside, note, side = 'r', pad, foot, children, id, rail }: {
+  title: ReactNode; aside?: ReactNode; note?: string; side?: 'l' | 'r'; pad?: boolean; foot?: ReactNode; children: ReactNode; id?: string; rail?: string;
 }) {
   return (
-    <section className="sec" id={id}>
+    <section className="sec" id={id} data-rail={rail ?? (typeof title === 'string' ? title : undefined)}>
       {note && (
         <p className={`note ${side}`} aria-hidden="true">
           {note}
@@ -33,15 +34,17 @@ const KINDS: [string, string, string[]][] = [
   ['Products', 'folder', ['flow', 'velora']],
 ];
 export function ProjectRows({ detail }: { detail?: boolean }) {
+  const { bind, card } = usePeek();
   return (
     <>
+      {card}
       {KINDS.map(([kind, icon, keys]) => (
         <div key={kind}>
           <div className="group"><img src={`/img/own/${icon}.svg`} alt="" /><span>{kind}</span></div>
           {keys.map((k) => {
             const p = PROJECTS.find((q) => q.k === k)!;
             return (
-              <a key={k} className="row" href={`/project.html?p=${k}`}>
+              <a key={k} className="row" href={`/project.html?p=${k}`} {...bind({ img: p.img, title: p.name, meta: `${p.stat} · ${p.statLabel}` })}>
                 <img src={sticker(k)} alt="" />
                 <b>{p.name}</b>
                 <span className="d">{p.tag}</span>
@@ -60,25 +63,25 @@ export function Socials() {
   const [copied, setCopied] = useState(false);
   return (
     <div className="grid2">
-      {SOCIAL.map(([n, s, u, icon]) => n === 'Email'
-        ? (
-          <button key={n} className="cell" style={{ textAlign: 'left' }} onClick={() => { navigator.clipboard?.writeText('dasarimanas049@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 1600); }}>
-            <span className="ic"><img src={`https://cdn.simpleicons.org/${icon}`} alt="" /></span>
-            <span style={{ minWidth: 0 }}><span className="t">{n}{copied && <span className="badge ok">copied</span>}</span><span className="s">{s}</span></span>
-          </button>
-        )
-        : (
-          <a key={n} className="cell" href={u} target="_blank" rel="noopener">
-            <span className="ic"><img className={icon.startsWith('/img/own') ? '' : 'mono'} src={iconSrc(icon)} alt="" /></span>
-            <span style={{ minWidth: 0 }}><span className="t">{n}</span><span className="s">{s}</span></span>
-          </a>
-        ))}
+      {SOCIAL.map(([n, sub, u, icon, colour]) => {
+        const inner = (
+          <>
+            <span className="ic"><img className={colour === 'mono' ? 'mono' : ''} src={iconSrc(icon, colour)} alt="" /></span>
+            <span style={{ minWidth: 0, flex: 1 }}><span className="t">{n}{n === 'Email' && copied && <span className="badge ok">copied</span>}</span><span className="s">{sub}</span></span>
+            <span className="go" aria-hidden="true">{n === 'Email' ? '⧉' : '↗'}</span>
+          </>
+        );
+        const style = { '--bc': colour === 'mono' ? 'var(--ink)' : colour } as React.CSSProperties;
+        return n === 'Email'
+          ? <button key={n} className="cell soc" style={{ ...style, textAlign: 'left' }} onClick={() => { navigator.clipboard?.writeText('dasarimanas049@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 1600); }}>{inner}</button>
+          : <a key={n} className="cell soc" style={style} href={u} target="_blank" rel="noopener">{inner}</a>;
+      })}
     </div>
   );
 }
 
 const STACK: [string, [string, string, boolean?][]][] = [
-  ['01  Models', [['Python', 'python'], ['PyTorch', 'pytorch'], ['Hugging Face', 'huggingface'], ['scikit-learn', 'scikitlearn'], ['NumPy', 'numpy'], ['Jupyter', 'jupyter']]],
+  ['01  Models', [['Python', 'python'], ['PyTorch', 'pytorch'], ['Hugging Face', 'huggingface'], ['scikit-learn', 'scikitlearn'], ['NumPy', 'numpy', true], ['Jupyter', 'jupyter']]],
   ['02  Tools & apps', [['TypeScript', 'typescript'], ['React', 'react'], ['Go', 'go'], ['Rust', 'rust', true], ['Supabase', 'supabase']]],
   ['03  Workflow', [['Git', 'git'], ['Docker', 'docker'], ['Linux', 'linux', true], ['KDE Plasma', 'kde'], ['Claude', 'claude']]],
 ];
@@ -101,7 +104,7 @@ const greeting = () => {
 };
 export function Hello() {
   return (
-    <section className="sec">
+    <section className="sec" data-rail="Hello">
       <div className="hello">
         <div className="hello-top"><h2>{greeting()}</h2><img src="/img/own/sparkle.svg" alt="" /></div>
         <ul>
@@ -140,10 +143,30 @@ export function Merges({ show = 4, all }: { show?: number; all?: boolean }) {
   );
 }
 
+// a number that counts up to itself the first time it's on screen
+function Count({ to }: { to: number }) {
+  const el = useRef<HTMLSpanElement>(null);
+  const [v, setV] = useState(0);
+  useEffect(() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { setV(to); return; }
+    let raf = 0;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const t0 = performance.now();
+      const step = (t: number) => { const k = Math.min(1, (t - t0) / 1200); setV(Math.round(to * (1 - (1 - k) ** 3))); if (k < 1) raf = requestAnimationFrame(step); };
+      raf = requestAnimationFrame(step);
+    });
+    io.observe(el.current!);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+  }, [to]);
+  return <span ref={el}>{v}</span>;
+}
+
 export function ProofStats() {
   const { items } = usePRs();
   const m = items ? merged(items) : [];
-  const n = (v: number) => (items ? v : '–');
+  const n = (v: number) => (items ? <Count to={v} /> : '–');
   return (
     <div className="stats">
       <div className="stat"><small>Merged</small><b>{n(m.length)}</b></div>
