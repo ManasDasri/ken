@@ -5,7 +5,7 @@
 /* the next project: its name, and its page peeking up from below */
 .pj-next { position: relative; display: block; height: 340px; overflow: hidden; margin-top: 40px; padding: 48px 0 0; border-top: 1px solid var(--line); }
 .pj-next span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); }
-.pj-next b { display: block; margin-top: 10px; font-weight: 300; font-size: clamp(44px, 6vw, 96px); line-height: 1; letter-spacing: -0.045em; color: var(--ink); transition: color 0.4s; }
+.pj-next b { display: block; margin-top: 10px; font-family: var(--pixel); font-weight: 400; font-size: clamp(40px, 5.4vw, 88px); line-height: 1; letter-spacing: -0.01em; color: var(--ink); transition: color 0.4s; }
 .pj-next img { position: absolute; right: 0; top: 150px; width: min(520px, 50%); aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 6px; box-shadow: var(--shadow); transition: translate 0.7s var(--ease); }
 .pj-next:hover b { color: var(--brass); }
 .pj-next:hover img { translate: 0 -60px; }

@@ -1,0 +1,21 @@
+/* the door: a painted landscape behind the title */
+.door { background: #d9dadb; color: #9c3f36; overflow: hidden; }
+.door > :not(.door-scene) { position: relative; z-index: 1; }
+.door::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.32; mix-blend-mode: multiply;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.6 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 180px 180px;
+}
+.door-scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; --mx: 0; --my: 0; }
+.ds-near { translate: calc(var(--mx) * -26px) calc(var(--my) * -10px); transition: translate 1.2s var(--ease); }
+.ds-far { translate: calc(var(--mx) * -12px) calc(var(--my) * -5px); transition: translate 1.2s var(--ease); }
+.ds-hills { translate: calc(var(--mx) * -6px) 0; transition: translate 1.2s var(--ease); }
+.ds-near > g { animation: ds-drift 48s ease-in-out infinite alternate; }
+.ds-far > g { animation: ds-drift 64s ease-in-out infinite alternate-reverse; }
+@keyframes ds-drift { to { transform: translateX(46px); } }
+@media (prefers-reduced-motion: reduce) { .ds-near > g, .ds-far > g { animation: none; } }
+
+.door .door-kicker { color: #8a5a52; }
+.door .door-line { color: #9c3f36; font-weight: 500; }
+.door .door-btn { background: #9c3f36; color: #fbf3ee; }
+.door .door-btn:hover { background: #82322b; }
+.door-scene, .door-scene * { stroke: none; }

@@ -22,16 +22,17 @@ export default function WorkStack() {
       return Math.min(N - 1, Math.max(0, -r.top / (innerHeight * STEP)));
     };
     const place = () => {
-      const t = target();
-      shown = reduce ? t : shown + (t - shown) * 0.12; // eased toward where the scroll is
+      // scrolling flips whole pages: the stack eases to the nearest project, so the front card always lands flat
+      const t = Math.round(target());
+      shown = reduce ? t : shown + (t - shown) * 0.14;
       cards.current.forEach((el, i) => {
         if (!el) return;
         const o = i - shown, a = Math.abs(o), s = Math.sign(o);
         const near = Math.min(a, 1), far = Math.max(a - 1, 0);
-        // the front card lies flat; the rest tip back like pages in a stack, packed tighter the further they are
-        const y = s * (near * 66 + Math.min(far, 4) * 19); // % of the card's height
-        const rx = -s * (near * 62 + Math.min(far, 3) * 3);
-        const sc = 1 - near * 0.08 - Math.min(far, 4) * 0.03;
+        // the front card lies flat; the rest tip over into thin slats, stacked edge to edge above and below
+        const y = s * (near * 69 + Math.min(far, 5) * 27); // % of the card's height
+        const rx = -s * near * 72;
+        const sc = 1 - near * 0.05 - Math.min(far, 5) * 0.03;
         el.style.transform = `translate(-50%, calc(-50% + ${y.toFixed(2)}%)) perspective(1400px) rotateX(${rx.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
         el.style.zIndex = String(100 - Math.round(a * 10));
         el.style.opacity = String(Math.max(0, 1 - Math.max(0, a - 3.2)));

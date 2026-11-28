@@ -1,3 +1,4 @@
+import DoorScene from '@/components/DoorScene';
 import RetroPixelButton from '@/components/rareui/RetroPixelButton';
 import SiteFooter from '@/components/SiteFooter';
 export default function Home() {
@@ -5,7 +6,8 @@ export default function Home() {
     <>
       {/* the door */}
       <div className="door" id="door">
-        <img className="door-logo" src="/img/brand/logo-light.png" alt="" />
+        <DoorScene />
+        <img className="door-logo" src="/img/brand/logo.png" alt="" />
         <p className="door-kicker">MANAS DASARI · ML RESEARCH &amp; DEV TOOLS</p>
         <h2 className="door-line">I show<br />my work.</h2>
         <button className="door-btn" id="enter">Step inside <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>

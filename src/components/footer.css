@@ -3,7 +3,7 @@
 .ft-k { margin: 0 0 18px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute); }
 
 .ft-call { padding: 110px 0 90px; }
-.ft-big { display: inline-block; font-weight: 300; font-size: clamp(40px, 6.2vw, 96px); line-height: 1; letter-spacing: -0.045em; color: var(--ink); transition: color 0.5s var(--ease); }
+.ft-big { display: inline-block; font-family: var(--pixel); font-weight: 400; font-size: clamp(38px, 5.6vw, 88px); line-height: 1.02; letter-spacing: -0.01em; color: var(--ink); transition: color 0.5s var(--ease); }
 .ft-big span { display: inline-block; margin-left: 0.18em; font-size: 0.6em; vertical-align: 0.35em; color: var(--brass); transition: translate 0.5s var(--ease); }
 .ft-big:hover { color: var(--brass); }
 .ft-big:hover span { translate: 0.12em -0.12em; }

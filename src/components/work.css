@@ -5,9 +5,9 @@
 .wk-mask { overflow: hidden; }
 .wk-mask > * { margin: 0; }
 .wk-name { grid-area: name; }
-.wk-name h2 { font-weight: 300; font-size: clamp(54px, 8.4vw, 136px); line-height: 0.95; letter-spacing: -0.045em; padding-bottom: 0.06em; }
+.wk-name h2 { font-family: var(--pixel); font-weight: 400; font-size: clamp(48px, 7.2vw, 120px); line-height: 1; letter-spacing: -0.01em; padding-bottom: 0.08em; }
 .wk-q { grid-area: q; }
-.wk-q p { max-width: 24ch; font-weight: 400; font-size: clamp(21px, 2vw, 27px); line-height: 1.3; letter-spacing: -0.015em; color: var(--soft); }
+.wk-q p { max-width: 26ch; font-weight: 500; font-size: clamp(21px, 2vw, 27px); line-height: 1.3; letter-spacing: -0.015em; color: var(--soft); }
 
 .wk-shot { grid-area: shot; display: block; position: relative; overflow: hidden; background: var(--card); border: 1px solid var(--line); }
 .wk-shot > a { display: block; height: 100%; }
@@ -49,7 +49,7 @@
 .v1 .wk-links { justify-content: center; } .v1 .wk-links span { margin-left: 0; }
 /* 03: mirrored, the page left */
 .v2 { grid-template-columns: 7fr 5fr; grid-template-areas: 'meta meta' 'shot name' 'shot q' 'shot body' 'shot stat' 'links links'; }
-.v2 .wk-name h2 { font-size: clamp(54px, 6.4vw, 104px); }
+.v2 .wk-name h2 { font-size: clamp(46px, 5.6vw, 92px); }
 .v2 .wk-shot { align-self: start; } .v2 .wk-shot img { aspect-ratio: 4 / 5; }
 /* 04: three crops hung at different heights */
 .v3 { grid-template-columns: 1fr 1fr; grid-template-areas: 'meta meta' 'name q' 'shot shot' 'stat body' 'links links'; }
