@@ -1,48 +1,59 @@
-/* ---------- Spider-Verse glitch: slices, a magenta/cyan split, and a dimension flicker ---------- */
-.gl { position: relative; display: inline-block; isolation: isolate; cursor: default; }
-.gl > span { display: inline-block; position: relative; }
-.gl::before, .gl::after { content: attr(data-text); position: absolute; inset: 0; opacity: 0; pointer-events: none; white-space: nowrap; }
-.gl::before { color: #ff2e93; z-index: -1; }
-.gl::after { color: #19d3f7; z-index: -1; }
-[data-theme='dark'] .gl::before, [data-theme='dark'] .gl::after { mix-blend-mode: screen; }
+/* ---------- Spider-Verse glitch, one word at a time ---------- */
+.gl { cursor: default; }
+.gw { position: relative; display: inline-block; isolation: isolate; text-align: center; white-space: nowrap; }
+.gw > span { display: inline-block; position: relative; z-index: 1; }
+.gw::before, .gw::after { content: attr(data-text); position: absolute; inset: 0; opacity: 0; pointer-events: none; white-space: nowrap; }
+.gw::before { color: #ff2e93; }
+.gw::after { color: #12c8f0; }
 
-.gl.go > span { animation: gl-main 0.62s steps(1, end); }
-.gl.go::before { opacity: 0.95; animation: gl-a 0.62s steps(1, end); }
-.gl.go::after { opacity: 0.95; animation: gl-b 0.62s steps(1, end); }
+.gw.go > span { animation: gw-main 0.68s steps(1, end); }
+.gw.go::before { opacity: 1; animation: gw-a 0.68s steps(1, end) forwards; }
+.gw.go::after { opacity: 1; animation: gw-b 0.68s steps(1, end) forwards; }
 
-/* the real text: torn into slices that jump sideways, with two frames from other dimensions */
-@keyframes gl-main {
-  0% { clip-path: inset(0 0 0 0); transform: none; }
-  8% { clip-path: polygon(0 0, 100% 0, 100% 32%, 0 32%, 0 40%, 100% 40%, 100% 100%, 0 100%); transform: translateX(-3px); }
-  16% { clip-path: inset(0 0 0 0); transform: translate(4px, -1px) skewX(-10deg); font-family: var(--sans); font-weight: 900; letter-spacing: -0.04em; }
-  24% { transform: translateX(-2px); text-shadow: 3px 0 #ff2e93, -3px 0 #19d3f7; }
-  32% { clip-path: inset(46% 0 30% 0); transform: translateX(8px); }
-  40% { clip-path: inset(0 0 0 0); transform: none; font-family: Georgia, 'Times New Roman', serif; font-style: italic; letter-spacing: 0; }
-  48% { transform: translateX(2px); background: radial-gradient(circle, currentColor 0.9px, transparent 1.3px) 0 0 / 4px 4px; -webkit-background-clip: text; background-clip: text; color: transparent; }
-  56% { transform: translate(-5px, 1px); clip-path: inset(10% 0 62% 0); }
-  64% { clip-path: inset(0 0 0 0); transform: none; text-shadow: -2px 0 #ff2e93, 2px 0 #19d3f7; }
-  76% { transform: translateX(1px); }
-  100% { transform: none; }
+/* the word itself: comic panel, torn slices, another comic panel, then home */
+@keyframes gw-main {
+  0% { transform: translateX(-7px); }
+  9%, 20% {
+    font-family: 'Bangers', var(--sans); letter-spacing: 0.02em; color: transparent;
+    background: radial-gradient(circle, #ff2e93 1.1px, transparent 1.5px) 0 0 / 5px 5px, #ffe14d; -webkit-background-clip: text; background-clip: text;
+    -webkit-text-stroke: 1.3px #141414; text-shadow: 4px 3px 0 #ff2e93, -3px -2px 0 #12c8f0;
+    transform: rotate(-5deg) scale(1.3);
+  }
+  21% { clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%, 0 46%, 100% 46%, 100% 100%, 0 100%); transform: translateX(9px); }
+  31% { clip-path: inset(0 0 52% 0); transform: translateX(-10px); }
+  38%, 50% {
+    font-family: 'Bangers', var(--sans); letter-spacing: 0.02em; color: transparent;
+    background: radial-gradient(circle, #141414 1px, transparent 1.4px) 0 0 / 4px 4px, #12c8f0; -webkit-background-clip: text; background-clip: text;
+    -webkit-text-stroke: 1.3px #141414; text-shadow: -4px 3px 0 #ffe14d, 3px -2px 0 #ff2e93;
+    transform: rotate(4deg) scale(1.12) translateY(2px);
+  }
+  51% { clip-path: inset(30% 0 0 0); transform: translateX(6px); text-shadow: 3px 0 #ff2e93, -3px 0 #12c8f0; }
+  62% { transform: translate(-3px, 1px); text-shadow: -3px 0 #ff2e93, 3px 0 #12c8f0; }
+  74% { transform: translateX(2px) skewX(-8deg); }
+  86%, 100% { transform: none; }
 }
-/* the magenta copy */
-@keyframes gl-a {
-  0% { transform: translate(-4px, 0); clip-path: inset(8% 0 62% 0); }
-  12% { transform: translate(6px, -1px); clip-path: inset(52% 0 18% 0); }
-  24% { transform: translate(-7px, 1px); clip-path: inset(0 0 84% 0); }
-  36% { transform: translate(3px, 0); clip-path: inset(70% 0 4% 0); }
-  48% { transform: translate(-3px, 0); clip-path: inset(30% 0 44% 0); }
-  60% { transform: translate(5px, 0); clip-path: inset(86% 0 0 0); }
-  72% { transform: translate(-2px, 0); clip-path: inset(20% 0 60% 0); }
-  100% { clip-path: inset(0 0 100% 0); }
+/* the magenta and cyan ghosts, torn into bands, out of step with each other */
+@keyframes gw-a {
+  0% { transform: translate(-6px, 2px); clip-path: inset(8% 0 58% 0); }
+  20% { transform: translate(8px, -2px); clip-path: inset(50% 0 16% 0); }
+  38% { opacity: 0; }
+  52% { opacity: 1; transform: translate(-9px, 0); clip-path: inset(0 0 72% 0); }
+  64% { transform: translate(4px, 1px); clip-path: inset(66% 0 6% 0); }
+  80%, 100% { opacity: 0; }
 }
-/* the cyan copy, out of step with it */
-@keyframes gl-b {
-  0% { transform: translate(4px, 0); clip-path: inset(60% 0 12% 0); }
-  14% { transform: translate(-6px, 1px); clip-path: inset(14% 0 66% 0); }
-  28% { transform: translate(5px, 0); clip-path: inset(78% 0 2% 0); }
-  42% { transform: translate(-4px, -1px); clip-path: inset(36% 0 40% 0); }
-  56% { transform: translate(7px, 0); clip-path: inset(4% 0 80% 0); }
-  70% { transform: translate(-3px, 0); clip-path: inset(48% 0 30% 0); }
-  100% { clip-path: inset(0 0 100% 0); }
+@keyframes gw-b {
+  0% { transform: translate(6px, -2px); clip-path: inset(56% 0 10% 0); }
+  20% { transform: translate(-8px, 2px); clip-path: inset(10% 0 62% 0); }
+  38% { opacity: 0; }
+  52% { opacity: 1; transform: translate(9px, 0); clip-path: inset(70% 0 0 0); }
+  64% { transform: translate(-5px, -1px); clip-path: inset(24% 0 50% 0); }
+  80%, 100% { opacity: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .gl.go > span, .gl.go::before, .gl.go::after { animation: none; opacity: 0; } }
+/* striped glitch bars that blink around the word */
+.gbar {
+  position: absolute; z-index: 2; pointer-events: none; opacity: 0;
+  background: repeating-linear-gradient(90deg, #ff2e93 0 3px, #12c8f0 3px 6px, #141414 6px 8px, transparent 8px 11px);
+  animation: gbar 0.36s steps(1, end) forwards;
+}
+@keyframes gbar { 0% { opacity: 1; } 30% { opacity: 0; } 55% { opacity: 1; transform: translateX(10px); } 85%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .gw.go > span, .gw.go::before, .gw.go::after, .gbar { animation: none; opacity: 0; } .gw.go > span { opacity: 1; } }
