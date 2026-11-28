@@ -99,7 +99,7 @@ $$('.pitch .line > *').forEach((el, i) => (el.style.animationDelay = `${1.3 + i 
       </div>
       <div class="fd-paper fd-shot"><img src="${p.img}" alt="${p.name}, the site" loading="lazy" /></div>
       <div class="fd-front">
-        <img class="stk fd-stk" src="img/stickers/${p.sticker}.svg" alt="" />
+        <img class="stk fd-stk" src="/img/stickers/${p.sticker}.svg" alt="" />
         <div class="fd-label"><small>No. ${pad(i)} — ${p.stack.join(' · ')}</small><h3>${p.name}</h3></div>
         <p class="fd-tag">${p.tag}</p>
         <footer>

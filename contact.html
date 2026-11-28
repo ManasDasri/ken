@@ -7,9 +7,9 @@
   <meta name="description" content="Manas Dasari trains models and checks them honestly, ships developer tools people install, and sends fixes upstream." />
   <meta property="og:title" content="Manas Dasari" />
   <meta property="og:description" content="ML research, developer tools, open source." />
-  <link rel="icon" type="image/png" sizes="32x32" href="img/brand/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="img/brand/icon-192.png" />
-  <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/img/brand/icon-192.png" />
+  <link rel="apple-touch-icon" href="/img/brand/apple-touch-icon.png" />
   <script>
     // the saved theme, or the system's, before anything paints
     try {
@@ -22,39 +22,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="in">
-  <header class="chrome"></header>
-  <main class="subpage">
-    <section class="contact" id="contact">
-      <div class="ascii" id="ascii" aria-hidden="true"></div>
-      <span class="frame-label"># say hi</span>
-      <div class="cbox">
-        <div class="cbox-copy">
-          <p class="kicker">GOT A HUNCH?</p>
-          <h2 class="glitch">Let’s go test it.</h2>
-          <p>Internships, research, or a model you need built and tested properly. Pick a day and I’ll get back to you to set up a call.</p>
-        </div>
-        <div class="cal" id="cal">
-          <div class="cal-head"><button id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" /></svg></button><b id="cal-title"></b><button id="cal-next" aria-label="Next month"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" /></svg></button></div>
-          <div class="cal-grid" id="cal-grid" role="grid"></div>
-          <p class="cal-pick" id="cal-pick">Pick a day</p>
-          <a class="btn wide" id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk">Request a call <svg viewBox="0 0 16 16"><path d="M4 12 12 4M5 4h7v7" /></svg></a>
-        </div>
-      </div>
-      <div class="tiles">
-        <a href="https://github.com/ManasDasri" target="_blank" rel="noopener"><b>GitHub</b><small>ManasDasri</small><span>↗</span></a>
-        <a href="https://www.linkedin.com/in/manas-dasari-2a52163a5/" target="_blank" rel="noopener"><b>LinkedIn</b><small>in/manas-dasari</small><span>↗</span></a>
-        <a href="https://x.com/ManasDmg9" target="_blank" rel="noopener"><b>X</b><small>@ManasDmg9</small><span>↗</span></a>
-        <a href="https://leetcode.com/u/ManasDasari/" target="_blank" rel="noopener"><b>LeetCode</b><small>ManasDasari</small><span>↗</span></a>
-        <a href="resume.pdf" target="_blank" rel="noopener"><b>Résumé</b><small>one page, PDF</small><span>↗</span></a>
-        <button id="copy"><b>Email</b><small>dasarimanas049@gmail.com</small><span>⧉</span></button>
-      </div>
-    </section>
-  </main>
-  <footer class="foot"></footer>
-  <script type="module" src="common.js"></script>
-  <script type="module" src="motion.js"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/pages/contact.entry.tsx"></script>
 </body>
 </html>

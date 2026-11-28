@@ -2,7 +2,7 @@
 // and the hero doodles can be dragged around and spring back home. Loaded last on every page, so the
 // pixel headings (common.js) and the folders (main.js) already exist. Nothing is hidden until this
 // file has loaded, so if the CDN is down the page is simply static.
-import { animate, stagger, splitText, createDraggable, spring } from 'https://cdn.jsdelivr.net/npm/animejs@4.5.0/dist/bundles/anime.esm.min.js';
+import { animate, stagger, splitText, createDraggable, spring } from 'animejs';
 
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const hide = (els) => els.forEach((e) => (e.style.opacity = '0'));

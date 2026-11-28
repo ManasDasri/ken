@@ -830,3 +830,4 @@ html.px-in body::after { content: ''; position: fixed; inset: 0; z-index: 300; b
 }
 [data-theme='dark'] .bgfx b { mix-blend-mode: screen; opacity: 0.12; }
 @media (prefers-reduced-motion: reduce) { .bgfx i { animation: none; } }
+#root { display: contents; }

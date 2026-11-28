@@ -55,9 +55,9 @@ const chrome = $('header.chrome');
 if (chrome && !chrome.children.length) {
   chrome.innerHTML = `
     <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
-    <a href="index.html" class="mark" aria-label="Home"><img src="img/brand/logo.png" alt="" /></a>
+    <a href="/index.html" class="mark" aria-label="Home"><img src="/img/brand/logo.png" alt="" /></a>
     <nav class="tabs" aria-label="Pages">
-      ${PAGES.map(([file, name, c, icon]) => `<a href="${file}.html" class="tab${file === here ? ' on' : ''}" data-c="${c}"${file === here ? ' aria-current="page"' : ''}>${svg(ICON[icon])}<span>${name}</span>${file === 'work' ? '<b class="tab-peek" aria-hidden="true"><i></i><i></i><i></i></b>' : ''}</a>`).join('')}
+      ${PAGES.map(([file, name, c, icon]) => `<a href="/${file}.html" class="tab${file === here ? ' on' : ''}" data-c="${c}"${file === here ? ' aria-current="page"' : ''}>${svg(ICON[icon])}<span>${name}</span>${file === 'work' ? '<b class="tab-peek" aria-hidden="true"><i></i><i></i><i></i></b>' : ''}</a>`).join('')}
       <button class="tab-new" id="newtab" aria-label="New tab">${svg('<path d="M8 3v10M3 8h10" />')}</button>
     </nav>
     <div class="chrome-end">
@@ -74,7 +74,7 @@ if (foot && !foot.children.length) {
   foot.innerHTML = `
     <div class="ft-top">
       <div class="ft-brand">
-        <a class="ft-name" href="index.html"><img src="img/brand/logo.png" alt="" />Manas Dasari</a>
+        <a class="ft-name" href="/index.html"><img src="/img/brand/logo.png" alt="" />Manas Dasari</a>
         <p>Show your work. Ship the tool. Report the nulls.</p>
         <p class="ft-now"><i></i>Open to internships · <span class="clock">my time <b></b> IST</span></p>
         <p class="ft-live" hidden><span>Latest merge</span><a target="_blank" rel="noopener"></a><em></em></p>
@@ -85,7 +85,7 @@ if (foot && !foot.children.length) {
     </div>
     <div class="ft-bar"><span>© 2026 Manas Dasari</span><span>Hand-built in plain HTML, CSS and JavaScript</span><button class="ft-up" type="button">Back to top <span aria-hidden="true">↑</span></button></div>
     <div class="ft-sign" aria-hidden="true">
-      <img class="ft-doodle" src="img/doodles/chilling.svg" alt="" />
+      <img class="ft-doodle" src="/img/doodles/chilling.svg" alt="" />
       <canvas class="ft-led"></canvas>
     </div>`;
   $('.ft-up', foot).addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
