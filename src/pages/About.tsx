@@ -1,102 +1,55 @@
-import RetroPixelButton from '@/components/rareui/RetroPixelButton';
-import SiteFooter from '@/components/SiteFooter';
+import Shell from '@/kit/Shell';
+import { Section, Stack } from '@/kit/ui';
+
+const STORY = [
+  ['I started with the web and stayed for the models.', 'I built web apps first: shared study rooms, a stock forecaster, dashboards. Then I started training models, and found the part I actually love: finding out whether something is true.'],
+  ['A good-looking number is the easy part.', 'With a small dataset, a model that knows nothing can still look impressive. So I split by person or by contract, tune thresholds on validation data only, and compare every score against chance.'],
+  ['My failed experiments get a page too.', 'Legal-BERT didn’t beat BERT. The EEG expertise result was confounded by sex. Both sit on the results pages, not buried in a footnote.'],
+  ['I build the tools I need.', 'Opening an unfamiliar repo means guessing which files matter, so I built Sprout: a Go binary on Homebrew that coding agents call over MCP.'],
+  ['When the laptop’s shut.', 'Weekend animal-welfare events with Barket, ricing KDE Plasma on Linux until it looks right, and following markets and how trading systems work.'],
+];
+const RULES = [
+  ['Split before I look.', 'Train, validation and test are fixed per person or per contract and saved to disk before a model ever runs, so nothing leaks across.'],
+  ['Beat a baseline, or say so.', 'Every score sits next to chance and a simple baseline. If a model only matches “sex alone” or “time on task”, that is the result.'],
+  ['Report the nulls.', 'The predictions that failed go on the same page as the ones that held, with the same detail.'],
+  ['Ship it with tests.', '90 tests pin the decisions in Clause Risk Review; Forme’s accessibility badges fail CI when the code doesn’t back them.'],
+];
+const WHEN = [
+  ['Nov 2026', 'Released Flow v1.0', 'Study rooms with a shared sunset timer.'],
+  ['Nov 2026', 'First PRs merged into rules_go and gpui-kit', 'Plus Netcatty, gpui-fast and agent-manager the same month.'],
+  ['Oct 2026', 'First PR merged into Gleam', 'Hex diff links in the CLI. Attended IndiaFOSS 2026 in Bengaluru.'],
+  ['Sep 2026', 'Shipped Sprout, and Smart India Hackathon', 'Homebrew tap, Scoop bucket and Linux packages; FieldLensAI for SIH.'],
+  ['Aug 2026', 'Exercism’s VB.NET track, and Kaggle', 'Twelve exercises synced; ML fundamentals from scratch.'],
+  ['Jun 2026', 'Started Flow', 'Virtual study rooms, peer to peer.'],
+  ['Dec 2025', 'Started Atmos', 'Air-quality sensor placement for Bengaluru.'],
+];
+
 export default function About() {
   return (
-    <>
-      <header className="chrome"></header>
-      <div className="toast" id="toast" role="status"></div>
-      <main className="about">
-        <section className="ab-hero">
-          <span className="frame-label"># about</span>
-          <h1 className="glitch ab-title">I build models, then try to prove them wrong.</h1>
-          <p className="ab-sub">The short version: I care more about whether a result holds than whether it looks good. The longer version is below.</p>
-        </section>
-
-        <ol className="story" id="story">
-          <li><span className="sn">01</span><div><h2 data-plain="I started with the web and stayed for the models." data-paper="On a transition from web systems to empirical machine learning.">I started with the web and stayed for the models.</h2>
-            <p data-plain="I built web apps first: shared study rooms, a stock forecaster, dashboards. Then I started training models, and found the part I actually love: finding out whether something is true." data-paper="Prior work comprised several web systems (real-time collaboration, Monte Carlo forecasting, dashboards). The author subsequently moved to empirical ML, motivated primarily by questions of validity.">I built web apps first: shared study rooms, a stock forecaster, dashboards. Then I started training models, and found the part I actually love: finding out whether something is true.</p></div></li>
-          <li><span className="sn">02</span><div><h2 data-plain="A good-looking number is the easy part." data-paper="On the construction of leakage-safe evaluations.">A good-looking number is the easy part.</h2>
-            <p data-plain="With a small dataset, a model that knows nothing can still look impressive. So I split by person or by contract, tune thresholds on validation data only, and compare every score against chance." data-paper="All reported metrics are conditioned on subject- or document-level splits, validation-only threshold selection, and permutation-derived null distributions.">With a small dataset, a model that knows nothing can still look impressive. So I split by person or by contract, tune thresholds on validation data only, and compare every score against chance.</p></div></li>
-          <li><span className="sn">03</span><div><h2 data-plain="My failed experiments get a page too." data-paper="Negative results are reported in full.">My failed experiments get a page too.</h2>
-            <p data-plain="Legal-BERT didn’t beat BERT. The EEG expertise result was confounded by sex. Both sit on the results pages, not buried in a footnote." data-paper="Domain-adaptive pretraining yielded no measurable gain (ΔF1 = −0.005), and the expertise effect was confounded with participant sex; both findings are reported alongside positive results.">Legal-BERT didn’t beat BERT. The EEG expertise result was confounded by sex. Both sit on the results pages, not buried in a footnote.</p></div></li>
-          <li><span className="sn">04</span><div><h2 data-plain="I build the tools I need." data-paper="On tooling as a research by-product.">I build the tools I need.</h2>
-            <p data-plain="Opening an unfamiliar repo means guessing which files matter, so I built Sprout: a Go binary on Homebrew that coding agents call over MCP. Forme, Flow and Velora are on the work page." data-paper="To reduce orientation cost in unfamiliar codebases, the author developed Sprout, a single-binary tool exposing structural project maps to language-model agents via the Model Context Protocol.">Opening an unfamiliar repo means guessing which files matter, so I built Sprout: a Go binary on Homebrew that coding agents call over MCP. Forme, Flow and Velora are on the work page.</p>
-            <div className="pills"><a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener"><i style={{ "background": "#22c55e" } as React.CSSProperties}></i>Sprout</a><a href="https://forme-amber.vercel.app" target="_blank" rel="noopener"><i style={{ "background": "#a855f7" } as React.CSSProperties}></i>Forme</a><a href="https://flow-study.me" target="_blank" rel="noopener"><i style={{ "background": "#ec4899" } as React.CSSProperties}></i>Flow</a><a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener"><i style={{ "background": "#f97316" } as React.CSSProperties}></i>Velora</a></div></div></li>
-          <li className="off"><span className="sn">05</span><div><h2 data-plain="When the laptop’s shut." data-paper="Extracurricular observations.">When the laptop’s shut.</h2>
-            <p data-plain="Weekend animal-welfare events with Barket, ricing KDE Plasma on Linux until it looks right, and following markets and how trading systems work." data-paper="Outside research hours, the author volunteers in animal welfare outreach (Barket), customises Linux desktop environments (KDE Plasma), and studies financial markets observationally.">Weekend animal-welfare events with Barket, ricing KDE Plasma on Linux until it looks right, and following markets and how trading systems work.</p></div></li>
-        </ol>
-
-        <section className="rules">
-          <h2 className="glitch ab-h">Four rules on every project.<svg className="squiggle" viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2 12 C 60 4, 120 18, 190 10 S 320 4, 398 12" /></svg></h2>
-          <div className="rule-grid">
-            <article><b className="c-blue">01</b><h3>Split before I look.</h3><p>Train, validation and test are fixed per person or per contract and saved to disk before a model ever runs, so nothing leaks across.</p></article>
-            <article><b className="c-green">02</b><h3>Beat a baseline, or say so.</h3><p>Every score sits next to chance and a simple baseline. If a model only matches “sex alone” or “time on task”, that is the result.</p></article>
-            <article><b className="c-yellow">03</b><h3>Report the nulls.</h3><p>The predictions that failed go on the same page as the ones that held, with the same detail.</p></article>
-            <article><b className="c-purple">04</b><h3>Ship it with tests.</h3><p>90 tests pin the decisions in Clause Risk Review; Forme’s accessibility badges fail CI when the code doesn’t back them.</p></article>
-          </div>
-        </section>
-
-        <section className="where">
-          <h2 className="glitch ab-h">Where I’ve been.</h2>
-          <ol className="tl">
-            <li style={{ "--c": "#3b82f6" } as React.CSSProperties}><time>Nov 2026</time><div><b>Released Flow v1.0</b><p>Study rooms with a shared sunset timer.</p></div></li>
-            <li style={{ "--c": "#22c55e" } as React.CSSProperties}><time>Nov 2026</time><div><b>First PRs merged into rules_go and gpui-kit</b><p>Plus Netcatty, gpui-fast and agent-manager the same month.</p></div></li>
-            <li style={{ "--c": "#f5b800" } as React.CSSProperties}><time>Oct 2026</time><div><b>First PR merged into Gleam</b><p>Hex diff links in the CLI. Attended IndiaFOSS 2026 in Bengaluru.</p></div></li>
-            <li style={{ "--c": "#a855f7" } as React.CSSProperties}><time>Sep 2026</time><div><b>Shipped Sprout, and Smart India Hackathon</b><p>Homebrew tap, Scoop bucket and Linux packages; FieldLensAI for SIH.</p></div></li>
-            <li style={{ "--c": "#ec4899" } as React.CSSProperties}><time>Aug 2026</time><div><b>Exercism’s VB.NET track, and Kaggle</b><p>Twelve exercises synced; ML fundamentals from scratch.</p></div></li>
-            <li style={{ "--c": "#f97316" } as React.CSSProperties}><time>Jun 2026</time><div><b>Started Flow</b><p>Virtual study rooms, peer to peer.</p></div></li>
-            <li style={{ "--c": "#94a3b8" } as React.CSSProperties}><time>Dec 2025</time><div><b>Started Atmos</b><p>Air-quality sensor placement for Bengaluru.</p></div></li>
-          </ol>
-          <div className="edu">
-            <p><b>Education:</b> CSE undergrad, Amrita School of Engineering, class of 2028. <span className="redact" tabIndex={0}>Currently in my 5th semester,</span> <span className="redact" tabIndex={0}>coding since January 2026.</span></p>
-            <small>scrub the black bits</small>
-          </div>
-        </section>
-
-        <section className="loans-row">
-          <div className="logos">
-            <a href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener"><img src="https://github.com/zed-industries.png?size=64" alt="" />Zed</a>
-            <a href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><img src="https://github.com/gleam-lang.png?size=64" alt="" />Gleam</a>
-            <a href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><img src="https://github.com/bazel-contrib.png?size=64" alt="" />rules_go</a>
-            <a href="https://github.com/longbridge/gpui-kit/pull/4018" target="_blank" rel="noopener"><img src="https://github.com/longbridge.png?size=64" alt="" />gpui-kit</a>
-            <a href="https://github.com/binaricat/Netcatty/pull/4202" target="_blank" rel="noopener"><img src="https://github.com/binaricat.png?size=64" alt="" />Netcatty</a>
-            <a href="https://github.com/exercism/vbnet/pulls?q=is%3Apr+is%3Amerged+author%3AManasDasri" target="_blank" rel="noopener"><img src="https://github.com/exercism.png?size=64" alt="" />Exercism</a>
-          </div>
-          <p className="note">projects I’ve sent fixes to ↗</p>
-        </section>
-
-        <section className="tools">
-          <h2 className="glitch ab-h">The tools I work in.</h2>
-          <p className="ab-sub">What I open every day, from the first notebook to the release.</p>
-          <div className="dock" id="dock" role="list">
-            <span role="listitem" data-n="Python"><img src="https://cdn.simpleicons.org/python" alt="Python" /></span>
-            <span role="listitem" data-n="PyTorch"><img src="https://cdn.simpleicons.org/pytorch" alt="PyTorch" /></span>
-            <span role="listitem" data-n="Hugging Face"><img src="https://cdn.simpleicons.org/huggingface" alt="Hugging Face" /></span>
-            <span role="listitem" data-n="scikit-learn"><img src="https://cdn.simpleicons.org/scikitlearn" alt="scikit-learn" /></span>
-            <span role="listitem" data-n="NumPy"><img src="https://cdn.simpleicons.org/numpy" alt="NumPy" /></span>
-            <span role="listitem" data-n="Jupyter"><img src="https://cdn.simpleicons.org/jupyter" alt="Jupyter" /></span>
-            <i className="sep" aria-hidden="true"></i>
-            <span role="listitem" data-n="Go"><img src="https://cdn.simpleicons.org/go" alt="Go" /></span>
-            <span role="listitem" data-n="TypeScript"><img src="https://cdn.simpleicons.org/typescript" alt="TypeScript" /></span>
-            <span role="listitem" data-n="React"><img src="https://cdn.simpleicons.org/react" alt="React" /></span>
-            <span role="listitem" data-n="Rust"><img src="https://cdn.simpleicons.org/rust/131316/ededf1" alt="Rust" /></span>
-            <span role="listitem" data-n="Supabase"><img src="https://cdn.simpleicons.org/supabase" alt="Supabase" /></span>
-            <i className="sep" aria-hidden="true"></i>
-            <span role="listitem" data-n="Git"><img src="https://cdn.simpleicons.org/git" alt="Git" /></span>
-            <span role="listitem" data-n="Docker"><img src="https://cdn.simpleicons.org/docker" alt="Docker" /></span>
-            <span role="listitem" data-n="Linux"><img src="https://cdn.simpleicons.org/linux/131316/ededf1" alt="Linux" /></span>
-            <span role="listitem" data-n="KDE Plasma"><img src="https://cdn.simpleicons.org/kde" alt="KDE Plasma" /></span>
-          </div>
-        </section>
-
-        <section className="ab-cta">
-          <p className="kicker">HAVE SOMETHING IN MIND?</p>
-          <h2 className="glitch ab-h">Tell me what you’re building.</h2>
-          <div className="cta"><RetroPixelButton href="index.html#contact" pixelColor="var(--brass)">Pick a day to talk</RetroPixelButton><RetroPixelButton href="resume.pdf" target="_blank" rel="noopener" pixelColor="var(--mute)">Résumé</RetroPixelButton></div>
-        </section>
-      </main>
-
-      <SiteFooter />
-    </>
+    <Shell page="about">
+      <div className="intro">
+        <h2 style={{ marginTop: 6 }}>I build models, then try to prove them wrong.</h2>
+        <p>The short version: I care more about whether a result holds than whether it looks good. CSE undergrad at Amrita School of Engineering, class of 2028.</p>
+      </div>
+      <Section title="The longer version">
+        {STORY.map(([t, d]) => <div className="tl" key={t} style={{ gridTemplateColumns: '1fr' }}><div><b>{t}</b><p>{d}</p></div></div>)}
+      </Section>
+      <Section title="Four rules on every project" note="the same four, every time" side="l">
+        <div className="grid2">
+          {RULES.map(([t, d], i) => (
+            <div className="cell" key={t}>
+              <span className="ic" style={{ font: '12px var(--mono)', color: 'var(--mute)' }}>0{i + 1}</span>
+              <span><span className="t">{t}</span><p>{d}</p></span>
+            </div>
+          ))}
+        </div>
+      </Section>
+      <Section title="Where I’ve been">
+        {WHEN.map(([w, t, d]) => <div className="tl" key={t}><span>{w}</span><div><b>{t}</b><p>{d}</p></div></div>)}
+      </Section>
+      <Section title="The tools I work in" note="from the first notebook to the release">
+        <Stack />
+      </Section>
+    </Shell>
   );
 }

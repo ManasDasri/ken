@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { PROJECTS } from '@/legacy/cards.js';
+import { PROJECTS } from '@/data/projects.js';
 import './stack.css';
 
 const N = PROJECTS.length;

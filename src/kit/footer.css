@@ -1,0 +1,41 @@
+/* ================= footer: a quote, the links, then a soft grainy landscape ================= */
+.ft { position: relative; margin-top: 40px; overflow: hidden; isolation: isolate; border-top: 1px solid var(--line);
+  background: linear-gradient(var(--paper) 0, var(--paper) 30%, #f3f1f8 62%, #f9e4dc); }
+[data-theme='dark'] .ft { background: linear-gradient(var(--paper) 0, var(--paper) 30%, #1a1822 62%, #2a1a1a); }
+/* heavy grain over the lower half, landscape included */
+.ft::after {
+  content: ''; position: absolute; inset: 35% 0 0; z-index: 3; pointer-events: none; opacity: 0.55; mix-blend-mode: overlay;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0 / 160px 160px;
+  -webkit-mask: linear-gradient(transparent, #000 30%); mask: linear-gradient(transparent, #000 30%);
+}
+.ft > :not(.ft-land) { position: relative; z-index: 2; }
+.ft-top { display: grid; grid-template-columns: 1.5fr 0.8fr 1fr; gap: 32px; padding: 30px 24px 34px; font-size: 14px; }
+.ft-k { margin: 0 0 12px; font-weight: 600; color: var(--ink); }
+.ft-top nav, .ft-top > div:not(.ft-brand) { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; min-width: 0; }
+.ft-top a { color: var(--soft); transition: color 0.2s; }
+.ft-top a:hover, .ft-top a[aria-current] { color: var(--ink); }
+.ft-top p { margin: 0; color: var(--soft); }
+.ft-name { display: inline-flex; align-items: center; gap: 10px; font: 400 22px var(--brand); color: var(--ink) !important; }
+.ft-name img { width: 30px; height: 30px; }
+.ft-brand > p { margin: 10px 0 16px; }
+.ft-social { display: flex; gap: 8px; }
+.ft-social a { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: color-mix(in srgb, var(--paper) 70%, transparent); box-shadow: 0 0 0 1px var(--line); transition: translate 0.25s var(--ease); }
+.ft-social a:hover { translate: 0 -2px; }
+.ft-social img { width: 15px; height: 15px; }
+[data-theme='dark'] .ft-social img { filter: invert(1); }
+.ft-now { display: flex; align-items: center; gap: 8px; color: var(--ink) !important; }
+.ft-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: ftpulse 2.4s ease-out infinite; }
+@keyframes ftpulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 45%, transparent); } to { box-shadow: 0 0 0 8px transparent; } }
+.ft-top p a { border-bottom: 1px solid var(--line); }
+.ft-base { display: flex; justify-content: space-between; gap: 10px; margin: 0 24px; padding: 14px 0; border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); font-size: 12.5px; color: var(--mute); }
+.ft-base button { color: var(--soft); } .ft-base button:hover { color: var(--ink); }
+.ft-land { display: block; width: 100%; height: clamp(180px, 26vw, 300px); margin-top: -30px; }
+[data-theme='dark'] .ft-land { filter: brightness(0.7) saturate(0.9); }
+.ft-land path { transform-origin: 50% 100%; transform-box: fill-box; animation: ftsway 22s ease-in-out infinite alternate; }
+.ft-land .ft-h2 { animation-duration: 28s; animation-direction: alternate-reverse; }
+.ft-land .ft-h3 { animation-duration: 18s; }
+.ft-land .ft-h4 { animation-duration: 25s; animation-direction: alternate-reverse; }
+.ft-land .ft-h5 { animation: none; }
+@keyframes ftsway { to { transform: translateX(-50px) scaleY(1.06); } }
+@media (max-width: 640px) { .ft-top { grid-template-columns: 1fr 1fr; } .ft-brand { grid-column: 1 / -1; } }
+@media (prefers-reduced-motion: reduce) { .ft-dot, .ft-land path { animation: none; } }

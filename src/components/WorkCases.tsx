@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { animate } from 'animejs';
-import { PROJECTS } from '@/legacy/cards.js';
+import { PROJECTS } from '@/data/projects.js';
 import './work.css';
 
 type Project = (typeof PROJECTS)[number];

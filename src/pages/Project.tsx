@@ -1,6 +1,7 @@
-import { PROJECTS } from '@/legacy/cards.js';
+import { PROJECTS } from '@/data/projects.js';
 import { Case } from '@/components/WorkCases';
-import SiteFooter from '@/components/SiteFooter';
+import Shell from '@/kit/Shell';
+import { sticker } from '@/kit/ui';
 import './project.css';
 
 // One project, full page: /project.html?p=<key>. Its layout is its own (WorkCases), and the next
@@ -11,19 +12,16 @@ export default function Project() {
   const p = PROJECTS[i], next = PROJECTS[(i + 1) % PROJECTS.length];
   document.title = `${p.name} · Manas Dasari`;
   return (
-    <>
-      <header className="chrome"></header>
-      <div className="toast" id="toast" role="status"></div>
-      <main className="pj">
+    <Shell page="work">
+      <div className="pj">
         <a className="pj-back" href="/work.html">← All work</a>
         <Case p={p} i={i} />
         <a className="pj-next" href={`/project.html?p=${next.k}`}>
           <span>Next project</span>
-          <b>{next.name}</b>
-          <img src={next.img} alt="" loading="lazy" />
+          <b><img src={sticker(next.k)} alt="" />{next.name}</b>
+          <img className="pj-shot" src={next.img} alt="" loading="lazy" />
         </a>
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </Shell>
   );
 }

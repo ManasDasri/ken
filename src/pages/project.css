@@ -1,12 +1,13 @@
-.pj { max-width: 1240px; margin: 0 auto; padding: 90px clamp(20px, 4vw, 48px) 0; }
-.pj-back { display: inline-block; margin-bottom: 30px; font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); transition: color 0.3s; }
+.pj { padding: 18px 24px 0; }
+.pj-back { display: inline-block; margin-bottom: 8px; font: 12px var(--mono); color: var(--mute); transition: color 0.2s; }
 .pj-back:hover { color: var(--ink); }
-.pj .wk { border-top: 0; padding-top: 10px; }
+.pj .wk { border-top: 0; padding: 14px 0 50px; gap: 22px 36px; }
+.pj .wk-name h2 { font-size: clamp(40px, 6vw, 64px); }
+.pj .v1 .wk-stat b, .pj .v5 .wk-stat b { font-size: clamp(80px, 12vw, 140px); }
 /* the next project: its name, and its page peeking up from below */
-.pj-next { position: relative; display: block; height: 340px; overflow: hidden; margin-top: 40px; padding: 48px 0 0; border-top: 1px solid var(--line); }
-.pj-next span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); }
-.pj-next b { display: block; margin-top: 10px; font-family: var(--pixel); font-weight: 400; font-size: clamp(40px, 5.4vw, 88px); line-height: 1; letter-spacing: -0.01em; color: var(--ink); transition: color 0.4s; }
-.pj-next img { position: absolute; right: 0; top: 150px; width: min(520px, 50%); aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 6px; box-shadow: var(--shadow); transition: translate 0.7s var(--ease); }
-.pj-next:hover b { color: var(--brass); }
-.pj-next:hover img { translate: 0 -60px; }
-@media (max-width: 760px) { .pj-next img { width: 80%; top: 190px; } }
+.pj-next { position: relative; display: block; height: 260px; overflow: hidden; margin: 0 -24px; padding: 28px 24px 0; border-top: 1px solid var(--line); background: var(--band); }
+.pj-next span { display: block; font: 12px var(--mono); color: var(--mute); }
+.pj-next b { display: flex; align-items: center; gap: 10px; margin-top: 8px; font: 400 clamp(30px, 4.6vw, 44px)/1 var(--brand); color: var(--ink); }
+.pj-next b img { width: 40px; height: 40px; }
+.pj-shot { position: absolute; right: 24px; top: 120px; width: min(380px, 55%); aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 8px; box-shadow: var(--shadow); transition: translate 0.6s var(--ease); }
+.pj-next:hover .pj-shot { translate: 0 -40px; }
