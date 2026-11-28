@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
 
 // one HTML page per tab, each mounting its own React root
-const pages = ['index', 'work', 'services', 'about', 'opensource', 'contact', 'project'];
+const pages = ['index', 'services', 'about', 'opensource', 'contact'];
 
 export default defineConfig({
   plugins: [react()],

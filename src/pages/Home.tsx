@@ -21,7 +21,7 @@ export default function Home() {
           </div>
         </div>
 
-        <Section title="Work" aside="6 projects" note="each one opens its full write-up">
+        <Section title="Work" id="work" aside="6 projects + 3 on the bench" note="click for the live site, or the code button for the repo">
           <ProjectRows />
         </Section>
 

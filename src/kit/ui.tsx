@@ -27,32 +27,46 @@ export function Section({ title, aside, note, side = 'r', pad, foot, children, i
   );
 }
 
-// the projects, filed by kind
-const KINDS: [string, string, string[]][] = [
-  ['Research', 'folder', ['clause', 'eeg']],
-  ['Tools people install', 'folder', ['sprout', 'forme']],
-  ['Products', 'folder', ['flow', 'velora']],
+// the projects, filed by kind. A click opens the live site; the small button beside it opens the code.
+const KINDS: [string, string[]][] = [
+  ['Research', ['clause', 'eeg']],
+  ['Tools people install', ['sprout', 'forme']],
+  ['Products', ['flow', 'velora']],
 ];
-export function ProjectRows({ detail }: { detail?: boolean }) {
+const BENCH = [
+  ['Gradient Works', 'My applied AI studio: models for teams, with a baseline to beat and a written result.', 'https://gradientworksai.in/', 'studio'],
+  ['Analogue Risk', 'Forecasting market risk from historical analogues, re-tested on 15 new assets.', 'https://github.com/ManasDasri/analogue-risk', 'in research'],
+  ['Atmos', 'Placing a cheaper, denser air-quality sensor network for Bengaluru.', 'https://github.com/ManasDasri/Atmos', 'code'],
+];
+const Code = () => <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 4 2 8l3.5 4M10.5 4 14 8l-3.5 4" /></svg>;
+export function ProjectRows() {
   const { bind, card } = usePeek();
   return (
     <>
       {card}
-      {KINDS.map(([kind, icon, keys]) => (
+      {KINDS.map(([kind, keys]) => (
         <div key={kind}>
-          <div className="group"><img src={`/img/own/${icon}.svg`} alt="" /><span>{kind}</span></div>
+          <div className="group"><img src="/img/own/folder.svg" alt="" /><span>{kind}</span></div>
           {keys.map((k) => {
             const p = PROJECTS.find((q) => q.k === k)!;
             return (
-              <a key={k} className="row" href={`/project.html?p=${k}`} {...bind({ img: p.img, title: p.name, meta: `${p.stat} · ${p.statLabel}` })}>
+              <div key={k} className="row" {...bind({ img: p.img, title: p.name, meta: `${p.stat} · ${p.statLabel}` })}>
                 <img src={sticker(k)} alt="" />
-                <b>{p.name}</b>
+                <a className="row-main" href={p.site} target="_blank" rel="noopener"><b>{p.name}</b></a>
                 <span className="d">{p.tag}</span>
-                <span className="k">{detail ? <><em>{p.stat}</em> {p.statLabel}</> : <em>{p.stat}</em>}</span>
-                <Arrow />
-              </a>
+                <span className="k"><em>{p.stat}</em></span>
+                <a className="row-code" href={`https://github.com/${p.repo}`} target="_blank" rel="noopener" aria-label={`${p.name} source code`} title="Code"><Code /></a>
+              </div>
             );
           })}
+        </div>
+      ))}
+      <div className="group"><img src="/img/own/folder.svg" alt="" /><span>Also on the bench</span></div>
+      {BENCH.map(([n, d, u, k]) => (
+        <div key={n} className="row bench">
+          <span />
+          <a className="row-main" href={u} target="_blank" rel="noopener"><b>{n}</b></a>
+          <span className="d">{d}</span><span className="k">{k}</span><Arrow />
         </div>
       ))}
     </>

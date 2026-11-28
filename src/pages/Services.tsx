@@ -33,7 +33,7 @@ export default function Services() {
       </Section>
       <Section title="Not sure which one?" pad>
         <p style={{ margin: 0, color: 'var(--soft)' }}>Tell me the problem instead, and I’ll tell you which of these it is.</p>
-        <div className="btns"><a className="btn" href="/contact.html">Pick a day to talk</a><a className="btn ghost" href="/work.html">See the work</a></div>
+        <div className="btns"><a className="btn" href="/contact.html">Pick a day to talk</a><a className="btn ghost" href="/index.html#work">See the work</a></div>
       </Section>
     </Shell>
   );

@@ -269,3 +269,14 @@ img[src*='/img/own/']:not(.burst):hover, .row:hover > img[src*='/img/own/'], .gr
 .chip img { transition: rotate 0.4s var(--ease); }
 .chip:hover img { rotate: -12deg; }
 @media (prefers-reduced-motion: reduce) { img[src*='/img/own/'] { animation: none !important; } }
+
+/* rows: the whole row opens the site (the name's link covers it); the code button sits above that */
+.row { position: relative; }
+.row-main { position: static; }
+.row-main::after { content: ''; position: absolute; inset: 0; }
+.row-main:focus-visible { outline: none; }
+.row-main:focus-visible::after { outline: 2px solid var(--blue); outline-offset: -2px; border-radius: 6px; }
+.row-code { position: relative; z-index: 1; display: grid; place-items: center; width: 26px; height: 26px; margin: -6px -6px -6px 0; border-radius: 7px; color: var(--mute); transition: background-color 0.2s, color 0.2s; }
+.row-code:hover { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+.row-code svg { width: 14px; height: 14px; stroke: currentColor !important; translate: none !important; }
+.row.bench { grid-template-columns: 26px auto 1fr auto 14px; }

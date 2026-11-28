@@ -5,7 +5,7 @@ import './kit.css';
 import './footer.css';
 import Rail from './Rail';
 
-export const PAGES = [['index', 'Home'], ['work', 'Work'], ['services', 'What I do'], ['about', 'About'], ['opensource', 'Open source'], ['contact', 'Contact']] as const;
+export const PAGES = [['index', 'Home'], ['services', 'What I do'], ['about', 'About'], ['opensource', 'Open source'], ['contact', 'Contact']] as const;
 export const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 export const Arrow = () => <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5" /></svg>;
 const GH = 'M8 1.5a6.5 6.5 0 0 0-2.06 12.67c.33.06.44-.14.44-.31v-1.1c-1.8.39-2.18-.87-2.18-.87-.3-.75-.72-.95-.72-.95-.59-.4.04-.4.04-.4.65.05 1 .67 1 .67.58 1 1.52.71 1.9.54.05-.42.22-.71.41-.87-1.44-.16-2.95-.72-2.95-3.2 0-.7.25-1.28.67-1.73-.07-.17-.29-.83.06-1.72 0 0 .55-.18 1.79.66a6.2 6.2 0 0 1 3.26 0c1.24-.84 1.78-.66 1.78-.66.36.9.13 1.55.07 1.72.42.45.66 1.02.66 1.73 0 2.49-1.51 3.04-2.95 3.2.23.2.44.6.44 1.2v1.78c0 .17.11.38.45.31A6.5 6.5 0 0 0 8 1.5Z';
