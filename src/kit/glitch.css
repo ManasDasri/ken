@@ -1,0 +1,48 @@
+/* ---------- Spider-Verse glitch: slices, a magenta/cyan split, and a dimension flicker ---------- */
+.gl { position: relative; display: inline-block; isolation: isolate; cursor: default; }
+.gl > span { display: inline-block; position: relative; }
+.gl::before, .gl::after { content: attr(data-text); position: absolute; inset: 0; opacity: 0; pointer-events: none; white-space: nowrap; }
+.gl::before { color: #ff2e93; z-index: -1; }
+.gl::after { color: #19d3f7; z-index: -1; }
+[data-theme='dark'] .gl::before, [data-theme='dark'] .gl::after { mix-blend-mode: screen; }
+
+.gl.go > span { animation: gl-main 0.62s steps(1, end); }
+.gl.go::before { opacity: 0.95; animation: gl-a 0.62s steps(1, end); }
+.gl.go::after { opacity: 0.95; animation: gl-b 0.62s steps(1, end); }
+
+/* the real text: torn into slices that jump sideways, with two frames from other dimensions */
+@keyframes gl-main {
+  0% { clip-path: inset(0 0 0 0); transform: none; }
+  8% { clip-path: polygon(0 0, 100% 0, 100% 32%, 0 32%, 0 40%, 100% 40%, 100% 100%, 0 100%); transform: translateX(-3px); }
+  16% { clip-path: inset(0 0 0 0); transform: translate(4px, -1px) skewX(-10deg); font-family: var(--sans); font-weight: 900; letter-spacing: -0.04em; }
+  24% { transform: translateX(-2px); text-shadow: 3px 0 #ff2e93, -3px 0 #19d3f7; }
+  32% { clip-path: inset(46% 0 30% 0); transform: translateX(8px); }
+  40% { clip-path: inset(0 0 0 0); transform: none; font-family: Georgia, 'Times New Roman', serif; font-style: italic; letter-spacing: 0; }
+  48% { transform: translateX(2px); background: radial-gradient(circle, currentColor 0.9px, transparent 1.3px) 0 0 / 4px 4px; -webkit-background-clip: text; background-clip: text; color: transparent; }
+  56% { transform: translate(-5px, 1px); clip-path: inset(10% 0 62% 0); }
+  64% { clip-path: inset(0 0 0 0); transform: none; text-shadow: -2px 0 #ff2e93, 2px 0 #19d3f7; }
+  76% { transform: translateX(1px); }
+  100% { transform: none; }
+}
+/* the magenta copy */
+@keyframes gl-a {
+  0% { transform: translate(-4px, 0); clip-path: inset(8% 0 62% 0); }
+  12% { transform: translate(6px, -1px); clip-path: inset(52% 0 18% 0); }
+  24% { transform: translate(-7px, 1px); clip-path: inset(0 0 84% 0); }
+  36% { transform: translate(3px, 0); clip-path: inset(70% 0 4% 0); }
+  48% { transform: translate(-3px, 0); clip-path: inset(30% 0 44% 0); }
+  60% { transform: translate(5px, 0); clip-path: inset(86% 0 0 0); }
+  72% { transform: translate(-2px, 0); clip-path: inset(20% 0 60% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+/* the cyan copy, out of step with it */
+@keyframes gl-b {
+  0% { transform: translate(4px, 0); clip-path: inset(60% 0 12% 0); }
+  14% { transform: translate(-6px, 1px); clip-path: inset(14% 0 66% 0); }
+  28% { transform: translate(5px, 0); clip-path: inset(78% 0 2% 0); }
+  42% { transform: translate(-4px, -1px); clip-path: inset(36% 0 40% 0); }
+  56% { transform: translate(7px, 0); clip-path: inset(4% 0 80% 0); }
+  70% { transform: translate(-3px, 0); clip-path: inset(48% 0 30% 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@media (prefers-reduced-motion: reduce) { .gl.go > span, .gl.go::before, .gl.go::after { animation: none; opacity: 0; } }

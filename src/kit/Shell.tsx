@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { contributions, usePRs, merged, safeUrl, type Day } from './live';
+import { usePRs, merged, safeUrl } from './live';
 import { ago } from '@/data/github.js';
 import './kit.css';
 import './footer.css';
@@ -76,59 +76,96 @@ function Header({ page }: { page: string }) {
   );
 }
 
-// The banner is my last year on GitHub: each day drips down from the top, further the busier it was,
-// in dithered dots. The busiest tips glow orange. Hover for the day.
+// The banner: a dusk skyline printed like a comic, in halftone dots of cyan, magenta and yellow, a
+// little out of register. The dots swell and the plates drift apart around the cursor, and every few
+// seconds the print jolts, in step with the name. On the dark theme it's printed in light instead.
 function Banner() {
-  const cv = useRef<HTMLCanvasElement>(null), tip = useRef<HTMLSpanElement>(null);
+  const cv = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const c = cv.current!, g = c.getContext('2d')!;
-    const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16);
-    let data: Day[] = [], cols: { v: number; from: string; to: string; sum: number }[] = [];
-    const CELL = 5;
-    const draw = () => {
-      const W = c.clientWidth, H = c.clientHeight, dpr = Math.min(devicePixelRatio || 1, 2);
-      c.width = W * dpr; c.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
-      const dark = document.documentElement.dataset.theme === 'dark';
-      const n = Math.floor(W / CELL);
-      // before GitHub answers, a quiet placeholder skyline so the banner is never empty
-      const days = data.length ? data : Array.from({ length: 365 }, (_, i) => ({ date: '', count: Math.max(0, Math.round(3 + 3 * Math.sin(i / 9) + 2 * Math.sin(i / 3.7))), level: 0 }));
-      cols = Array.from({ length: n }, (_, x) => {
-        const a = Math.floor((x / n) * days.length), b = Math.max(a + 1, Math.floor(((x + 1) / n) * days.length));
-        const seg = days.slice(a, b), sum = seg.reduce((s, d) => s + d.count, 0);
-        return { v: Math.max(...seg.map((d) => d.count)), from: seg[0].date, to: seg[seg.length - 1].date, sum };
-      });
-      const top = [...cols].map((q) => q.v).sort((p, q) => q - p)[Math.floor(n * 0.06)] || 1;
-      for (let x = 0; x < n; x++) {
-        // a little of each neighbour, so the edge drips rather than steps
-        const v = (cols[x].v * 2 + (cols[x - 1]?.v ?? 0) + (cols[x + 1]?.v ?? 0)) / 4;
-        const jag = ((Math.sin(x * 12.9898) * 43758.5453) % 1 + 1) % 1;
-        const L = Math.min(H * 0.98, 18 + Math.sqrt(v) * 26 + jag * 14);
-        const hot = cols[x].v >= top && data.length;
-        for (let y = 0; y < L; y += CELL) {
-          const k = y / L; // 0 at the top, 1 at the tip
-          if (1 - k * k < BAYER[(x % 4) + ((y / CELL) % 4) * 4]) continue;
-          g.fillStyle = hot && k > 0.62 ? (dark ? '#fb923c' : '#f05a28') : k < 0.35 ? (dark ? '#3b6fd8' : '#1e3a8a') : (dark ? '#60a5fa' : '#2563eb');
-          g.fillRect(x * CELL + 1, y + 1, CELL - 2, CELL - 2);
-        }
+    const scene = document.createElement('canvas'), sg = scene.getContext('2d', { willReadFrequently: true })!;
+    const CELL = 6;
+    let W = 0, H = 0, cols = 0, rows = 0, px: Uint8ClampedArray = new Uint8ClampedArray(0);
+    let mx = -1e4, my = -1e4, jolt = 0, raf = 0;
+    // the skyline, from a fixed seed so it's the same city every visit
+    let seed = 23;
+    const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+    const city: { x: number; w: number; h: number; ant: boolean; lit: number[] }[] = [];
+    for (let x = -0.02; x < 1.02;) {
+      const w = 0.03 + rnd() * 0.06, h = 0.22 + rnd() * rnd() * 0.62;
+      city.push({ x, w, h, ant: rnd() < 0.25, lit: Array.from({ length: 6 }, () => rnd()) });
+      x += w * (0.8 + rnd() * 0.3);
+    }
+    const paint = () => {
+      // the scene, one pixel per dot
+      scene.width = cols; scene.height = rows;
+      const sky = sg.createLinearGradient(0, 0, 0, rows);
+      sky.addColorStop(0, '#2a1859'); sky.addColorStop(0.5, '#e4508c'); sky.addColorStop(1, '#ffb347');
+      sg.fillStyle = sky; sg.fillRect(0, 0, cols, rows);
+      sg.fillStyle = '#ffd23f'; sg.beginPath(); sg.arc(cols * 0.72, rows * 0.66, rows * 0.3, 0, Math.PI * 2); sg.fill();
+      for (const b of city) {
+        const x = b.x * cols, w = Math.max(2, b.w * cols), top = rows * (1 - b.h);
+        sg.fillStyle = '#170d2b'; sg.fillRect(Math.round(x), Math.round(top), Math.round(w), rows);
+        if (b.ant) sg.fillRect(Math.round(x + w / 2), Math.round(top - rows * 0.12), 1, Math.round(rows * 0.12));
+        sg.fillStyle = '#ffe08a';
+        b.lit.forEach((v, i) => { if (v < 0.5) sg.fillRect(Math.round(x + 1 + (i % 2) * (w / 2)), Math.round(top + 2 + Math.floor(i / 2) * 3), 1, 1); });
       }
+      px = sg.getImageData(0, 0, cols, rows).data;
     };
-    contributions().then((d) => { data = d; draw(); }).catch(() => {});
-    draw();
-    const ro = new ResizeObserver(draw); ro.observe(c);
-    const mo = new MutationObserver(draw); mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    const fmt = (s: string) => new Date(`${s}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-    const move = (e: PointerEvent) => {
-      const r = c.getBoundingClientRect(), x = Math.floor((e.clientX - r.left) / CELL), q = cols[x], t = tip.current!;
-      if (!q || !data.length || (e.target as HTMLElement).closest('.nav')) { t.style.opacity = '0'; return; }
-      t.textContent = `${fmt(q.from)}${q.to !== q.from ? `–${fmt(q.to)}` : ''} · ${q.sum} contribution${q.sum === 1 ? '' : 's'}`;
-      t.style.left = `${e.clientX - r.left}px`; t.style.top = `${e.clientY - r.top}px`; t.style.opacity = '1';
+    const draw = () => {
+      raf = 0;
+      const dark = document.documentElement.dataset.theme === 'dark';
+      g.clearRect(0, 0, W, H);
+      g.globalCompositeOperation = dark ? 'lighter' : 'multiply';
+      // three plates; each a little off, more near the cursor and during a jolt
+      const plates = dark
+        ? [['#ff3b3b', 0], ['#2bff88', 1], ['#3b7bff', 2]]
+        : [['#00aeef', 0], ['#ec008c', 1], ['#ffe600', 2]];
+      for (const [colour, ch] of plates as [string, number][]) {
+        g.fillStyle = colour;
+        const ox = (ch - 1) * (1.2 + jolt * 5), oy = (ch === 1 ? -1 : 1) * (0.6 + jolt * 2);
+        g.beginPath();
+        for (let r = 0; r < rows; r++) for (let q = 0; q < cols; q++) {
+          const i = (r * cols + q) * 4, v = px[i + ch] / 255;
+          const ink = dark ? v : 1 - v; // light: CMY ink is what the channel lacks; dark: RGB light is what it has
+          if (ink < 0.04) continue;
+          const x = q * CELL + CELL / 2, y = r * CELL + CELL / 2;
+          const d = Math.hypot(x - mx, y - my), lens = Math.max(0, 1 - d / 90);
+          const rad = (CELL / 2) * Math.sqrt(ink) * (0.95 + lens * 0.55);
+          const lx = ox * (1 + lens * 3), ly = oy * (1 + lens * 3);
+          g.moveTo(x + lx + rad, y + ly); g.arc(x + lx, y + ly, rad, 0, Math.PI * 2);
+        }
+        g.fill();
+      }
+      g.globalCompositeOperation = 'source-over';
     };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(draw); };
+    const size = () => {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      W = c.clientWidth; H = c.clientHeight; c.width = W * dpr; c.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(W / CELL); rows = Math.ceil(H / CELL);
+      paint(); kick();
+    };
+    size();
+    const ro = new ResizeObserver(size); ro.observe(c);
+    const mo = new MutationObserver(kick); mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     const hd = c.parentElement!;
-    hd.addEventListener('pointermove', move);
-    hd.addEventListener('pointerleave', () => (tip.current!.style.opacity = '0'));
-    return () => { ro.disconnect(); mo.disconnect(); hd.removeEventListener('pointermove', move); };
+    const move = (e: PointerEvent) => { const r = c.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; kick(); };
+    const leave = () => { mx = my = -1e4; kick(); };
+    hd.addEventListener('pointermove', move); hd.addEventListener('pointerleave', leave);
+    // the jolt: a few frames out of register every few seconds
+    let jt = 0;
+    const joltNow = () => {
+      if (!reduce) {
+        const frames = [0.9, 0.2, 0.7, 0], step = (k: number) => { jolt = frames[k]; kick(); if (k < frames.length - 1) jt = window.setTimeout(() => step(k + 1), 70); };
+        step(0);
+      }
+      jt = window.setTimeout(joltNow, 4200 + Math.random() * 1200);
+    };
+    jt = window.setTimeout(joltNow, 2200);
+    return () => { ro.disconnect(); mo.disconnect(); clearTimeout(jt); cancelAnimationFrame(raf); hd.removeEventListener('pointermove', move); hd.removeEventListener('pointerleave', leave); };
   }, []);
-  return <><canvas ref={cv} aria-hidden="true" /><span className="hd-tip" ref={tip} aria-hidden="true" /></>;
+  return <canvas ref={cv} aria-hidden="true" />;
 }
 
 export const SOCIAL: [string, string, string, string, string][] = [

@@ -1,6 +1,7 @@
 import Shell from '@/kit/Shell';
 import { Section, ProjectRows, Socials, Stack, Hello, ProofStats, Merges } from '@/kit/ui';
 import Door from '@/components/Door';
+import Glitch from '@/kit/Glitch';
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
       <Shell page="index">
         <div className="intro">
           <div className="who">
-            <h1>Manas Dasari</h1>
+            <Glitch text="Manas Dasari" />
             <img src="/img/own/sparkle.svg" alt="" />
             <span className="where">Bengaluru, India</span>
           </div>

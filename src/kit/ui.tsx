@@ -47,28 +47,30 @@ export function ProjectRows() {
       {KINDS.map(([kind, keys]) => (
         <div key={kind}>
           <div className="group"><img src="/img/own/folder.svg" alt="" /><span>{kind}</span></div>
-          {keys.map((k) => {
-            const p = PROJECTS.find((q) => q.k === k)!;
-            return (
-              <div key={k} className="row" {...bind({ img: p.img, title: p.name, meta: `${p.stat} · ${p.statLabel}` })}>
-                <img src={sticker(k)} alt="" />
-                <a className="row-main" href={p.site} target="_blank" rel="noopener"><b>{p.name}</b></a>
-                <span className="d">{p.tag}</span>
-                <span className="k"><em>{p.stat}</em></span>
-                <a className="row-code" href={`https://github.com/${p.repo}`} target="_blank" rel="noopener" aria-label={`${p.name} source code`} title="Code"><Code /></a>
-              </div>
-            );
-          })}
+          <div className="tree">
+            {keys.map((k) => {
+              const p = PROJECTS.find((q) => q.k === k)!;
+              return (
+                <div key={k} className="row" {...bind({ img: p.img, title: p.name, meta: `${p.stat} · ${p.statLabel}` })}>
+                  <a className="row-main" href={p.site} target="_blank" rel="noopener"><b>{p.name}</b></a>
+                  <span className="d">{p.tag}</span>
+                  <span className="k"><em>{p.stat}</em></span>
+                  <a className="row-code" href={`https://github.com/${p.repo}`} target="_blank" rel="noopener" aria-label={`${p.name} source code`} title="Code"><Code /></a>
+                </div>
+              );
+            })}
+          </div>
         </div>
       ))}
       <div className="group"><img src="/img/own/folder.svg" alt="" /><span>Also on the bench</span></div>
-      {BENCH.map(([n, d, u, k]) => (
-        <div key={n} className="row bench">
-          <span />
-          <a className="row-main" href={u} target="_blank" rel="noopener"><b>{n}</b></a>
-          <span className="d">{d}</span><span className="k">{k}</span><Arrow />
-        </div>
-      ))}
+      <div className="tree">
+        {BENCH.map(([n, d, u, k]) => (
+          <div key={n} className="row">
+            <a className="row-main" href={u} target="_blank" rel="noopener"><b>{n}</b></a>
+            <span className="d">{d}</span><span className="k">{k}</span><Arrow />
+          </div>
+        ))}
+      </div>
     </>
   );
 }
