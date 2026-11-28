@@ -1,13 +1,13 @@
+import RetroPixelButton from '@/components/rareui/RetroPixelButton';
+import KoiPond from '@/components/KoiPond';
+import Curtain from '@/components/Curtain';
+import EvidenceBoard from '@/components/EvidenceBoard';
+
 export default function Home() {
   return (
     <>
       {/* the door */}
-      <div className="door" id="door">
-        <img className="door-logo" src="/img/brand/logo-light.png" alt="" />
-        <p className="door-kicker">MANAS DASARI · ML RESEARCH &amp; DEV TOOLS</p>
-        <h2 className="door-line">I show<br />my work.</h2>
-        <button className="door-btn" id="enter">Step inside <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
-      </div>
+      <Curtain />
 
       <header className="chrome"></header>
       <div className="toast" id="toast" role="status"></div>
@@ -38,23 +38,23 @@ export default function Home() {
             <p className="pitch">
               <span className="line">I train models
                 <span className="chip chip-loss" aria-hidden="true"><svg viewBox="0 0 60 22"><path id="losspath" d="M2 3 C 10 6, 12 14, 20 15 S 34 17, 40 18 S 52 19, 58 19" /><circle className="dot" r="2.6"><animateMotion dur="3s" repeatCount="indefinite" begin="2.4s"><mpath href="#losspath" /></animateMotion></circle></svg><em>loss ↓</em></span>
-                and check them honestly,</span>
-              <span className="line">ship tools you install
+                then try to break them,</span>
+              <span className="line">ship tools you can
                 <span className="chip chip-term"><code id="term">$ brew install sprout</code><i className="caret"></i></span></span>
               <span className="line">and build most of it myself
                 <span className="toggle" role="group" aria-label="Research or code"><span className="slider" aria-hidden="true"></span>
                   <button className="on" data-mode="research" aria-pressed="true"><svg viewBox="0 0 16 16"><path d="M6 2h4M7 2v4L3 13h10L9 6V2" /></svg>Research</button>
                   <button data-mode="code" aria-pressed="false"><svg viewBox="0 0 16 16"><path d="M5.5 4 2 8l3.5 4M10.5 4 14 8l-3.5 4" /></svg>Code</button>
                 </span>
-                with <a className="chip chip-claude" href="https://claude.com/claude-code" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/claude" alt="" width="20" height="20" />Claude<span className="tip"><b>pair programmer</b></span></a></span>
-              <span className="line">Fixes merged into
+                with <a className="chip chip-claude" href="https://claude.com/claude-code" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/claude" alt="" width="20" height="20" />Claude<span className="tip"><b>pair programmer</b></span></a> riding shotgun</span>
+              <span className="line">My code lives inside
                 <a className="chip chip-org" href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><img src="https://github.com/gleam-lang.png?size=64" alt="" width="22" height="22" />Gleam<span className="tip"><b>#6361 · merged</b>Link to the Hex diff when a dependency changes version</span></a>
                 <a className="chip chip-org" href="https://github.com/bazel-contrib/rules_go/pull/4791" target="_blank" rel="noopener"><img src="https://github.com/bazel-contrib.png?size=64" alt="" width="22" height="22" />rules_go<span className="tip"><b>#4791 · merged</b>nogo builds against golang.org/x/tools v0.53.0 again</span></a></span>
             </p>
 
             <div className="cta">
-              <a className="btn" href="mailto:dasarimanas049@gmail.com">Email me <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></a>
-              <a className="btn ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+              <RetroPixelButton href="mailto:dasarimanas049@gmail.com" pixelColor="#22c55e">Email me</RetroPixelButton>
+              <RetroPixelButton href="resume.pdf" target="_blank" rel="noopener" pixelColor="#a855f7">Résumé</RetroPixelButton>
             </div>
           </div>
           <span className="scroll-hint" aria-hidden="true">scroll</span>
@@ -65,13 +65,13 @@ export default function Home() {
           <span className="frame-label"># the proof</span>
           <div className="sec-head">
             <h2 className="glitch">Receipts, not résumés.</h2>
-            <p>Before anything about me, the proof. Six projects, filed away, numbers included. Hover a folder to pull out the evidence.</p>
+            <p>Before anything about me, the proof. Six projects, real numbers, one corkboard. Drag the photos around, or open a file.</p>
             <img className="stk stk-arrow" src="/img/stickers/down-arrow.svg" alt="" />
           </div>
-          <div className="folders" id="folders"></div>
+          <EvidenceBoard />
           <div className="more-bar">
             <span>Want the whole story? Every project has a full case study.</span>
-            <a className="btn" href="work.html">See all the work <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></a>
+            <RetroPixelButton href="work.html" pixelColor="#f5b800">See all the work</RetroPixelButton>
           </div>
         </section>
 
@@ -80,7 +80,7 @@ export default function Home() {
           <span className="frame-label"># for you</span>
           <div className="sec-head">
             <h2 className="glitch big-px">Bring me a problem.</h2>
-            <p>Hover one to see what I’ve already done about it.</p>
+            <p>Hover one. Each comes with a receipt.</p>
           </div>
           <ol className="svc">
             <li><a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">
@@ -114,13 +114,13 @@ export default function Home() {
             <div className="cbox-copy">
               <p className="kicker">GOT A HUNCH?</p>
               <h2 className="glitch">Let’s go test it.</h2>
-              <p>Internships, research, or a model you need built and tested properly. Pick a day and I’ll get back to you to set up a call.</p>
+              <p>Internship, research gig, or a model that has to actually work? Pick a day and I’ll get back to you to set up a call.</p>
             </div>
             <div className="cal" id="cal">
               <div className="cal-head"><button id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" /></svg></button><b id="cal-title"></b><button id="cal-next" aria-label="Next month"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" /></svg></button></div>
               <div className="cal-grid" id="cal-grid" role="grid"></div>
               <p className="cal-pick" id="cal-pick">Pick a day</p>
-              <a className="btn wide" id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk">Request a call <svg viewBox="0 0 16 16"><path d="M4 12 12 4M5 4h7v7" /></svg></a>
+              <RetroPixelButton id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk" className="w-full" pixelColor="#22c55e">Request a call</RetroPixelButton>
             </div>
           </div>
           <div className="tiles">
@@ -134,7 +134,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="foot"></footer>
+      <KoiPond />
     </>
   );
 }

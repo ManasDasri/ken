@@ -1,35 +1,10 @@
-// Shared by every page: the browser-style tab bar and footer, the theme, and the
+// Shared by every page: the browser-style tab bar, the theme, and the
 // interactions more than one page uses. Page-specific code lives in main.js / about.js / work.js.
 export const $ = (s, el = document) => el.querySelector(s);
 export const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 export const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// ---------- my pull requests to other people's projects, live from GitHub ----------
-// GitHub's search allows only a few unauthenticated calls a minute, so one answer is kept for a few
-// minutes and shared by every page. My own repos, Sprout's org and a close collaborator's repos don't count.
-const PR_QUERY = 'author:ManasDasri is:pr -user:ManasDasri -org:Sprout-DevLabs -user:AnushreeKasturi';
-let prs = null;
-export const githubPRs = () => (prs ??= (async () => {
-  try {
-    const hit = JSON.parse(localStorage.getItem('gh-prs') || 'null');
-    if (hit && Date.now() - hit.t < 5 * 60e3) return hit.items;
-  } catch {}
-  const r = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(PR_QUERY)}&sort=updated&order=desc&per_page=100`);
-  if (!r.ok) throw new Error(r.status);
-  const items = (await r.json()).items
-    .filter((it) => it.state === 'open' || it.pull_request?.merged_at)
-    .map((it) => ({
-      repo: it.repository_url.split('/repos/')[1], title: it.title, url: it.html_url, n: it.number,
-      merged: it.pull_request.merged_at, open: it.state === 'open', updated: it.updated_at,
-    }));
-  try { localStorage.setItem('gh-prs', JSON.stringify({ t: Date.now(), items })); } catch {}
-  return items;
-})());
-export const ago = (iso) => {
-  const s = (Date.parse(iso) - Date.now()) / 1000, rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-  for (const [u, n] of [['year', 31536000], ['month', 2592000], ['week', 604800], ['day', 86400], ['hour', 3600], ['minute', 60]]) if (Math.abs(s) >= n) return rtf.format(Math.round(s / n), u);
-  return 'just now';
-};
+export { githubPRs, ago } from './github.js';
 
 // ---------- the tab bar and footer ----------
 const ICON = {
@@ -68,118 +43,6 @@ if (chrome && !chrome.children.length) {
       <span class="avail"><i></i>Open to internships</span>
     </div>`;
 }
-const foot = $('footer.foot');
-if (foot && !foot.children.length) {
-  const out = (href, name) => `<a href="${href}" target="_blank" rel="noopener">${name} <span aria-hidden="true">↗</span></a>`;
-  foot.innerHTML = `
-    <div class="ft-top">
-      <div class="ft-brand">
-        <a class="ft-name" href="/index.html"><img src="/img/brand/logo.png" alt="" />Manas Dasari</a>
-        <p>Show your work. Ship the tool. Report the nulls.</p>
-        <p class="ft-now"><i></i>Open to internships · <span class="clock">my time <b></b> IST</span></p>
-        <p class="ft-live" hidden><span>Latest merge</span><a target="_blank" rel="noopener"></a><em></em></p>
-      </div>
-      <nav class="ft-col" aria-label="Pages"><h4>Pages</h4>${PAGES.map(([f, n]) => `<a href="${f}.html"${f === here ? ' aria-current="page"' : ''}>${n}</a>`).join('')}</nav>
-      <nav class="ft-col" aria-label="Elsewhere"><h4>Elsewhere</h4>${out('https://github.com/ManasDasri', 'GitHub')}${out('https://www.linkedin.com/in/manas-dasari-2a52163a5/', 'LinkedIn')}${out('https://x.com/ManasDmg9', 'X')}${out('https://leetcode.com/u/ManasDasari/', 'LeetCode')}</nav>
-      <div class="ft-col"><h4>Say hi</h4><a href="mailto:dasarimanas049@gmail.com">dasarimanas049@gmail.com</a>${out('resume.pdf', 'Résumé, PDF')}<a href="contact.html">Book a call</a></div>
-    </div>
-    <div class="ft-bar"><span>© 2026 Manas Dasari</span><span>Hand-built in plain HTML, CSS and JavaScript</span><button class="ft-up" type="button">Back to top <span aria-hidden="true">↑</span></button></div>
-    <div class="ft-sign" aria-hidden="true">
-      <img class="ft-doodle" src="/img/doodles/chilling.svg" alt="" />
-      <canvas class="ft-led"></canvas>
-    </div>`;
-  $('.ft-up', foot).addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
-  // the last thing of mine that got merged somewhere, live (text only, so nothing from GitHub is read as HTML)
-  githubPRs().then((items) => {
-    const last = items.filter((p) => p.merged).sort((a, b) => Date.parse(b.merged) - Date.parse(a.merged))[0];
-    if (!last || !/^https:\/\/github\.com\//.test(last.url)) return;
-    const live = $('.ft-live', foot), a = $('a', live);
-    a.href = last.url;
-    a.textContent = `${last.repo} #${last.n}`;
-    a.title = last.title;
-    $('em', live).textContent = ago(last.merged);
-    live.hidden = false;
-  }).catch(() => {});
-  ledName($('.ft-led', foot));
-  // my local time, with a ticking colon
-  const clk = $('.clock b', foot);
-  const tick = () => {
-    const [h, m] = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }).split(':');
-    clk.innerHTML = `${h}<i>:</i>${m}`;
-  };
-  tick();
-  setInterval(tick, 15000);
-}
-
-// ---------- the footer sign-off: my name on an LED board ----------
-// The name is sampled into a grid; lit cells become square pixels that a slow rainbow flows across,
-// unlit cells are faint dots, and pixels near the cursor scatter and spring back home.
-function ledName(cv) {
-  const g = cv.getContext('2d');
-  const HUES = ['#ec4899', '#a855f7', '#3b82f6', '#22c55e', '#f5b800'];
-  let W = 0, H = 0, cell = 0, px = [], off = null, on = false, mouse = { x: -1e4, y: -1e4 };
-  const build = () => {
-    W = cv.parentElement.clientWidth;
-    cell = Math.max(5, Math.round(W / 190));
-    const cols = Math.floor(W / cell);
-    // the name spans the width; the board is only as tall as the letters, minus their feet,
-    // which run off the bottom of the page
-    const s = document.createElement('canvas'), sg = s.getContext('2d', { willReadFrequently: true });
-    sg.font = '100px "Geist Pixel", monospace';
-    const fs = (100 * cols * 0.96) / sg.measureText('Manas Dasari').width;
-    const rows = Math.round(fs * 0.66);
-    H = rows * cell;
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    cv.width = W * dpr; cv.height = H * dpr;
-    cv.style.height = `${H}px`;
-    g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    // draw the name small, one canvas pixel per cell, and read back which cells are lit
-    s.width = cols; s.height = rows;
-    sg.font = `${fs}px "Geist Pixel", monospace`;
-    sg.textAlign = 'center'; sg.textBaseline = 'alphabetic';
-    sg.fillText('Manas Dasari', cols / 2, rows + fs * 0.1);
-    const a = sg.getImageData(0, 0, cols, rows).data;
-    px = [];
-    // the unlit board is drawn once, behind everything
-    off = document.createElement('canvas');
-    off.width = cv.width; off.height = cv.height;
-    const og = off.getContext('2d');
-    og.setTransform(dpr, 0, 0, dpr, 0, 0);
-    og.fillStyle = document.documentElement.dataset.theme === 'dark' ? 'rgb(255 255 255 / 0.06)' : 'rgb(19 19 22 / 0.07)';
-    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-      if (a[(y * cols + x) * 4 + 3] > 110) px.push({ hx: x * cell, hy: y * cell, x: x * cell, y: y * cell, vx: 0, vy: 0 });
-      else og.fillRect(x * cell + cell * 0.35, y * cell + cell * 0.35, cell * 0.3, cell * 0.3);
-    }
-  };
-  const draw = (t) => {
-    g.clearRect(0, 0, W, H);
-    g.drawImage(off, 0, 0, W, H);
-    const s = cell * 0.82;
-    for (const p of px) {
-      // pushed away by the cursor, pulled home by a spring
-      const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
-      if (d2 < 70 * 70 && d2 > 0) { const f = (1 - Math.sqrt(d2) / 70) * 2.4; p.vx += (dx / Math.sqrt(d2)) * f; p.vy += (dy / Math.sqrt(d2)) * f; }
-      p.vx = (p.vx + (p.hx - p.x) * 0.08) * 0.8;
-      p.vy = (p.vy + (p.hy - p.y) * 0.08) * 0.8;
-      p.x += p.vx; p.y += p.vy;
-      const u = ((p.hx + p.hy * 0.6) / W - t * 0.00008) * HUES.length;
-      g.fillStyle = HUES[((Math.floor(u) % HUES.length) + HUES.length) % HUES.length];
-      g.fillRect(p.x, p.y, s, s);
-    }
-  };
-  const loop = (t) => { if (!on) return; requestAnimationFrame(loop); draw(t); };
-  document.fonts.load('40px "Geist Pixel"').finally(() => {
-    build();
-    draw(0);
-    new ResizeObserver(() => { build(); draw(performance.now()); }).observe(cv.parentElement);
-    new MutationObserver(() => { build(); draw(performance.now()); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    if (reduce) return;
-    new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) requestAnimationFrame(loop); }).observe(cv);
-    cv.addEventListener('pointermove', (e) => { const r = cv.getBoundingClientRect(); mouse = { x: e.clientX - r.left, y: e.clientY - r.top }; });
-    cv.addEventListener('pointerleave', () => { mouse = { x: -1e4, y: -1e4 }; });
-  });
-}
-
 // ---------- the background: grainy off-white paper, with soft window-light shadows drifting across it (all CSS) ----------
 {
   const bg = document.createElement('div');

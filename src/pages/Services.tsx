@@ -1,3 +1,5 @@
+import RetroPixelButton from '@/components/rareui/RetroPixelButton';
+import KoiPond from '@/components/KoiPond';
 export default function Services() {
   return (
     <>
@@ -7,7 +9,7 @@ export default function Services() {
           <span className="frame-label"># services</span>
           <div className="sec-head">
             <h1 className="glitch big-px">Bring me a problem.</h1>
-            <p>Hover one to see what I’ve already done about it.</p>
+            <p>Hover one. Each comes with a receipt.</p>
           </div>
           <ol className="svc">
             <li><a href="https://kenx049-clause-risk-review.static.hf.space/index.html" target="_blank" rel="noopener">
@@ -35,10 +37,10 @@ export default function Services() {
         <section className="ab-cta">
           <p className="kicker">NOT SURE WHICH ONE?</p>
           <h2 className="glitch ab-h">Tell me the problem instead.</h2>
-          <div className="cta"><a className="btn" href="contact.html">Pick a day to talk <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></a><a className="btn ghost" href="work.html">See the work</a></div>
+          <div className="cta"><RetroPixelButton href="contact.html" pixelColor="#22c55e">Pick a day to talk</RetroPixelButton><RetroPixelButton href="work.html" pixelColor="#3b82f6">See the work</RetroPixelButton></div>
         </section>
       </main>
-      <footer className="foot"></footer>
+      <KoiPond />
     </>
   );
 }

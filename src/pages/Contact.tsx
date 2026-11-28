@@ -1,3 +1,5 @@
+import RetroPixelButton from '@/components/rareui/RetroPixelButton';
+import KoiPond from '@/components/KoiPond';
 export default function Contact() {
   return (
     <>
@@ -10,13 +12,13 @@ export default function Contact() {
             <div className="cbox-copy">
               <p className="kicker">GOT A HUNCH?</p>
               <h2 className="glitch">Let’s go test it.</h2>
-              <p>Internships, research, or a model you need built and tested properly. Pick a day and I’ll get back to you to set up a call.</p>
+              <p>Internship, research gig, or a model that has to actually work? Pick a day and I’ll get back to you to set up a call.</p>
             </div>
             <div className="cal" id="cal">
               <div className="cal-head"><button id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" /></svg></button><b id="cal-title"></b><button id="cal-next" aria-label="Next month"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" /></svg></button></div>
               <div className="cal-grid" id="cal-grid" role="grid"></div>
               <p className="cal-pick" id="cal-pick">Pick a day</p>
-              <a className="btn wide" id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk">Request a call <svg viewBox="0 0 16 16"><path d="M4 12 12 4M5 4h7v7" /></svg></a>
+              <RetroPixelButton id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk" className="w-full" pixelColor="#22c55e">Request a call</RetroPixelButton>
             </div>
           </div>
           <div className="tiles">
@@ -29,7 +31,7 @@ export default function Contact() {
           </div>
         </section>
       </main>
-      <footer className="foot"></footer>
+      <KoiPond />
     </>
   );
 }

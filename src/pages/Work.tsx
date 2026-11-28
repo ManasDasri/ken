@@ -1,3 +1,5 @@
+import RetroPixelButton from '@/components/rareui/RetroPixelButton';
+import KoiPond from '@/components/KoiPond';
 export default function Work() {
   return (
     <>
@@ -25,11 +27,11 @@ export default function Work() {
         <section className="ab-cta">
           <p className="kicker">HAVE SOMETHING IN MIND?</p>
           <h2 className="glitch ab-h">Let’s make yours next.</h2>
-          <div className="cta"><a className="btn" href="index.html#contact">Pick a day to talk <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></a><a className="btn ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé</a></div>
+          <div className="cta"><RetroPixelButton href="index.html#contact" pixelColor="#22c55e">Pick a day to talk</RetroPixelButton><RetroPixelButton href="resume.pdf" target="_blank" rel="noopener" pixelColor="#a855f7">Résumé</RetroPixelButton></div>
         </section>
       </main>
 
-      <footer className="foot"></footer>
+      <KoiPond />
     </>
   );
 }

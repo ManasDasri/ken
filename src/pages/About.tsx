@@ -1,3 +1,5 @@
+import RetroPixelButton from '@/components/rareui/RetroPixelButton';
+import KoiPond from '@/components/KoiPond';
 export default function About() {
   return (
     <>
@@ -15,12 +17,12 @@ export default function About() {
             <p data-plain="I built web apps first: shared study rooms, a stock forecaster, dashboards. Then I started training models, and found the part I actually love: finding out whether something is true." data-paper="Prior work comprised several web systems (real-time collaboration, Monte Carlo forecasting, dashboards). The author subsequently moved to empirical ML, motivated primarily by questions of validity.">I built web apps first: shared study rooms, a stock forecaster, dashboards. Then I started training models, and found the part I actually love: finding out whether something is true.</p></div></li>
           <li><span className="sn">02</span><div><h2 data-plain="A good-looking number is the easy part." data-paper="On the construction of leakage-safe evaluations.">A good-looking number is the easy part.</h2>
             <p data-plain="With a small dataset, a model that knows nothing can still look impressive. So I split by person or by contract, tune thresholds on validation data only, and compare every score against chance." data-paper="All reported metrics are conditioned on subject- or document-level splits, validation-only threshold selection, and permutation-derived null distributions.">With a small dataset, a model that knows nothing can still look impressive. So I split by person or by contract, tune thresholds on validation data only, and compare every score against chance.</p></div></li>
-          <li><span className="sn">03</span><div><h2 data-plain="I write up the nulls too." data-paper="Negative results are reported in full.">I write up the nulls too.</h2>
+          <li><span className="sn">03</span><div><h2 data-plain="My failed experiments get a page too." data-paper="Negative results are reported in full.">My failed experiments get a page too.</h2>
             <p data-plain="Legal-BERT didn’t beat BERT. The EEG expertise result was confounded by sex. Both sit on the results pages, not buried in a footnote." data-paper="Domain-adaptive pretraining yielded no measurable gain (ΔF1 = −0.005), and the expertise effect was confounded with participant sex; both findings are reported alongside positive results.">Legal-BERT didn’t beat BERT. The EEG expertise result was confounded by sex. Both sit on the results pages, not buried in a footnote.</p></div></li>
           <li><span className="sn">04</span><div><h2 data-plain="I build the tools I need." data-paper="On tooling as a research by-product.">I build the tools I need.</h2>
             <p data-plain="Opening an unfamiliar repo means guessing which files matter, so I built Sprout: a Go binary on Homebrew that coding agents call over MCP. Forme, Flow and Velora are on the work page." data-paper="To reduce orientation cost in unfamiliar codebases, the author developed Sprout, a single-binary tool exposing structural project maps to language-model agents via the Model Context Protocol.">Opening an unfamiliar repo means guessing which files matter, so I built Sprout: a Go binary on Homebrew that coding agents call over MCP. Forme, Flow and Velora are on the work page.</p>
             <div className="pills"><a href="https://sprout-devlabs.github.io/sprout-web/" target="_blank" rel="noopener"><i style={{ "background": "#22c55e" } as React.CSSProperties}></i>Sprout</a><a href="https://forme-amber.vercel.app" target="_blank" rel="noopener"><i style={{ "background": "#a855f7" } as React.CSSProperties}></i>Forme</a><a href="https://flow-study.me" target="_blank" rel="noopener"><i style={{ "background": "#ec4899" } as React.CSSProperties}></i>Flow</a><a href="https://velora-one-lake.vercel.app" target="_blank" rel="noopener"><i style={{ "background": "#f97316" } as React.CSSProperties}></i>Velora</a></div></div></li>
-          <li className="off"><span className="sn">05</span><div><h2 data-plain="Off the keyboard." data-paper="Extracurricular observations.">Off the keyboard.</h2>
+          <li className="off"><span className="sn">05</span><div><h2 data-plain="When the laptop’s shut." data-paper="Extracurricular observations.">When the laptop’s shut.</h2>
             <p data-plain="Weekend animal-welfare events with Barket, ricing KDE Plasma on Linux until it looks right, and following markets and how trading systems work." data-paper="Outside research hours, the author volunteers in animal welfare outreach (Barket), customises Linux desktop environments (KDE Plasma), and studies financial markets observationally.">Weekend animal-welfare events with Barket, ricing KDE Plasma on Linux until it looks right, and following markets and how trading systems work.</p></div></li>
         </ol>
 
@@ -90,11 +92,11 @@ export default function About() {
         <section className="ab-cta">
           <p className="kicker">HAVE SOMETHING IN MIND?</p>
           <h2 className="glitch ab-h">Tell me what you’re building.</h2>
-          <div className="cta"><a className="btn" href="index.html#contact">Pick a day to talk <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></a><a className="btn ghost" href="resume.pdf" target="_blank" rel="noopener">Résumé</a></div>
+          <div className="cta"><RetroPixelButton href="index.html#contact" pixelColor="#22c55e">Pick a day to talk</RetroPixelButton><RetroPixelButton href="resume.pdf" target="_blank" rel="noopener" pixelColor="#a855f7">Résumé</RetroPixelButton></div>
         </section>
       </main>
 
-      <footer className="foot"></footer>
+      <KoiPond />
     </>
   );
 }

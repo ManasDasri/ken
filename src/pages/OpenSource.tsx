@@ -1,3 +1,4 @@
+import KoiPond from '@/components/KoiPond';
 export default function OpenSource() {
   return (
     <>
@@ -6,11 +7,11 @@ export default function OpenSource() {
         <section className="up" id="upstream">
           <span className="frame-label"># open source</span>
           <div className="sec-head">
-            <h1 className="glitch big-px">My code, in other people’s projects.</h1>
+            <h1 className="glitch big-px">Living rent-free in other people’s repos.</h1>
             <p>Pull requests to other people’s projects. <a href="https://github.com/pulls?q=is%3Apr+author%3AManasDasri+-user%3AManasDasri" target="_blank" rel="noopener">See all on GitHub ↗</a></p>
           </div>
           <div className="stats-row"><div><b id="st-merged">25</b><span>merged into other people’s projects</span></div><div><b id="st-open">6</b><span>open, in review</span></div><div><b id="st-repos">10</b><span>repositories, Zed to Exercism</span></div></div>
-          <div className="oss-head"><h2 className="glitch ab-h">The ones I’m proudest of.</h2><p className="ab-sub left">Hand-picked, with what each one fixed. Their status comes live from GitHub.</p></div>
+          <div className="oss-head"><h2 className="glitch ab-h">The greatest hits.</h2><p className="ab-sub left">Hand-picked, with what each one fixed. Their status comes live from GitHub.</p></div>
           <div className="prs prs-grid" id="prs">
             <a className="pr c-blue" href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener"><header><img src="https://github.com/zed-industries.png?size=64" alt="" /><b>zed-industries/zed</b><em>in review</em></header><p>Re-open buffers with the language server after their worktree root moves, so it stops answering for stale paths.</p><small>#67329 · +199 −2</small></a>
             <a className="pr c-pink" href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><header><img src="https://github.com/gleam-lang.png?size=64" alt="" /><b>gleam-lang/gleam</b><em>merged</em></header><p>When a dependency changes version, the CLI links to the diff on Hex as a terminal hyperlink.</p><small>#6361 · +94 −7</small></a>
@@ -37,7 +38,7 @@ export default function OpenSource() {
           </div>
         </section>
       </main>
-      <footer className="foot"></footer>
+      <KoiPond />
     </>
   );
 }

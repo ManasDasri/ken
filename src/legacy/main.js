@@ -1,5 +1,4 @@
 import { $, $$, reduce } from './common.js';
-import { PROJECTS } from './cards.js';
 
 // ---------- the door: once per visit ----------
 const door = $('#door');
@@ -16,6 +15,13 @@ if (seen || reduce) {
   door.style.display = 'none';
 } else {
   $('#enter').addEventListener('click', enter);
+  // throw the curtain far enough and it lifts
+  let grab = null;
+  addEventListener('pointerdown', (e) => { if (e.target.closest?.('#door')) grab = [e.clientX, e.clientY]; }, true);
+  addEventListener('pointerup', (e) => {
+    if (grab && Math.hypot(e.clientX - grab[0], e.clientY - grab[1]) > 160) enter();
+    grab = null;
+  }, true);
   addEventListener('wheel', enter, { once: true, passive: true });
   addEventListener('touchmove', enter, { once: true, passive: true });
   addEventListener('keydown', (e) => ['Enter', ' ', 'ArrowDown', 'PageDown'].includes(e.key) && enter());
@@ -86,34 +92,4 @@ $$('.pitch .line > *').forEach((el, i) => (el.style.animationDelay = `${1.3 + i 
   }
 }
 
-// ---------- the projects: real folders on the desk; hover one (or tap it) and the pages slide out ----------
-{
-  const pad = (n) => String(n + 1).padStart(2, '0');
-  const box = $('#folders');
-  box.innerHTML = PROJECTS.map((p, i) => `
-    <article class="folder" data-tone="${p.tone}" tabindex="0" aria-label="${p.name}">
-      <div class="fd-back"><span class="fd-tab">${pad(i)} · ${p.kind}</span></div>
-      <div class="fd-paper fd-spec" aria-hidden="true">
-        <header>${p.host}</header>
-        ${p.xray.map(([k, v]) => `<p><b>${k}</b>${v}</p>`).join('')}
-      </div>
-      <div class="fd-paper fd-shot"><img src="${p.img}" alt="${p.name}, the site" loading="lazy" /></div>
-      <div class="fd-front">
-        <img class="stk fd-stk" src="/img/stickers/${p.sticker}.svg" alt="" />
-        <div class="fd-label"><small>No. ${pad(i)} — ${p.stack.join(' · ')}</small><h3>${p.name}</h3></div>
-        <p class="fd-tag">${p.tag}</p>
-        <footer>
-          <span class="fd-stamp"><b>${p.stat}</b> ${p.statLabel}</span>
-          <span class="fd-links"><a href="${p.site}" target="_blank" rel="noopener">${p.siteLabel === 'Site' ? 'Open' : p.siteLabel} ↗</a><a href="work.html#${p.k}">Case study →</a></span>
-        </footer>
-      </div>
-    </article>`).join('');
-  const folders = $$('.folder', box);
-  // touch has no hover, so a tap pulls the pages out (and slides the last ones back)
-  box.addEventListener('pointerup', (e) => {
-    const f = e.target.closest('.folder');
-    if (e.pointerType === 'mouse' || !f || e.target.closest('a')) return;
-    folders.forEach((o) => o.classList.toggle('up', o === f && !o.classList.contains('up')));
-  });
-}
 
