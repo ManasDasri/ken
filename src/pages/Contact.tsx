@@ -1,5 +1,5 @@
 import RetroPixelButton from '@/components/rareui/RetroPixelButton';
-import KoiPond from '@/components/KoiPond';
+import SiteFooter from '@/components/SiteFooter';
 export default function Contact() {
   return (
     <>
@@ -18,7 +18,7 @@ export default function Contact() {
               <div className="cal-head"><button id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" /></svg></button><b id="cal-title"></b><button id="cal-next" aria-label="Next month"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" /></svg></button></div>
               <div className="cal-grid" id="cal-grid" role="grid"></div>
               <p className="cal-pick" id="cal-pick">Pick a day</p>
-              <RetroPixelButton id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk" className="w-full" pixelColor="#22c55e">Request a call</RetroPixelButton>
+              <RetroPixelButton id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk" className="w-full" pixelColor="var(--brass)">Request a call</RetroPixelButton>
             </div>
           </div>
           <div className="tiles">
@@ -31,7 +31,7 @@ export default function Contact() {
           </div>
         </section>
       </main>
-      <KoiPond />
+      <SiteFooter />
     </>
   );
 }

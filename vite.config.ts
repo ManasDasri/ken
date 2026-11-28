@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'node:path';
 
 // one HTML page per tab, each mounting its own React root
-const pages = ['index', 'work', 'services', 'about', 'opensource', 'contact'];
+const pages = ['index', 'work', 'services', 'about', 'opensource', 'contact', 'project'];
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project · Manas Dasari</title>
+  <meta name="description" content="Manas Dasari trains models and checks them honestly, ships developer tools people install, and sends fixes upstream." />
+  <meta property="og:title" content="Manas Dasari" />
+  <meta property="og:description" content="ML research, developer tools, open source." />
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/brand/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/img/brand/icon-192.png" />
+  <link rel="apple-touch-icon" href="/img/brand/apple-touch-icon.png" />
+  <script>
+    // the saved theme, or the system's, before anything paints
+    try {
+      const t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = t;
+      if (sessionStorage.getItem('px')) document.documentElement.classList.add('px-in');
+    } catch { document.documentElement.dataset.theme = 'light'; }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet" />
+</head>
+<body class="in">
+  <div id="root"></div>
+  <script type="module" src="/src/pages/project.entry.tsx"></script>
+</body>
+</html>

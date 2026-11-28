@@ -1,4 +1,4 @@
-import KoiPond from '@/components/KoiPond';
+import SiteFooter from '@/components/SiteFooter';
 export default function OpenSource() {
   return (
     <>
@@ -38,7 +38,7 @@ export default function OpenSource() {
           </div>
         </section>
       </main>
-      <KoiPond />
+      <SiteFooter />
     </>
   );
 }

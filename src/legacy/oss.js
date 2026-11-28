@@ -20,7 +20,22 @@ githubPRs().then((items) => {
       <span class="feed-what"><b>${esc(p.repo)}</b><span>${esc(p.title)}</span></span>
       <span class="feed-when">${p.merged ? `${Date.parse(p.merged) > week ? '<i class="new">new</i>' : ''}merged ${ago(p.merged)}` : '<i class="rev">in review</i>'}</span>
       <em>#${Number(p.n) || ''}</em></a></li>`;
-  $('#feed').innerHTML = [...open, ...merged].map(row).join('');
+  const feed = $('#feed'), rows = [...open, ...merged];
+  feed.innerHTML = rows.map(row).join('');
+  // four to start with; the rest on request
+  const SHOW = 4;
+  if (rows.length > SHOW) {
+    feed.classList.add('short');
+    const more = Object.assign(document.createElement('button'), { className: 'feed-more', type: 'button' });
+    more.textContent = `View ${rows.length - SHOW} more`;
+    more.setAttribute('aria-expanded', 'false');
+    more.addEventListener('click', () => {
+      const open = feed.classList.toggle('short') === false;
+      more.textContent = open ? 'Show fewer' : `View ${rows.length - SHOW} more`;
+      more.setAttribute('aria-expanded', String(open));
+    });
+    feed.after(more);
+  }
 }).catch(() => {
   $('#feed').innerHTML = '<li class="feed-msg">GitHub didn’t answer just now (it limits how often it can be asked). <a href="https://github.com/pulls?q=is%3Apr+author%3AManasDasri+-user%3AManasDasri" target="_blank" rel="noopener">See them all on GitHub ↗</a></li>';
 });

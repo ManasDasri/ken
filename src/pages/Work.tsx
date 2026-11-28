@@ -1,20 +1,13 @@
+import WorkStack from '@/components/WorkStack';
 import RetroPixelButton from '@/components/rareui/RetroPixelButton';
-import KoiPond from '@/components/KoiPond';
+import SiteFooter from '@/components/SiteFooter';
 export default function Work() {
   return (
     <>
       <header className="chrome"></header>
       <div className="toast" id="toast" role="status"></div>
       <main className="workpage">
-        <section className="ab-hero">
-          <span className="frame-label"># work</span>
-          <h1 className="glitch ab-title">The evidence locker.</h1>
-          <p className="ab-sub">Six case studies: the question, how it’s built, and what came out, with the numbers on the page. Research you can check, and tools people actually install.</p>
-        </section>
-        <section className="cases">
-          <nav className="case-index" id="case-index" aria-label="Case studies"></nav>
-          <div className="case-list" id="cases"></div>
-        </section>
+        <WorkStack />
 
         <section className="also-row">
           <h2 className="glitch ab-h">Also on the bench.</h2>
@@ -27,11 +20,11 @@ export default function Work() {
         <section className="ab-cta">
           <p className="kicker">HAVE SOMETHING IN MIND?</p>
           <h2 className="glitch ab-h">Let’s make yours next.</h2>
-          <div className="cta"><RetroPixelButton href="index.html#contact" pixelColor="#22c55e">Pick a day to talk</RetroPixelButton><RetroPixelButton href="resume.pdf" target="_blank" rel="noopener" pixelColor="#a855f7">Résumé</RetroPixelButton></div>
+          <div className="cta"><RetroPixelButton href="index.html#contact" pixelColor="var(--brass)">Pick a day to talk</RetroPixelButton><RetroPixelButton href="resume.pdf" target="_blank" rel="noopener" pixelColor="var(--mute)">Résumé</RetroPixelButton></div>
         </section>
       </main>
 
-      <KoiPond />
+      <SiteFooter />
     </>
   );
 }

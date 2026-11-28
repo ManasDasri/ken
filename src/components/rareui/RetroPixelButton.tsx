@@ -9,7 +9,7 @@ interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   pixelColor?: string; // the sliding block
 }
 
-export default function RetroPixelButton({ children, className, pixelColor = '#22c55e', ...props }: Props) {
+export default function RetroPixelButton({ children, className, pixelColor = 'var(--brass)', ...props }: Props) {
   const [hover, setHover] = useState(false);
   const on = () => setHover(true), off = () => setHover(false);
   return (

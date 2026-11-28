@@ -1,5 +1,5 @@
 import RetroPixelButton from '@/components/rareui/RetroPixelButton';
-import KoiPond from '@/components/KoiPond';
+import SiteFooter from '@/components/SiteFooter';
 export default function Services() {
   return (
     <>
@@ -37,10 +37,10 @@ export default function Services() {
         <section className="ab-cta">
           <p className="kicker">NOT SURE WHICH ONE?</p>
           <h2 className="glitch ab-h">Tell me the problem instead.</h2>
-          <div className="cta"><RetroPixelButton href="contact.html" pixelColor="#22c55e">Pick a day to talk</RetroPixelButton><RetroPixelButton href="work.html" pixelColor="#3b82f6">See the work</RetroPixelButton></div>
+          <div className="cta"><RetroPixelButton href="contact.html" pixelColor="var(--brass)">Pick a day to talk</RetroPixelButton><RetroPixelButton href="work.html" pixelColor="var(--mute)">See the work</RetroPixelButton></div>
         </section>
       </main>
-      <KoiPond />
+      <SiteFooter />
     </>
   );
 }

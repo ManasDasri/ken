@@ -1,13 +1,15 @@
 import RetroPixelButton from '@/components/rareui/RetroPixelButton';
-import KoiPond from '@/components/KoiPond';
-import Curtain from '@/components/Curtain';
-import EvidenceBoard from '@/components/EvidenceBoard';
-
+import SiteFooter from '@/components/SiteFooter';
 export default function Home() {
   return (
     <>
       {/* the door */}
-      <Curtain />
+      <div className="door" id="door">
+        <img className="door-logo" src="/img/brand/logo-light.png" alt="" />
+        <p className="door-kicker">MANAS DASARI · ML RESEARCH &amp; DEV TOOLS</p>
+        <h2 className="door-line">I show<br />my work.</h2>
+        <button className="door-btn" id="enter">Step inside <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg></button>
+      </div>
 
       <header className="chrome"></header>
       <div className="toast" id="toast" role="status"></div>
@@ -53,8 +55,8 @@ export default function Home() {
             </p>
 
             <div className="cta">
-              <RetroPixelButton href="mailto:dasarimanas049@gmail.com" pixelColor="#22c55e">Email me</RetroPixelButton>
-              <RetroPixelButton href="resume.pdf" target="_blank" rel="noopener" pixelColor="#a855f7">Résumé</RetroPixelButton>
+              <RetroPixelButton href="mailto:dasarimanas049@gmail.com" pixelColor="var(--brass)">Email me</RetroPixelButton>
+              <RetroPixelButton href="resume.pdf" target="_blank" rel="noopener" pixelColor="var(--mute)">Résumé</RetroPixelButton>
             </div>
           </div>
           <span className="scroll-hint" aria-hidden="true">scroll</span>
@@ -65,13 +67,13 @@ export default function Home() {
           <span className="frame-label"># the proof</span>
           <div className="sec-head">
             <h2 className="glitch">Receipts, not résumés.</h2>
-            <p>Before anything about me, the proof. Six projects, real numbers, one corkboard. Drag the photos around, or open a file.</p>
+            <p>Before anything about me, the proof. Six projects, real numbers. Hover a folder to pull out the evidence.</p>
             <img className="stk stk-arrow" src="/img/stickers/down-arrow.svg" alt="" />
           </div>
-          <EvidenceBoard />
+          <div className="folders" id="folders"></div>
           <div className="more-bar">
             <span>Want the whole story? Every project has a full case study.</span>
-            <RetroPixelButton href="work.html" pixelColor="#f5b800">See all the work</RetroPixelButton>
+            <RetroPixelButton href="work.html" pixelColor="var(--mute)">See all the work</RetroPixelButton>
           </div>
         </section>
 
@@ -120,7 +122,7 @@ export default function Home() {
               <div className="cal-head"><button id="cal-prev" aria-label="Previous month"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5" /></svg></button><b id="cal-title"></b><button id="cal-next" aria-label="Next month"><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" /></svg></button></div>
               <div className="cal-grid" id="cal-grid" role="grid"></div>
               <p className="cal-pick" id="cal-pick">Pick a day</p>
-              <RetroPixelButton id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk" className="w-full" pixelColor="#22c55e">Request a call</RetroPixelButton>
+              <RetroPixelButton id="cal-go" href="mailto:dasarimanas049@gmail.com?subject=Let%E2%80%99s%20talk" className="w-full" pixelColor="var(--brass)">Request a call</RetroPixelButton>
             </div>
           </div>
           <div className="tiles">
@@ -134,7 +136,7 @@ export default function Home() {
         </section>
       </main>
 
-      <KoiPond />
+      <SiteFooter />
     </>
   );
 }
