@@ -7,7 +7,7 @@ type Project = (typeof PROJECTS)[number];
 
 // Where each photo is pinned (left %, top %, tilt), on a wide board and on a phone.
 const WIDE = [[3, 7, -4], [37, 3, 3], [72, 8, -3], [6, 56, 3], [39, 62, -2], [73, 57, 4]];
-const NARROW = [[2, 2, -3], [50, 7, 3], [3, 30, 2], [50, 35, -3], [3, 72, -2], [50, 77, 3]];
+const NARROW = [[2, 2, -3], [50, 6, 3], [3, 24, 2], [50, 28, -3], [3, 66, -2], [50, 70, 3]];
 const HUB = 6; // the suspect card in the middle
 // red string: every photo to the suspect, plus the two research projects and the two dev tools
 const STRINGS = [[0, HUB], [1, HUB], [2, HUB], [3, HUB], [4, HUB], [5, HUB], [0, 1], [2, 3]];
