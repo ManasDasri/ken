@@ -1,4 +1,29 @@
-import { $ } from './common.js';
+import { $, $$, githubPRs, ago } from './common.js';
+
+// ---------- pull requests, live: the counts, the hand-picked cards' status, and every merge ----------
+const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+githubPRs().then((items) => {
+  const merged = items.filter((p) => p.merged).sort((a, b) => Date.parse(b.merged) - Date.parse(a.merged));
+  const open = items.filter((p) => p.open);
+  $('#st-merged').textContent = merged.length;
+  $('#st-open').textContent = open.length;
+  $('#st-repos').textContent = new Set(merged.map((p) => p.repo)).size;
+  // the hand-picked cards keep their words, but their status follows GitHub
+  for (const card of $$('#prs .pr')) {
+    const hit = items.find((p) => card.href.startsWith(p.url));
+    if (hit) card.querySelector('em').textContent = hit.merged ? 'merged' : 'in review';
+  }
+  const week = Date.now() - 7 * 864e5;
+  // titles and names come from GitHub, so everything is escaped, and links must point at github.com
+  const row = (p) => `<li><a href="${/^https:\/\/github\.com\//.test(p.url) ? esc(p.url) : '#'}" target="_blank" rel="noopener">
+      <img src="https://github.com/${encodeURIComponent(p.repo.split('/')[0])}.png?size=64" alt="" loading="lazy" />
+      <span class="feed-what"><b>${esc(p.repo)}</b><span>${esc(p.title)}</span></span>
+      <span class="feed-when">${p.merged ? `${Date.parse(p.merged) > week ? '<i class="new">new</i>' : ''}merged ${ago(p.merged)}` : '<i class="rev">in review</i>'}</span>
+      <em>#${Number(p.n) || ''}</em></a></li>`;
+  $('#feed').innerHTML = [...open, ...merged].map(row).join('');
+}).catch(() => {
+  $('#feed').innerHTML = '<li class="feed-msg">GitHub didn’t answer just now (it limits how often it can be asked). <a href="https://github.com/pulls?q=is%3Apr+author%3AManasDasri+-user%3AManasDasri" target="_blank" rel="noopener">See them all on GitHub ↗</a></li>';
+});
 
 // The last year of GitHub contributions, as a grid of days (weeks run left to right).
 const graph = $('#graph'), total = $('#graph-total');

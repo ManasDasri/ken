@@ -104,7 +104,7 @@ $$('.pitch .line > *').forEach((el, i) => (el.style.animationDelay = `${1.3 + i 
         <p class="fd-tag">${p.tag}</p>
         <footer>
           <span class="fd-stamp"><b>${p.stat}</b> ${p.statLabel}</span>
-          <span class="fd-links"><a href="${p.site}" target="_blank" rel="noopener">${p.siteLabel === 'Site' ? 'Open' : p.siteLabel} ↗</a><a href="https://github.com/${p.repo}" target="_blank" rel="noopener">Code ↗</a></span>
+          <span class="fd-links"><a href="${p.site}" target="_blank" rel="noopener">${p.siteLabel === 'Site' ? 'Open' : p.siteLabel} ↗</a><a href="work.html#${p.k}">Case study →</a></span>
         </footer>
       </div>
     </article>`).join('');

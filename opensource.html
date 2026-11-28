@@ -30,10 +30,11 @@
     <section class="up" id="upstream">
       <span class="frame-label"># open source</span>
       <div class="sec-head">
-        <h1 class="glitch big-px">Merged upstream.</h1>
+        <h1 class="glitch big-px">My code, in other people’s projects.</h1>
         <p>Pull requests to other people’s projects. <a href="https://github.com/pulls?q=is%3Apr+author%3AManasDasri+-user%3AManasDasri" target="_blank" rel="noopener">See all on GitHub ↗</a></p>
       </div>
-      <div class="stats-row"><div><b>25</b><span>merged into other people’s projects</span></div><div><b>6</b><span>open, in review</span></div><div><b>10</b><span>repositories, Zed to Exercism</span></div></div>
+      <div class="stats-row"><div><b id="st-merged">25</b><span>merged into other people’s projects</span></div><div><b id="st-open">6</b><span>open, in review</span></div><div><b id="st-repos">10</b><span>repositories, Zed to Exercism</span></div></div>
+      <div class="oss-head"><h2 class="glitch ab-h">The ones I’m proudest of.</h2><p class="ab-sub left">Hand-picked, with what each one fixed. Their status comes live from GitHub.</p></div>
       <div class="prs prs-grid" id="prs">
         <a class="pr c-blue" href="https://github.com/zed-industries/zed/pull/67329" target="_blank" rel="noopener"><header><img src="https://github.com/zed-industries.png?size=64" alt="" /><b>zed-industries/zed</b><em>in review</em></header><p>Re-open buffers with the language server after their worktree root moves, so it stops answering for stale paths.</p><small>#67329 · +199 −2</small></a>
         <a class="pr c-pink" href="https://github.com/gleam-lang/gleam/pull/6361" target="_blank" rel="noopener"><header><img src="https://github.com/gleam-lang.png?size=64" alt="" /><b>gleam-lang/gleam</b><em>merged</em></header><p>When a dependency changes version, the CLI links to the diff on Hex as a terminal hyperlink.</p><small>#6361 · +94 −7</small></a>
@@ -48,8 +49,12 @@
         <a class="pr c-purple" href="https://github.com/gleam-lang/gleam/pull/6405" target="_blank" rel="noopener"><header><img src="https://github.com/gleam-lang.png?size=64" alt="" /><b>gleam-lang/gleam</b><em>in review</em></header><p>A clear syntax error for attributes an import can’t take, where they used to be ignored silently.</p><small>#6405 · +151 −0</small></a>
         <a class="pr c-orange" href="https://github.com/zed-industries/zed/pull/67156" target="_blank" rel="noopener"><header><img src="https://github.com/zed-industries.png?size=64" alt="" /><b>zed-industries/zed</b><em>in review</em></header><p>A subagent card stayed red after a successful retry; it now follows the retried run.</p><small>#67156 · +266 −5</small></a>
       </div>
+      <div class="feed-wrap">
+        <div class="oss-head"><h2 class="glitch ab-h">Every merge, live.</h2><p class="ab-sub left">Straight from the GitHub API, newest first. When a pull request of mine gets merged, it lands here on its own.</p></div>
+        <ol class="feed" id="feed"><li class="feed-msg">Asking GitHub…</li></ol>
+      </div>
       <div class="graph-wrap">
-        <h2 class="glitch ab-h">Shipping, day by day.</h2>
+        <h2 class="glitch ab-h">A year in green squares.</h2>
         <p class="ab-sub left">My GitHub contributions over the last year, live from GitHub. Hover a day.</p>
         <div class="graph" id="graph" aria-label="GitHub contributions, last 12 months"><p class="graph-msg">Loading contributions…</p></div>
         <p class="graph-foot"><span id="graph-total"></span><span class="legend">less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> more</span></p>
@@ -58,5 +63,6 @@
   </main>
   <footer class="foot"></footer>
   <script type="module" src="oss.js"></script>
+  <script type="module" src="motion.js"></script>
 </body>
 </html>
